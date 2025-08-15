@@ -4,8 +4,17 @@
 
 Un conjunto completo de **100 ejercicios de programación en C** organizados por dificultad y tema, con sistema de testing automatizado, entorno Docker y documentación exhaustiva.
 
+## 📖 Sobre el Libro
+
+Este repositorio es un **extra del libro "El Lenguaje C en 100 ejercicios explicados"**. Si este código te ha sido de ayuda y quieres apoyar el proyecto o acceder al contenido completo explicado paso a paso, puedes encontrar el libro aquí:
+
+**📘 [El Lenguaje C en 100 ejercicios explicados](https://www.amazon.com/Rodrigo-Iglesias-ebook/dp/B0CRVJKX5H)**
+
+¡Tu apoyo ayuda a mantener este proyecto actualizado y crear más recursos educativos! 🙏
+
 ## 📋 Tabla de Contenidos
 
+- [📖 Sobre el Libro](#-sobre-el-libro)
 - [🎯 Descripción](#-descripción)
 - [📚 Estructura del Proyecto](#-estructura-del-proyecto)
 - [🚀 Inicio Rápido](#-inicio-rápido)
@@ -114,7 +123,7 @@ sudo apt install build-essential cmake libcriterion-dev
 # Clonar y probar
 git clone <repo-url>
 cd c100-ejercicios
-./tools/test_everything_fresh.sh
+./tools/prueba_everything_fresh.sh
 ```
 
 ## 🐳 Entorno Docker
@@ -154,7 +163,7 @@ docker exec -it c100-ejercicios-dev /bin/bash
 # Pipeline de integración continua
 docker build -t c100-test .
 docker run --rm -v $(pwd):/workspace c100-test \
-  bash -c "./tools/test_everything_fresh.sh"
+  bash -c "./tools/prueba_everything_fresh.sh"
 ```
 
 📖 **Más detalles en [DOCKER_README.md](DOCKER_README.md)**
@@ -200,7 +209,7 @@ cmake --version
 pkg-config --exists criterion && echo "✅ Criterion OK"
 
 # Probar proyecto
-./tools/test_everything_fresh.sh
+./tools/prueba_everything_fresh.sh
 ```
 
 ## 🧪 Testing
@@ -211,7 +220,7 @@ El proyecto incluye un sistema de testing robusto y multicapa:
 
 ```bash
 # Método 1: Script maestro (recomendado)
-./tools/test_everything_fresh.sh
+./tools/prueba_everything_fresh.sh
 
 # Método 2: Docker
 ./tools/docker_build.sh test
@@ -461,7 +470,7 @@ El proyecto incluye un conjunto completo de herramientas de automatización:
 
 | Script | Propósito | Uso |
 |--------|-----------|-----|
-| `test_everything_fresh.sh` | Testing completo desde cero | `./tools/test_everything_fresh.sh` |
+| `prueba_everything_fresh.sh` | Testing completo desde cero | `./tools/prueba_everything_fresh.sh` |
 | `quick_test.sh` | Testing rápido por bloques | `./tools/quick_test.sh 5` |
 | `clean_all.sh` | Limpieza completa | `./tools/clean_all.sh` |
 | `docker_build.sh` | Gestión de Docker | `./tools/docker_build.sh run` |
@@ -552,7 +561,7 @@ cd c100-ejercicios
 
 ```bash
 # Antes de reportar, ejecuta:
-./tools/test_everything_fresh.sh > debug_output.txt
+./tools/prueba_everything_fresh.sh > debug_output.txt
 
 # Incluye en tu reporte:
 # - Sistema operativo
@@ -659,7 +668,7 @@ Este proyecto está licenciado bajo la **MIT License** - ver [LICENSE](LICENSE) 
 # Si persiste, reporta issue con:
 gcc --version
 cmake --version
-./tools/test_everything_fresh.sh > error.log 2>&1
+./tools/prueba_everything_fresh.sh > error.log 2>&1
 ```
 </details>
 
@@ -669,7 +678,7 @@ cmake --version
 ```bash
 # Limpia y vuelve a probar:
 ./tools/clean_all.sh
-./tools/test_everything_fresh.sh
+./tools/prueba_everything_fresh.sh
 
 # Para un ejercicio específico:
 cd XX-bloque/XXX-ejercicio
