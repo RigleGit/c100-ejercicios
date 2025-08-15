@@ -1,0 +1,54 @@
+# Archivos de compilación
+build/
+*.o
+*.exe
+*.out
+*.app
+
+# Archivos de depuración
+*.dSYM/
+*.gdb_history
+core
+vgcore.*
+
+# Archivos temporales del sistema
+.DS_Store
+Thumbs.db
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# Archivos de IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Archivos de CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+*.cmake
+!CMakeLists.txt
+
+# Archivos de Criterion (tests)
+*.gcov
+*.gcno
+*.gcda
+coverage/
+
+# Archivos de configuración específicos del usuario
+config.local.h
+local_settings.h
+
+# Logs y archivos de salida
+*.log
+output.txt
+result.txt
+
+# Archivos de backup
+*.bak
+*.backup

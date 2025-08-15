@@ -1,0 +1,52 @@
+# Archivos de compilación
+build/
+*.o
+*.obj
+*.exe
+*.out
+*.app
+
+# Archivos generados por CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+*.cmake
+
+# Archivos de depuración
+*.dSYM/
+*.pdb
+*.ilk
+
+# Archivos temporales del editor
+*~
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de análisis de código
+*.gcov
+*.gcda
+*.gcno
+scan-build/
+
+# Archivos de Valgrind
+valgrind-out.txt
+*.log
+
+# Archivos de pruebas
+test_results/
+coverage/
+
+# Archivos específicos del proyecto
+invertir_lista
+test_invertir_lista
+
+# Archivos de configuración local
+.env
+config.local

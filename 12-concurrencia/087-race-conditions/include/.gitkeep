@@ -1,0 +1,3 @@
+# Este archivo mantiene el directorio include/ en el repositorio git
+# Los headers se incluyen directamente, pero este archivo asegura
+# que la estructura de directorios se preserve.

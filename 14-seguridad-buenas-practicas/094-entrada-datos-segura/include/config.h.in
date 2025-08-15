@@ -1,0 +1,45 @@
+/**
+ * @file config.h.in
+ * @brief Archivo de configuración para el proyecto de entrada segura
+ * 
+ * Este archivo es procesado por CMake para generar config.h
+ */
+
+#ifndef CONFIG_H
+#define CONFIG_H
+
+/* Información del proyecto */
+#define PROJECT_NAME "@PROJECT_NAME@"
+#define PROJECT_VERSION "@PROJECT_VERSION@"
+#define PROJECT_DESCRIPTION "@PROJECT_DESCRIPTION@"
+
+/* Información de compilación */
+#define CMAKE_BUILD_TYPE "@CMAKE_BUILD_TYPE@"
+#define CMAKE_C_COMPILER "@CMAKE_C_COMPILER@"
+#define CMAKE_SYSTEM_NAME "@CMAKE_SYSTEM_NAME@"
+
+/* Características habilitadas */
+#cmakedefine HAS_CRITERION
+#cmakedefine VALGRIND_PROGRAM "@VALGRIND_PROGRAM@"
+#cmakedefine CLANG_FORMAT_PROGRAM "@CLANG_FORMAT_PROGRAM@"
+#cmakedefine DOXYGEN_PROGRAM "@DOXYGEN_PROGRAM@"
+
+/* Configuración de seguridad */
+#ifdef DEBUG
+    #define ENTRADA_SEGURA_DEBUG 1
+    #define ENTRADA_SEGURA_VERBOSE 1
+#else
+    #define ENTRADA_SEGURA_DEBUG 0
+    #define ENTRADA_SEGURA_VERBOSE 0
+#endif
+
+/* Configuración por defecto */
+#define ENTRADA_SEGURA_BUFFER_DEFAULT 256
+#define ENTRADA_SEGURA_TIMEOUT_DEFAULT 30
+#define ENTRADA_SEGURA_REINTENTOS_DEFAULT 3
+
+/* Configuración del sistema */
+#cmakedefine HAVE_THREADS
+#cmakedefine HAVE_SANITIZERS
+
+#endif /* CONFIG_H */

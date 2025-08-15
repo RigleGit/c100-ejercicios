@@ -1,0 +1,10 @@
+# Directorio de herramientas auxiliares
+
+Este directorio está reservado para herramientas auxiliares del ejercicio.
+
+Ejemplos de herramientas que podrían agregarse:
+- Generador de casos de prueba de overflow
+- Analizador de vulnerabilidades aritméticas
+- Benchmark de rendimiento (operaciones seguras vs normales)
+- Simulador de ataques de integer overflow
+- Herramientas de fuzzing para operaciones aritméticas

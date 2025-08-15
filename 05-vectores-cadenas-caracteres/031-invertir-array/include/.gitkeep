@@ -1,0 +1,12 @@
+# Este directorio está reservado para archivos de cabecera (.h)
+# 
+# Los archivos de cabecera se utilizan para:
+# - Declaraciones de funciones
+# - Definiciones de estructuras y tipos
+# - Constantes y macros
+# - Documentación de interfaces
+#
+# Ejemplo de estructura:
+# - invertir_array.h (declaraciones específicas del proyecto)
+# - tipos.h (definiciones de tipos personalizados)
+# - constantes.h (constantes del proyecto)

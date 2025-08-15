@@ -1,0 +1,67 @@
+# Ejecutables
+estructura_dinamica
+test_estructura_dinamica
+
+# Archivos objeto
+*.o
+*.obj
+
+# Bibliotecas estáticas
+*.a
+*.lib
+
+# Bibliotecas dinámicas
+*.so
+*.dylib
+*.dll
+
+# Archivos de depuración
+*.dSYM/
+*.pdb
+
+# Directorios de compilación
+build/
+cmake-build-*/
+Debug/
+Release/
+
+# Archivos generados por CMake
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+*.cmake
+
+# Archivos temporales del sistema
+.DS_Store
+Thumbs.db
+*.tmp
+*.temp
+
+# Archivos del editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Archivos de cobertura
+*.gcov
+*.gcda
+*.gcno
+coverage/
+
+# Archivos de Valgrind
+valgrind-out.txt
+*.memcheck
+
+# Archivos CSV generados por las pruebas
+*.csv
+!example.csv
+
+# Archivos de log
+*.log
+
+# Archivos de backup
+*.bak
+*.backup

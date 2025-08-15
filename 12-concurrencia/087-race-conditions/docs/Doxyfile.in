@@ -1,0 +1,57 @@
+# Doxyfile configuration for Race Conditions documentation
+
+# Project information
+PROJECT_NAME           = "Race Conditions Demonstration"
+PROJECT_NUMBER         = "1.0.0"
+PROJECT_BRIEF          = "Educational race conditions demonstration and analysis"
+
+# Input configuration
+INPUT                  = @DOXYGEN_INPUT_DIR@
+RECURSIVE              = YES
+FILE_PATTERNS          = *.h *.c *.md
+
+# Output configuration
+OUTPUT_DIRECTORY       = @DOXYGEN_OUTPUT_DIR@
+GENERATE_HTML          = YES
+GENERATE_LATEX         = NO
+GENERATE_MAN           = NO
+
+# Documentation extraction
+EXTRACT_ALL            = YES
+EXTRACT_PRIVATE        = YES
+EXTRACT_STATIC         = YES
+EXTRACT_LOCAL_CLASSES  = YES
+
+# Source browsing
+SOURCE_BROWSER         = YES
+INLINE_SOURCES         = NO
+STRIP_CODE_COMMENTS    = NO
+
+# Cross-referencing
+REFERENCED_BY_RELATION = YES
+REFERENCES_RELATION    = YES
+
+# HTML output options
+HTML_OUTPUT            = html
+HTML_FILE_EXTENSION    = .html
+HTML_TIMESTAMP         = YES
+HTML_DYNAMIC_SECTIONS  = YES
+
+# Preprocessing
+ENABLE_PREPROCESSING   = YES
+MACRO_EXPANSION        = YES
+EXPAND_ONLY_PREDEF     = NO
+
+# Diagram generation
+HAVE_DOT               = NO
+CALL_GRAPH             = NO
+CALLER_GRAPH           = NO
+
+# Search engine
+SEARCHENGINE           = YES
+
+# Warnings
+QUIET                  = NO
+WARNINGS               = YES
+WARN_IF_UNDOCUMENTED   = YES
+WARN_IF_DOC_ERROR      = YES

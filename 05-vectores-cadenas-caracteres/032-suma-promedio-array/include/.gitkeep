@@ -1,0 +1,12 @@
+# Este directorio está reservado para archivos de cabecera (.h)
+# 
+# Los archivos de cabecera se utilizan para:
+# - Declaraciones de funciones matemáticas personalizadas
+# - Definiciones de estructuras para estadísticas
+# - Constantes relacionadas con cálculos (MAX, precisión)
+# - Macros para operaciones con arrays
+#
+# Ejemplo de estructura:
+# - estadisticas.h (funciones de suma, promedio, mediana)
+# - array_utils.h (utilidades para manejo de arrays)
+# - constantes.h (definiciones de límites y precisión)

@@ -1,0 +1,38 @@
+# Ignorar archivos de compilación
+build/
+*.o
+*.exe
+*.out
+*.app
+
+# Ignorar archivos específicos de CMake
+CMakeCache.txt
+CMakeFiles/
+Makefile
+cmake_install.cmake
+CTestTestfile.cmake
+Testing/
+
+# Ignorar archivos específicos del sistema
+.DS_Store
+Thumbs.db
+
+# Ignorar archivos de depuración
+*.dSYM/
+*.gch
+*.pch
+
+# Ignorar archivos de IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Ignorar archivos de Valgrind
+vgcore.*
+*.log
+
+# Ignorar archivos temporales
+*.tmp
+*.temp

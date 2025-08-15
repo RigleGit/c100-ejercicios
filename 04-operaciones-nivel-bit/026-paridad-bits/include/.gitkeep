@@ -1,0 +1,10 @@
+/*
+ * Directorio para archivos de cabecera del ejercicio 026
+ * 
+ * Este directorio puede contener:
+ * - Definiciones de macros para operaciones bit a bit
+ * - Constantes para máscaras binarias
+ * - Declaraciones de funciones auxiliares
+ * 
+ * Actualmente vacío ya que todas las funciones están en main.c
+ */

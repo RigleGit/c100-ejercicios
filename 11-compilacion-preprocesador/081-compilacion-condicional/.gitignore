@@ -1,0 +1,38 @@
+# Archivos de compilación
+build/
+*.o
+*.a
+*.so
+*.dylib
+*.exe
+
+# Archivos de CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+*.cmake
+
+# Archivos de depuración
+*.dSYM/
+*.pdb
+
+# Archivos de editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de tests
+test_compilacion_condicional
+*_test
+*.log
+
+# Archivos temporales
+*.tmp
+*.temp

@@ -1,0 +1,74 @@
+# Ignorar archivos de build
+build/
+Build/
+BUILD/
+
+# Ignorar archivos binarios
+*.exe
+*.out
+*.app
+*.so
+*.so.*
+*.a
+*.lib
+*.dll
+*.dylib
+
+# Ignorar archivos objeto
+*.o
+*.obj
+
+# Ignorar archivos de debug
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+# Ignorar archivos de configuración de IDEs
+.vscode/
+.vs/
+*.vcxproj*
+*.sln
+*.cbp
+*.workspace
+
+# Ignorar archivos temporales
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Ignorar archivos de testing
+test_results.xml
+*.gcda
+*.gcno
+*.gcov
+
+# Ignorar archivos de Valgrind
+*.valgrind
+vgcore.*
+
+# Ignorar archivos de CMake específicos
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+*.cmake
+
+# Ignorar directorios de output
+bin/
+lib/
+tests/test_sincronizacion_mutex
+
+# Ignorar archivos de backup
+*.bak
+*.backup
+*.orig
+
+# Ignorar logs
+*.log
+debug.txt
+error.txt

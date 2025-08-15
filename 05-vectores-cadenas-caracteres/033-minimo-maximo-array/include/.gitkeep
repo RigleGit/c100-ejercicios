@@ -1,0 +1,12 @@
+# Este directorio está reservado para archivos de cabecera (.h)
+# 
+# Los archivos de cabecera se utilizan para:
+# - Declaraciones de funciones de análisis estadístico
+# - Definiciones de estructuras para datos estadísticos
+# - Constantes relacionadas con límites y rangos
+# - Macros para operaciones de comparación eficientes
+#
+# Ejemplo de estructura:
+# - estadisticas.h (funciones min, max, rango, percentiles)
+# - comparaciones.h (macros para operaciones de comparación)
+# - limites.h (constantes de valores extremos y rangos)

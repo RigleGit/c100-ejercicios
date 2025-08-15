@@ -1,0 +1,11 @@
+# Directorio para herramientas auxiliares del ejercicio 098
+
+Este directorio contiene herramientas de demostración y utilidades auxiliares para el ejercicio de control de errores robusto.
+
+## Herramientas Disponibles
+
+- `demo_comparacion.c` - Demostración comparativa entre código seguro e inseguro
+- `error_simulator.c` - Simulador de diferentes tipos de errores
+- Otras utilidades de desarrollo y testing
+
+Las herramientas se compilan automáticamente con CMake y están disponibles después de ejecutar `make`.

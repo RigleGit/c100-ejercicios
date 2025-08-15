@@ -1,0 +1,11 @@
+nombre,telefono,email,fecha_nacimiento,categoria,notas
+"Juan Pérez","+34-123-456-789","juan.perez@empresa.com","1985-03-15","trabajo","Compañero de departamento de sistemas"
+"María García López","+34-987-654-321","maria.garcia@email.com","1990-07-22","familia","Prima favorita, vive en Madrid"
+"Carlos López Martín","+34-555-111-222","carlos.lopez@universidad.edu","1988-12-03","amigos","Amigo de la universidad, estudió informática"
+"Ana Martínez Ruiz","+34-777-888-999","ana.martinez@consultora.com","1982-05-18","trabajo","Jefa de proyecto, especialista en BI"
+"Pedro Sánchez Vila","+34-333-444-555","pedro.sanchez@taller.com","1975-09-10","otros","Mecánico de confianza, 20 años de experiencia"
+"Laura Fernández","+34-666-777-888","laura.fernandez@hospital.es","1987-11-30","trabajo","Doctora, especialista en pediatría"
+"Miguel Rodríguez","+34-111-222-333","miguel.rodriguez@email.com","1992-01-25","amigos","Compañero del gimnasio"
+"Carmen Jiménez","+34-444-555-666","carmen.jimenez@email.com","1978-04-12","familia","Tía materna, profesora jubilada"
+"David González","+34-888-999-000","david.gonzalez@startup.io","1991-08-07","trabajo","Developer senior, especialista en Python"
+"Isabel Moreno","+34-222-333-444","isabel.moreno@email.com","1983-06-14","amigos","Vecina y amiga de toda la vida"

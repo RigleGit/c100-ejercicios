@@ -1,0 +1,47 @@
+# Archivos de build
+build/
+cmake_build/
+*.out
+*.o
+*.a
+*.so
+*.dylib
+
+# Archivos ejecutables
+leer_registros_binario
+demo_basico
+test_leer_registros_binario
+
+# Archivos binarios de prueba
+*.dat
+productos*.dat
+test_*.dat
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+*.cmake
+
+# Testing
+Testing/
+CTestTestfile.cmake
+
+# Logs
+*.log
+
+# Archivos temporales
+*.tmp
+*.temp

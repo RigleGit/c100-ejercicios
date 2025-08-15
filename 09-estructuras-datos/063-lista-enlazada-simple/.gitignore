@@ -1,0 +1,51 @@
+# Archivos ejecutables
+lista_enlazada
+test_lista_enlazada
+
+# Directorios de compilación
+build/
+cmake-build-*/
+
+# Archivos de CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+*.cmake
+
+# Archivos objeto y bibliotecas
+*.o
+*.a
+*.so
+*.so.*
+*.dylib
+*.lib
+*.dll
+
+# Archivos de depuración
+*.dSYM/
+*.pdb
+
+# Archivos de backup del editor
+*~
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de test
+*.log
+*.xml
+*.tap
+
+# Archivos temporales
+*.tmp
+*.temp
+
+# Archivos de Valgrind
+valgrind-out.txt
+*.memcheck

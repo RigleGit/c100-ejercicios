@@ -1,0 +1,137 @@
+# Ejercicio 069: Altura de Árbol Binario Recursivo - .gitignore
+
+# Archivos de build y compilación
+build/
+*.o
+*.obj
+*.exe
+*.out
+*.app
+*.dll
+*.so
+*.dylib
+*.a
+*.lib
+
+# Archivos de CMake
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+*.cmake
+!CMakeLists.txt
+
+# Archivos de debug
+*.dSYM/
+*.pdb
+*.ilk
+*.gdb_history
+
+# Archivos temporales del sistema
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*~
+*.swp
+*.swo
+*.tmp
+
+# Archivos de IDE y editores
+.vscode/
+.idea/
+*.vcxproj*
+*.sln
+*.suo
+*.user
+.clangd/
+compile_commands.json
+
+# Archivos de testing
+*.gcno
+*.gcda
+*.gcov
+coverage.info
+coverage/
+test_results.xml
+*.test
+
+# Archivos de Valgrind
+vgcore.*
+*.memcheck
+*.cachegrind
+*.callgrind
+*.massif
+*.helgrind
+*.drd
+
+# Archivos de profiling
+gmon.out
+profile_report.txt
+*.prof
+perf.data*
+*.gperftools
+
+# Archivos de log
+*.log
+logs/
+debug.txt
+
+# Archivos de backup
+*.bak
+*.backup
+*~
+*.orig
+
+# Archivos de documentación generada
+docs/html/
+docs/latex/
+*.pdf
+!README.md
+doxygen_warnings.txt
+
+# Archivos específicos del proyecto
+altura_arbol_demo
+test_altura_arbol
+*.test_result
+benchmark_results.txt
+
+# Archivos de configuración local
+.env
+.env.local
+config.local
+*.local
+
+# Archivos de análisis estático
+cppcheck-results.xml
+scan-build-results/
+static_analysis.txt
+*.sarif
+
+# Directorios de herramientas
+.scan-build/
+.cppcheck/
+.clang-tidy/
+
+# Archivos de instalación
+install_manifest.txt
+
+# Archivos de sandbox y testing
+sandbox/
+temp/
+temporary/
+
+# Archivos de memoria y debugging
+core
+core.*
+*.core
+heap_dump.*
+stack_trace.*
+
+# Archivos específicos de recursión
+recursion_trace.txt
+call_stack.log
+stack_analysis.*

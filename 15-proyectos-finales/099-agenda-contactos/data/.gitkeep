@@ -1,0 +1,3 @@
+# Este archivo mantiene el directorio data/ en el repositorio
+# Los archivos CSV reales serán ignorados por .gitignore
+# pero el directorio debe existir para que la aplicación funcione correctamente

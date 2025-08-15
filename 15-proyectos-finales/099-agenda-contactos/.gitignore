@@ -1,0 +1,147 @@
+# Agenda de Contactos - .gitignore
+# Ejercicio 099 - Proyectos Finales
+
+# Ejecutables
+agenda_contactos
+agenda_contactos_debug
+test_agenda
+*.exe
+*.out
+
+# Directorios de compilación
+obj/
+bin/
+build/
+dist/
+
+# Archivos objeto y librerías
+*.o
+*.a
+*.so
+*.so.*
+*.dylib
+*.lib
+*.dll
+
+# Archivos de debug
+*.dSYM/
+*.gdb_history
+valgrind.log
+*.log
+
+# Archivos de datos (mantener estructura, ignorar contenido)
+data/*.csv
+data/*.bak
+data/*.backup
+data/agenda_backup_*.csv
+data/agenda_emergencia.csv
+
+# Pero mantener directorios y archivos de ejemplo
+!data/.gitkeep
+!data/ejemplo_contactos.csv
+
+# Archivos temporales del sistema
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*~
+*.swp
+*.swo
+*.tmp
+
+# Archivos de editores
+.vscode/
+.idea/
+*.sublime-*
+*.kate-swp
+
+# Archivos de autotools/cmake
+Makefile.in
+aclocal.m4
+autom4te.cache/
+config.guess
+config.h
+config.h.in
+config.log
+config.status
+config.sub
+configure
+configure.ac
+install-sh
+missing
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+
+# Archivos de documentación generada
+doc/
+docs/html/
+docs/latex/
+*.pdf
+!README.pdf
+
+# Archivos de profiling y análisis
+gmon.out
+*.gcov
+*.gcda
+*.gcno
+callgrind.out.*
+cachegrind.out.*
+
+# Archivos de backup y distribución
+*.tar.gz
+*.tar.bz2
+*.tar.xz
+*.zip
+backup_*.tar.gz
+agenda_contactos_backup_*.tar.gz
+
+# Archivos de cobertura de código
+coverage/
+*.info
+
+# Archivos de testing
+test_results.xml
+test_output.log
+
+# Archivos específicos del proyecto
+config.local
+settings.ini
+user_preferences.conf
+
+# Archivos de herramientas de desarrollo
+.clang_complete
+.clang-format
+compile_commands.json
+cscope.*
+tags
+TAGS
+
+# Archivos de sistemas de build alternativos
+*.mk
+!Makefile
+!makefile
+!GNUmakefile
+
+# Archivos de memoria y debugging
+core
+core.*
+vgcore.*
+*.stackdump
+
+# Archivos de análisis estático
+cppcheck.xml
+scan-build-*
+
+# Directorios de instalación local
+usr/
+install/
+
+# Archivos de configuración de desarrollo
+.envrc
+.env
+local.properties

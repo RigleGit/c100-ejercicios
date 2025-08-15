@@ -1,0 +1,71 @@
+{
+  "name": "C100 Ejercicios - Development",
+  "build": {
+    "dockerfile": "../Dockerfile",
+    "context": ".."
+  },
+
+  // Usuario: debe estar definido en el Dockerfile. El Dockerfile actual crea 'developer'.
+  "containerUser": "developer",
+  "remoteUser": "developer",
+
+  // Puertos comunes usados por los ejercicios de red.
+  "forwardPorts": [8080, 8081, 8082, 8083, 8084, 8085, 8086, 8087, 8088, 8089, 9999],
+  "portsAttributes": {
+    "8080": { "label": "TCP Server Default", "onAutoForward": "notify" },
+    "9999": { "label": "Test Server", "onAutoForward": "ignore" }
+  },
+
+  // Recomendaciones de extensiones y ajustes en el editor
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.cpptools",
+        "ms-vscode.cpptools-extension-pack",
+        "ms-vscode.cmake-tools",
+        "vadimcn.vscode-lldb",
+        "eamodio.gitlens",
+        "redhat.vscode-yaml",
+        "xaver.clang-format",
+        "notskm.clang-tidy",
+        "formulahendry.code-runner",
+        "ms-vscode.hexeditor"
+      ],
+      "settings": {
+        "C_Cpp.default.cStandard": "c11",
+        "C_Cpp.default.cppStandard": "c++17",
+        "C_Cpp.default.compilerPath": "/usr/bin/gcc",
+        "C_Cpp.default.intelliSenseMode": "linux-gcc-x64",
+        "cmake.configureOnOpen": false,
+        "cmake.buildDirectory": "${workspaceFolder}/build",
+        "editor.formatOnSave": true,
+        "clang-format.executable": "/usr/bin/clang-format",
+        "clang-format.style": "{ BasedOnStyle: LLVM, IndentWidth: 4, TabWidth: 4, UseTab: Never }",
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "terminal.integrated.cwd": "/workspace",
+        "files.exclude": { "**/build/**": true, "**/*.o": true, "**/a.out": true, "**/test_*": true },
+        "git.openRepositoryInParentFolders": "always"
+      }
+    }
+  },
+
+  // Variables de entorno dentro del contenedor
+  "containerEnv": { "CC": "gcc", "CXX": "g++", "CMAKE_BUILD_TYPE": "Debug", "TERM": "xterm-256color" },
+
+  // No usar --network=host por defecto (incompatible con Docker Desktop en macOS/Windows)
+  "runArgs": ["--cap-add=SYS_PTRACE", "--security-opt", "seccomp=unconfined"],
+
+  // Comando que se ejecuta tras crear el contenedor
+  "postCreateCommand": [
+    "bash", "-lc",
+    "echo '🔧 Configurando entorno de desarrollo...' && echo '✅ Devcontainer listo' && echo '💡 Ejecuta tools/test_everything_fresh.sh para ejecutar los tests'"
+  ],
+
+  "postStartCommand": "echo '🚀 Devcontainer iniciado correctamente'",
+
+  // Features adicionales (pequeñas utilidades)
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  }
+}

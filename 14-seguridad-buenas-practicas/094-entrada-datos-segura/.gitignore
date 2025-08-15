@@ -1,0 +1,370 @@
+# ====================================================================
+# .gitignore para ejercicio 094: Entrada de Datos Segura
+# ====================================================================
+
+# ====================================================================
+# Archivos de construcción y compilación
+# ====================================================================
+
+# Directorios de build
+build/
+build-*/
+cmake-build-*/
+out/
+bin/
+lib/
+
+# Archivos de CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+*.cmake
+!CMakeLists.txt
+
+# Archivos generados por configuración
+config.h
+include/config.h
+
+# ====================================================================
+# Archivos ejecutables y objetos
+# ====================================================================
+
+# Ejecutables principales
+entrada_datos_segura
+entrada_datos_segura.exe
+
+# Herramientas
+demo_vulnerabilidades
+demo_vulnerabilidades.exe
+benchmark_entrada
+benchmark_entrada.exe
+fuzz_entrada
+fuzz_entrada.exe
+
+# Tests
+test_entrada_segura
+test_entrada_segura.exe
+
+# Objetos y bibliotecas
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.dll
+*.dylib
+
+# ====================================================================
+# Archivos de debugging y análisis
+# ====================================================================
+
+# Core dumps
+core
+core.*
+vgcore.*
+
+# Archivos de Valgrind
+*.log
+*.xml
+valgrind-*.log
+helgrind-*.log
+cachegrind.out.*
+callgrind.out.*
+massif.out.*
+
+# AddressSanitizer
+*.asan
+asan_symbolizer
+
+# Archivos de gdb
+.gdb_history
+gdb.txt
+
+# ====================================================================
+# Archivos de cobertura de código
+# ====================================================================
+
+# GCOV
+*.gcno
+*.gcda
+*.gcov
+
+# LCOV
+coverage.info
+coverage_report/
+coverage/
+lcov.info
+
+# ====================================================================
+# Archivos de análisis estático
+# ====================================================================
+
+# Cppcheck
+cppcheck-*.xml
+cppcheck.log
+
+# Clang Static Analyzer
+static-analysis/
+scan-build-*/
+
+# PVS-Studio
+PVS-Studio.log
+*.plog
+
+# ====================================================================
+# Archivos de documentación generada
+# ====================================================================
+
+# Doxygen
+docs/html/
+docs/latex/
+docs/man/
+docs/xml/
+Doxyfile
+doxygen_warnings.log
+
+# ====================================================================
+# Archivos de desarrollo y edición
+# ====================================================================
+
+# Archivos de respaldo
+*~
+*.bak
+*.swp
+*.swo
+*.tmp
+
+# Archivos de edición de vim
+.*.swp
+.*.swo
+.vimrc.local
+
+# Archivos de edición de emacs
+*#
+.#*
+*~
+
+# ====================================================================
+# IDEs y editores
+# ====================================================================
+
+# Visual Studio Code
+.vscode/
+*.code-workspace
+
+# CLion
+.idea/
+cmake-build-*/
+
+# Qt Creator
+*.user
+*.autosave
+
+# Xcode
+*.xcodeproj/
+*.xcworkspace/
+
+# Eclipse CDT
+.cproject
+.project
+.settings/
+
+# Code::Blocks
+*.cbp
+*.depend
+*.layout
+
+# Dev-C++
+*.dev
+*.exe.log
+
+# ====================================================================
+# Archivos del sistema operativo
+# ====================================================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# ====================================================================
+# Archivos de fuzzing y testing
+# ====================================================================
+
+# Archivos de entrada para fuzzing
+fuzz_input/
+fuzz_output/
+crashes/
+hangs/
+corpus/
+
+# Archivos de testing
+test_output/
+test_logs/
+*.test
+*.result
+
+# AFL fuzzing
+afl-*
+sync/
+
+# libFuzzer
+crash-*
+leak-*
+timeout-*
+slow-unit-*
+
+# ====================================================================
+# Archivos de benchmarking y profiling
+# ====================================================================
+
+# Perf
+perf.data
+perf.data.old
+*.perf
+
+# gprof
+gmon.out
+
+# Archivos de benchmark
+benchmark_results/
+*.benchmark
+*.profile
+
+# ====================================================================
+# Archivos de logs y debugging
+# ====================================================================
+
+# Logs generales
+*.log
+logs/
+log/
+
+# Archivos de tracing
+*.trace
+trace/
+
+# Archivos de debugging
+debug/
+debug_info/
+
+# ====================================================================
+# Archivos temporales de entrada de datos
+# ====================================================================
+
+# Archivos de prueba de entrada
+input_test_*
+test_input_*
+ejemplo_entrada_*
+
+# Buffers de prueba
+buffer_test_*
+overflow_test_*
+
+# ====================================================================
+# Archivos específicos del ejercicio
+# ====================================================================
+
+# Archivos de demostración de vulnerabilidades
+vulnerabilidad_*
+exploit_*
+malicious_input_*
+
+# Archivos de configuración de prueba
+test_config_*
+config_temporal_*
+
+# ====================================================================
+# Archivos de distribución y empaquetado
+# ====================================================================
+
+# Archivos de distribución
+dist/
+package/
+*.tar.gz
+*.zip
+*.deb
+*.rpm
+
+# Archivos de instalación
+install_manifest.txt
+_install/
+
+# ====================================================================
+# Archivos misceláneos
+# ====================================================================
+
+# Archivos de patch
+*.patch
+*.diff
+*.orig
+*.rej
+
+# Archivos comprimidos
+*.tar
+*.tar.gz
+*.tar.bz2
+*.tar.xz
+*.zip
+*.rar
+*.7z
+
+# Archivos de notas
+TODO.txt
+NOTES.txt
+notas_*
+
+# ====================================================================
+# Excepciones importantes (archivos que SÍ deben incluirse)
+# ====================================================================
+
+# Asegurarse de incluir archivos importantes
+!.gitkeep
+!CMakeLists.txt
+!*.h
+!*.c
+!README.md
+!LICENSE
+!Makefile.custom
+
+# Incluir archivos de configuración de ejemplo
+!config.example.*
+!*.template
+!*.in

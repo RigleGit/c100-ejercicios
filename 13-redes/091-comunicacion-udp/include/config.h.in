@@ -1,0 +1,29 @@
+/* config.h.in - Archivo de configuración para CMake */
+#ifndef CONFIG_H
+#define CONFIG_H
+
+/* Información del proyecto */
+#define PROJECT_NAME "@PROJECT_NAME@"
+#define PROJECT_VERSION "@PROJECT_VERSION@"
+#define PROJECT_DESCRIPTION "@PROJECT_DESCRIPTION@"
+
+/* Características del sistema */
+#cmakedefine HAVE_SYS_SOCKET_H
+#cmakedefine HAVE_NETINET_IN_H
+#cmakedefine HAVE_ARPA_INET_H
+#cmakedefine HAVE_SOCKET
+#cmakedefine HAVE_BIND
+#cmakedefine HAVE_SENDTO
+#cmakedefine HAVE_RECVFROM
+
+/* Opciones de build */
+#cmakedefine BUILD_TESTS
+#cmakedefine BUILD_TOOLS
+#cmakedefine BUILD_DOCS
+#cmakedefine ENABLE_SANITIZERS
+#cmakedefine ENABLE_COVERAGE
+
+/* Build type */
+#define CMAKE_BUILD_TYPE "@CMAKE_BUILD_TYPE@"
+
+#endif /* CONFIG_H */

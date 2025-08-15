@@ -1,0 +1,100 @@
+# Ejercicio 068: Árbol Binario de Búsqueda - .gitignore
+
+# Archivos de build y compilación
+build/
+*.o
+*.obj
+*.exe
+*.out
+*.app
+*.dll
+*.so
+*.dylib
+*.a
+*.lib
+
+# Archivos de CMake
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+*.cmake
+!CMakeLists.txt
+
+# Archivos de debug
+*.dSYM/
+*.pdb
+*.ilk
+
+# Archivos temporales del sistema
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*~
+*.swp
+*.swo
+*.tmp
+
+# Archivos de IDE
+.vscode/
+.idea/
+*.vcxproj*
+*.sln
+*.suo
+*.user
+
+# Archivos de testing
+*.gcno
+*.gcda
+*.gcov
+coverage.info
+coverage/
+
+# Archivos de Valgrind
+vgcore.*
+*.memcheck
+
+# Archivos de profiling
+callgrind.out.*
+massif.out.*
+*.prof
+
+# Archivos de log
+*.log
+logs/
+
+# Archivos de backup
+*.bak
+*.backup
+*~
+
+# Archivos de documentación generada
+docs/html/
+docs/latex/
+*.pdf
+!README.md
+
+# Archivos específicos del proyecto
+arbol_bst_demo
+test_arbol_bst
+*.test
+
+# Archivos de configuración local
+.env
+.env.local
+config.local
+
+# Archivos de análisis estático
+cppcheck-results.xml
+scan-build-results/
+
+# Directorios de herramientas
+.scan-build/
+.cppcheck/
+
+# Archivos de instalación
+install_manifest.txt

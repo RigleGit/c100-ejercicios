@@ -1,0 +1,39 @@
+# Archivos compilados
+*.o
+*.obj
+*.exe
+*.out
+*.app
+
+# Directorios de build
+build/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# Archivos de depuración
+*.dSYM/
+*.pdb
+core
+*.core
+
+# Archivos temporales
+*~
+.DS_Store
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# Archivos específicos del proyecto
+minimo_maximo_array
+test_033-minimo-maximo-array
+
+# Archivos de configuración local
+.env
+*.local
+
+# Logs
+*.log

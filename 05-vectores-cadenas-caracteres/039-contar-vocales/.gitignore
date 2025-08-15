@@ -1,0 +1,75 @@
+# Archivos de compilación y build
+build/
+Build/
+cmake-build-*/
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+*.cmake
+
+# Archivos ejecutables
+main
+test_main
+*.exe
+*.out
+
+# Archivos objeto y bibliotecas
+*.o
+*.obj
+*.a
+*.so
+*.dylib
+*.lib
+*.dll
+
+# Archivos de depuración
+*.dSYM/
+*.pdb
+
+# Archivos temporales del editor
+*~
+*.swp
+*.swo
+.*.tmp
+*.tmp
+
+# Archivos de configuración del IDE
+.vscode/
+.idea/
+*.vcxproj*
+*.sln
+
+# Archivos del sistema
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Archivos de Criterion (framework de testing)
+*.xml
+*.tap
+
+# Archivos de logs
+*.log
+
+# Archivos de coverage
+*.gcov
+*.gcda
+*.gcno
+coverage/
+
+# Archivos de profiling
+gmon.out
+*.prof
+
+# Directorios de dependencias
+deps/
+vendor/
+
+# Archivos de backup
+*.bak
+*.backup

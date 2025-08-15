@@ -1,0 +1,30 @@
+# Archivos generados por CMake
+/build/
+/Build/
+/cmake-build-*/
+
+# Archivos objeto y ejecutables
+*.o
+*.obj
+*.exe
+*.out
+numeros_primos_N
+test_numeros_primos_N
+
+# Archivos de debug
+*.dSYM/
+*.pdb
+
+# Archivos temporales del editor
+*~
+*.swp
+*.swo
+.vscode/
+.vs/
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de configuración local
+*.local

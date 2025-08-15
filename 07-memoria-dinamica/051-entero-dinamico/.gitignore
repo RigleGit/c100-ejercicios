@@ -1,0 +1,36 @@
+# Archivos de compilación y dependencias
+build/
+*.o
+*.obj
+*.exe
+*.out
+*.a
+*.so
+*.dll
+
+# Archivos de debug
+*.dSYM/
+*.pdb
+
+# Archivos de IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de configuración local
+config.local
+*.local
+
+# Logs
+*.log
+
+# Archivos temporales
+*.tmp
+*.temp
+*.bak

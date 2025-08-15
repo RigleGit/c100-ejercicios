@@ -1,0 +1,12 @@
+# Este directorio está reservado para archivos de cabecera (.h)
+# 
+# Los archivos de cabecera se utilizan para:
+# - Declaraciones de funciones de algoritmos de ordenamiento
+# - Definiciones de estructuras para análisis de rendimiento
+# - Constantes relacionadas con límites de ordenamiento
+# - Macros para optimización de algoritmos de sorting
+#
+# Ejemplo de estructura:
+# - ordenamiento.h (funciones bubble, selection, insertion, quick sort)
+# - algoritmos.h (definiciones de complejidad y tipos de algoritmos)
+# - rendimiento.h (estructuras para medir tiempo y comparaciones)

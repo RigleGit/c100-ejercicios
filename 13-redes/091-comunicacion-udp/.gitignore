@@ -1,0 +1,81 @@
+# Archivos compilados y objetos
+*.o
+*.obj
+*.so
+*.a
+*.dylib
+*.dll
+*.exe
+
+# Archivos de build
+build/
+Build/
+BUILD/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+compile_commands.json
+
+# Ejecutables específicos del proyecto
+main_comunicacion_udp
+emisor_udp
+receptor_udp
+test_comunicacion_udp
+
+# Archivos de debug
+*.dSYM/
+*.pdb
+core
+vgcore.*
+
+# Archivos de cobertura
+*.gcno
+*.gcda
+*.gcov
+coverage/
+*.info
+
+# Archivos de documentación generada
+docs/html/
+docs/latex/
+docs/xml/
+*.pdf
+
+# Archivos temporales del editor
+*~
+*.swp
+*.swo
+.vscode/
+.idea/
+*.kate-swp
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+*.tmp
+
+# Archivos de logs y output
+*.log
+output.txt
+
+# Archivos de configuración específicos del usuario
+config.local
+*.user
+
+# Backup files
+*.bak
+*.backup
+
+# Profiling data
+perf.data*
+gmon.out
+
+# Static analysis
+cppcheck-report.xml
+scan-build-*/
+
+# Dependency files
+*.d
+.deps/

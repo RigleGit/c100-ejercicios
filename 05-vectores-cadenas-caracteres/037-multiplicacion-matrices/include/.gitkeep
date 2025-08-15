@@ -1,0 +1,12 @@
+# Este directorio está reservado para archivos de cabecera (.h)
+# 
+# Los archivos de cabecera se utilizan para:
+# - Declaraciones de funciones para álgebra lineal avanzada
+# - Definiciones de estructuras para matrices dinámicas
+# - Constantes relacionadas con operaciones matriciales
+# - Macros para optimización de multiplicación matricial
+#
+# Ejemplo de estructura:
+# - algebra_lineal.h (multiplicación, determinante, inversión de matrices)
+# - matriz_dinamica.h (estructuras para matrices de tamaño variable)
+# - optimizaciones.h (algoritmos de Strassen, paralelización)

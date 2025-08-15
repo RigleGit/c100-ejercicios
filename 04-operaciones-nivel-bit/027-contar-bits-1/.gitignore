@@ -1,0 +1,37 @@
+# Archivos compilados
+*.o
+*.obj
+*.exe
+contar_bits_1
+test_contar_bits_1
+
+# Directorios de construcción
+build/
+cmake-build-*/
+
+# Archivos de CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+*.cmake
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de editores
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Archivos de depuración
+*.dSYM/
+core
+vgcore.*
+
+# Archivos temporales
+*.tmp
+*.temp

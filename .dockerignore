@@ -1,0 +1,96 @@
+# .dockerignore - Archivos a ignorar durante docker build
+
+# Directorios de build
+**/build/
+**/builds/
+build/
+builds/
+
+# Archivos compilados
+**/*.o
+**/*.a
+**/*.so
+**/*.exe
+**/a.out
+**/main
+**/test_*
+**/*_test
+**/*_tests
+
+# Archivos temporales
+**/*.tmp
+**/*.temp
+**/temp/
+**/tmp/
+
+# Logs
+**/*.log
+**/logs/
+**/*.out
+
+# IDEs y editores
+.vscode/
+.idea/
+**/.vs/
+**/*.swp
+**/*.swo
+*~
+
+# Sistemas de control de versiones
+.git/
+.gitignore
+**/.gitkeep
+
+# OS específicos
+.DS_Store
+Thumbs.db
+**/.DS_Store
+**/Thumbs.db
+
+# Docker
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# Documentación no esencial para el build
+README.md
+DOCKER_README.md
+**/*.md
+docs/
+documentation/
+
+# Cache de package managers
+node_modules/
+**/.npm/
+**/.cache/
+
+# Archivos de configuración local
+.env
+.env.local
+**/.local/
+
+# Reportes y análisis
+reports/
+coverage/
+**/*.coverage
+**/*.prof
+
+# Archivos de backup
+**/*.bak
+**/*.backup
+**/*~
+
+# Archivos específicos de herramientas
+**/.valgrind/
+**/.gdb_history
+**/.lldb_history
+
+# Archivos grandes innecesarios
+**/*.iso
+**/*.img
+**/*.tar
+**/*.zip
+**/*.gz
+
+# Exclusiones específicas del proyecto
+package-lock.json

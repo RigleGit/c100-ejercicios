@@ -1,0 +1,109 @@
+# Archivos ejecutables
+nombre_ejercicio
+test_nombre_ejercicio
+benchmark
+demo
+generador_datos
+
+# Archivos objeto
+*.o
+*.obj
+
+# Archivos de biblioteca
+*.a
+*.lib
+
+# Archivos de biblioteca dinámica
+*.so
+*.dylib
+*.dll
+
+# Directorios de build
+build/
+cmake-build-*/
+.cmake/
+obj/
+bin/
+
+# Archivos generados por CMake
+CMakeCache.txt
+CMakeFiles/
+Makefile
+cmake_install.cmake
+install_manifest.txt
+CTestTestfile.cmake
+
+# Archivos de depuración
+*.dSYM/
+*.pdb
+core
+core.*
+
+# Archivos temporales del editor
+*~
+*.swp
+*.swo
+.*.swp
+.*.swo
+
+# Archivos de IDE
+.vscode/
+.idea/
+*.xcodeproj/
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.sln
+*.suo
+
+# Archivos de sistema
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Archivos de salida
+*.out
+*.exe
+
+# Archivos de logs y resultados
+*.log
+resultados_*.txt
+benchmark_*.txt
+test_output_*.txt
+
+# Archivos de cobertura
+*.gcov
+*.gcda
+*.gcno
+coverage/
+lcov.info
+
+# Archivos de profiling
+gmon.out
+callgrind.out.*
+massif.out.*
+
+# Archivos generados por herramientas
+*.orig
+*.rej
+
+# Directorios temporales
+tmp/
+temp/
+.tmp/
+
+# Archivos de backup
+*.bak
+*.backup
+
+# Archivos de configuración local
+config.local
+.env.local
+
+# Archivos de datos generados (mantener ejemplos estáticos)
+datos_generados_*.txt
+test_data_*.txt

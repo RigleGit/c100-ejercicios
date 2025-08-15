@@ -1,0 +1,127 @@
+# Archivos compilados
+*.o
+*.obj
+*.elf
+*.so
+*.so.*
+*.a
+*.lib
+*.dll
+*.dylib
+
+# Ejecutables
+race_conditions
+race_conditions_main
+race_conditions_demo
+race_conditions_reporter
+race_conditions_analyzer
+test_race_conditions
+benchmark_race_conditions
+stress_test_race_conditions
+
+# Directorios de build
+build/
+Build/
+BUILD/
+out/
+cmake-build-*/
+
+# CMake
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+*.cmake
+!CMakeLists.txt
+
+# Testing
+Testing/
+CTestTestfile.cmake
+*.log
+
+# Coverage
+*.gcov
+*.gcda
+*.gcno
+coverage.info
+coverage/
+lcov.info
+
+# Documentación generada
+docs/html/
+docs/latex/
+docs/man/
+*.dox
+
+# Archivos de depuración
+*.dSYM/
+*.pdb
+core
+core.*
+vgcore.*
+
+# Archivos temporales
+*~
+*.swp
+*.swo
+.*.swp
+.*.swo
+*.tmp
+*.temp
+
+# Archivos de sistema
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+*.pro.user
+*.pro.user.*
+*.sublime-project
+*.sublime-workspace
+
+# Sanitizers
+*.san
+
+# Profiling
+gmon.out
+*.prof
+callgrind.out.*
+cachegrind.out.*
+massif.out.*
+
+# Archivos de configuración local
+config.local
+.env
+.env.local
+
+# Logs
+*.log
+*.log.*
+
+# Archivos de backup
+*.bak
+*.backup
+*~
+
+# Archivos de resultados de tests
+test_results/
+test_output/
+
+# Archivos de benchmark
+benchmark_results/
+*.benchmark
+
+# Archivos específicos de race conditions
+race_conditions_report.txt
+race_conditions_analysis.csv
+timing_results.dat
+
+# Directorio de instalación local
+install/

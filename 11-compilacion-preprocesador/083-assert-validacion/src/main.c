@@ -1,0 +1,260 @@
+/**
+ * @file main.c
+ * @brief Programa principal que demuestra el uso de assert para validación
+ * @author Ejercicios C
+ * @date 2025
+ */
+
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+#include "assert_validacion.h"
+
+/* ====================================================================
+ * FUNCIONES DE PRESENTACIÓN
+ * ==================================================================== */
+
+void mostrar_titulo(void) {
+    printf("🛡️  DEMOSTRACIÓN DE ASSERT EN C\n");
+    printf("Validación de precondiciones durante el desarrollo\n");
+    printf("================================================\n\n");
+}
+
+void mostrar_menu(void) {
+    printf("Selecciona una opción:\n");
+    printf("1. Demostrar casos válidos (safe)\n");
+    printf("2. Mostrar casos inválidos (info)\n");
+    printf("3. Demostrar alternativas seguras\n");
+    printf("4. Mostrar estado de assert\n");
+    printf("5. Ejecutar caso específico\n");
+    printf("0. Salir\n");
+    printf("\nOpción: ");
+}
+
+void mostrar_casos_especificos(void) {
+    printf("\n=== CASOS ESPECÍFICOS ===\n");
+    printf("1. Raíz cuadrada válida\n");
+    printf("2. Raíz cuadrada inválida (⚠️ causará abort si assert activo)\n");
+    printf("3. División válida\n");
+    printf("4. División por cero (⚠️ causará abort si assert activo)\n");
+    printf("5. Array válido\n");
+    printf("6. Array NULL (⚠️ causará abort si assert activo)\n");
+    printf("0. Volver al menú principal\n");
+    printf("\nSubopción: ");
+}
+
+/* ====================================================================
+ * FUNCIONES DE DEMOSTRACIÓN ESPECÍFICA
+ * ==================================================================== */
+
+void ejecutar_raiz_valida(void) {
+    printf("\n--- Raíz cuadrada válida ---\n");
+    double valor = 16.0;
+    printf("Calculando raíz cuadrada de %.2f\n", valor);
+    double resultado = raiz_cuadrada(valor);
+    printf("Resultado: %.2f\n", resultado);
+    printf("✅ Operación exitosa\n");
+}
+
+void ejecutar_raiz_invalida(void) {
+    printf("\n--- Raíz cuadrada inválida ---\n");
+    printf("⚠️  ADVERTENCIA: Esta operación causará abort() si assert está activo\n");
+    printf("¿Continuar? (s/N): ");
+    
+    char respuesta;
+    scanf(" %c", &respuesta);
+    
+    if (respuesta == 's' || respuesta == 'S') {
+        printf("Calculando raíz cuadrada de -9.0\n");
+        printf("Assert verificará que el argumento sea >= 0...\n");
+        
+        // Esta línea causará abort() si assert está activo
+        double resultado = raiz_cuadrada(-9.0);
+        printf("Resultado: %.2f\n", resultado);  // No se ejecutará si assert está activo
+    } else {
+        printf("Operación cancelada\n");
+    }
+}
+
+void ejecutar_division_valida(void) {
+    printf("\n--- División válida ---\n");
+    double dividendo = 20.0, divisor = 4.0;
+    printf("Calculando %.2f / %.2f\n", dividendo, divisor);
+    double resultado = division_segura(dividendo, divisor);
+    printf("Resultado: %.2f\n", resultado);
+    printf("✅ Operación exitosa\n");
+}
+
+void ejecutar_division_por_cero(void) {
+    printf("\n--- División por cero ---\n");
+    printf("⚠️  ADVERTENCIA: Esta operación causará abort() si assert está activo\n");
+    printf("¿Continuar? (s/N): ");
+    
+    char respuesta;
+    scanf(" %c", &respuesta);
+    
+    if (respuesta == 's' || respuesta == 'S') {
+        printf("Calculando 10.0 / 0.0\n");
+        printf("Assert verificará que el divisor no sea cero...\n");
+        
+        // Esta línea causará abort() si assert está activo
+        double resultado = division_segura(10.0, 0.0);
+        printf("Resultado: %.2f\n", resultado);  // No se ejecutará si assert está activo
+    } else {
+        printf("Operación cancelada\n");
+    }
+}
+
+void ejecutar_array_valido(void) {
+    printf("\n--- Array válido ---\n");
+    double numeros[] = {2.5, 4.0, 6.5, 8.0, 10.5};
+    int tamaño = sizeof(numeros) / sizeof(numeros[0]);
+    
+    printf("Array: ");
+    for (int i = 0; i < tamaño; i++) {
+        printf("%.1f ", numeros[i]);
+    }
+    printf("\n");
+    
+    double promedio = promedio_array(numeros, tamaño);
+    printf("Promedio: %.2f\n", promedio);
+    printf("✅ Operación exitosa\n");
+}
+
+void ejecutar_array_null(void) {
+    printf("\n--- Array NULL ---\n");
+    printf("⚠️  ADVERTENCIA: Esta operación causará abort() si assert está activo\n");
+    printf("¿Continuar? (s/N): ");
+    
+    char respuesta;
+    scanf(" %c", &respuesta);
+    
+    if (respuesta == 's' || respuesta == 'S') {
+        printf("Calculando promedio de array NULL\n");
+        printf("Assert verificará que el array no sea NULL...\n");
+        
+        // Esta línea causará abort() si assert está activo
+        double promedio = promedio_array(NULL, 5);
+        printf("Promedio: %.2f\n", promedio);  // No se ejecutará si assert está activo
+    } else {
+        printf("Operación cancelada\n");
+    }
+}
+
+/* ====================================================================
+ * FUNCIÓN PRINCIPAL INTERACTIVA
+ * ==================================================================== */
+
+#ifndef UNIT_TESTING
+int main(void) {
+    mostrar_titulo();
+    mostrar_estado_assert();
+    
+    int opcion;
+    bool continuar = true;
+    
+    while (continuar) {
+        mostrar_menu();
+        
+        if (scanf("%d", &opcion) != 1) {
+            // Limpiar buffer de entrada en caso de error
+            while (getchar() != '\n');
+            printf("❌ Opción inválida. Intenta de nuevo.\n\n");
+            continue;
+        }
+        
+        printf("\n");
+        
+        switch (opcion) {
+            case 1:
+                demostrar_casos_validos();
+                break;
+                
+            case 2:
+                demostrar_casos_invalidos();
+                break;
+                
+            case 3:
+                demostrar_alternativas_seguras();
+                break;
+                
+            case 4:
+                mostrar_estado_assert();
+                break;
+                
+            case 5: {
+                int subopcion;
+                bool submenu = true;
+                
+                while (submenu) {
+                    mostrar_casos_especificos();
+                    
+                    if (scanf("%d", &subopcion) != 1) {
+                        while (getchar() != '\n');
+                        printf("❌ Subopción inválida. Intenta de nuevo.\n");
+                        continue;
+                    }
+                    
+                    switch (subopcion) {
+                        case 1:
+                            ejecutar_raiz_valida();
+                            break;
+                        case 2:
+                            ejecutar_raiz_invalida();
+                            break;
+                        case 3:
+                            ejecutar_division_valida();
+                            break;
+                        case 4:
+                            ejecutar_division_por_cero();
+                            break;
+                        case 5:
+                            ejecutar_array_valido();
+                            break;
+                        case 6:
+                            ejecutar_array_null();
+                            break;
+                        case 0:
+                            submenu = false;
+                            break;
+                        default:
+                            printf("❌ Subopción inválida\n");
+                    }
+                    
+                    if (submenu) {
+                        printf("\nPresiona Enter para continuar...");
+                        while (getchar() != '\n');
+                        getchar();
+                    }
+                }
+                break;
+            }
+            
+            case 0:
+                continuar = false;
+                printf("👋 ¡Hasta luego!\n");
+                break;
+                
+            default:
+                printf("❌ Opción inválida\n");
+        }
+        
+        if (continuar && opcion != 5) {
+            printf("Presiona Enter para continuar...");
+            while (getchar() != '\n');
+            getchar();
+            printf("\n");
+        }
+    }
+    
+    printf("\n🎓 RESUMEN EDUCATIVO:\n");
+    printf("================\n");
+    printf("• assert() es una herramienta de DEBUGGING, no de manejo de errores\n");
+    printf("• Se usa para verificar PRECONDICIONES que deben ser siempre verdaderas\n");
+    printf("• En Release (-DNDEBUG), assert() se desactiva completamente\n");
+    printf("• Para errores de usuario, usa validación manual y retorno de errores\n");
+    printf("• assert() ayuda a encontrar bugs durante el desarrollo\n");
+    
+    return 0;
+}
+#endif

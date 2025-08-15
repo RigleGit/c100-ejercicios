@@ -1,0 +1,5 @@
+# Directorio para archivos de cabecera (.h)
+
+Este directorio está reservado para futuros archivos de cabecera del proyecto.
+Por ahora, todas las funciones están implementadas en src/main.c para mantener
+la simplicidad del ejercicio educativo.

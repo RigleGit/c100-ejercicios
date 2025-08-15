@@ -1,0 +1,57 @@
+# Archivos de build y temporales
+build/
+build-*/
+.build/
+
+# Archivos del compilador
+*.o
+*.obj
+*.a
+*.so
+*.dylib
+*.dll
+*.lib
+*.exe
+
+# Archivos específicos de IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de debugging
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+# Archivos de testing
+Testing/
+test_results/
+*.log
+
+# Archivos temporales
+*.tmp
+*.bak
+*.backup
+
+# Cache de CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+CTestTestfile.cmake
+install_manifest.txt
+
+# Archivos de configuración local
+.env
+local.properties
+
+# Archivos de documentación generada
+html/
+latex/
+doc/build/

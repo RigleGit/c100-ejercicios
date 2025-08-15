@@ -1,0 +1,134 @@
+version: '3.8'
+
+services:
+  # Contenedor principal de desarrollo
+  c100-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: c100-ejercicios-dev
+    hostname: c100-dev
+    
+    # Montar el código fuente
+    volumes:
+      - .:/workspace:cached
+      - c100-build-cache:/workspace/build
+      - c100-tools-cache:/tmp/c100-tools
+    
+    # Puertos para ejercicios de red
+    ports:
+      - "8080-8089:8080-8089"  # Rango de puertos TCP
+      - "9999:9999"            # Puerto de testing
+    
+    # Variables de entorno
+    environment:
+      - CC=gcc
+      - CXX=g++
+      - CMAKE_BUILD_TYPE=Debug
+      - DEBIAN_FRONTEND=noninteractive
+    
+    # Configuración de red
+    networks:
+      - c100-network
+    
+    # Mantener el contenedor activo
+    tty: true
+    stdin_open: true
+    
+    # Comando por defecto
+    command: /bin/bash
+    
+    # Capacidades adicionales para debugging
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - seccomp:unconfined
+  
+  # Servidor TCP de prueba (para ejercicios de red)
+  test-tcp-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: c100-tcp-server
+    hostname: tcp-server
+    
+    volumes:
+      - .:/workspace:ro  # Solo lectura
+    
+    ports:
+      - "8090:8090"
+    
+    networks:
+      - c100-network
+    
+    # Script para levantar servidor TCP de prueba
+    command: >
+      bash -c "
+        echo '🌐 Iniciando servidor TCP de prueba en puerto 8090...' &&
+        cd /workspace &&
+        if [ -f 13-redes/090-servidor-tcp/build/servidor_tcp_main ]; then
+          echo '✅ Servidor encontrado, iniciando...' &&
+          cd 13-redes/090-servidor-tcp/build &&
+          ./servidor_tcp_main
+        else
+          echo '⚠️  Servidor no compilado, iniciando servidor simple...' &&
+          while true; do
+            echo 'Hello from test server' | nc -l -p 8090 -q 1
+          done
+        fi
+      "
+    
+    depends_on:
+      - c100-dev
+    
+    # Reiniciar automáticamente
+    restart: unless-stopped
+  
+  # Contenedor para análisis estático de código
+  code-analyzer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: c100-analyzer
+    hostname: analyzer
+    
+    volumes:
+      - .:/workspace:ro
+      - analyzer-reports:/reports
+    
+    networks:
+      - c100-network
+    
+    # Análisis automático
+    command: >
+      bash -c "
+        echo '🔍 Iniciando análisis estático de código...' &&
+        cd /workspace &&
+        mkdir -p /reports &&
+        echo '📋 Ejecutando cppcheck...' &&
+        find . -name '*.c' -not -path './build/*' | head -20 | xargs cppcheck --enable=all --xml 2>/reports/cppcheck.xml &&
+        echo '📋 Ejecutando clang-format check...' &&
+        find . -name '*.c' -not -path './build/*' | head -20 | xargs clang-format -i &&
+        echo '✅ Análisis completado. Reportes en /reports/' &&
+        tail -f /dev/null
+      "
+    
+    depends_on:
+      - c100-dev
+
+# Volúmenes persistentes
+volumes:
+  c100-build-cache:
+    driver: local
+  c100-tools-cache:
+    driver: local
+  analyzer-reports:
+    driver: local
+
+# Red personalizada
+networks:
+  c100-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

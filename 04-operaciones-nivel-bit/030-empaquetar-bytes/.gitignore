@@ -1,0 +1,93 @@
+# Archivos ejecutables
+empaquetar_bytes
+test_empaquetar_bytes
+ejercicio_030
+test_ejercicio_030
+main
+test_main
+*.exe
+
+# Archivos objeto y de compilación
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.dll
+*.dylib
+
+# Archivos de debugging
+*.dSYM/
+*.gdb_history
+*.pdb
+
+# Archivos de CMake
+build/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+*.cmake
+!CMakeLists.txt
+
+# Archivos de IDE
+.vscode/
+.idea/
+*.vcxproj*
+*.sln
+*.suo
+*.user
+
+# Archivos temporales del sistema
+.DS_Store
+Thumbs.db
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# Archivos de backup
+*.bak
+*.backup
+*.old
+
+# Archivos de logs
+*.log
+
+# Archivos de configuración local
+config.local
+settings.local
+
+# Directorio de binarios
+bin/
+libs/
+
+# Archivos de testing
+test_results/
+coverage/
+*.gcov
+*.gcda
+*.gcno
+
+# Archivos de documentación generada
+doc/html/
+doc/latex/
+*.pdf
+!README.md
+
+# Archivos de empaquetado
+*.tar.gz
+*.zip
+*.rar
+*.7z
+
+# Archivos de instalación
+install/
+dist/
+
+# Archivos específicos del proyecto
+*.bin
+*.dat
+output.txt
+debug_output.txt

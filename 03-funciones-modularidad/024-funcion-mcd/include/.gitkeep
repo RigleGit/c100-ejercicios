@@ -1,0 +1,10 @@
+/*
+ * Directorio para archivos de cabecera del ejercicio 024
+ * 
+ * Este directorio puede contener:
+ * - Declaraciones de funciones auxiliares
+ * - Constantes y macros
+ * - Estructuras de datos específicas del ejercicio
+ * 
+ * Actualmente vacío ya que todas las funciones están en main.c
+ */

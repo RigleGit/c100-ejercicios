@@ -1,0 +1,79 @@
+# Archivos generados por CMake
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+build/
+*.cmake
+
+# Archivos ejecutables
+control_errores_robusto
+test_control_errores_robusto
+demo_comparacion
+error_simulator
+
+# Archivos de biblioteca
+*.a
+*.so
+*.dylib
+
+# Archivos objeto
+*.o
+*.obj
+
+# Archivos de depuración
+*.dSYM/
+
+# Archivos de pruebas de Criterion
+*.tap
+*.xml
+
+# Archivos temporales
+*.tmp
+*.temp
+datos.txt
+prueba_segura.txt
+test_*.txt
+*_prueba.txt
+
+# Archivos de log
+*.log
+
+# Archivos de backup
+*~
+*.bak
+*.backup
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Directorios de Testing
+Testing/
+CTestTestfile.cmake
+
+# Archivos de cobertura
+*.gcov
+*.gcda
+*.gcno
+lcov.info
+coverage/
+
+# Archivos de Valgrind
+valgrind.log
+*.valgrind
+
+# Archivos de sanitizers
+*.asan
+*.msan
+*.tsan
+
+# Archivos de profiling
+gmon.out
+*.prof

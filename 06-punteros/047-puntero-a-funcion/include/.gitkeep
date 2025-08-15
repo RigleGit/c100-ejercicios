@@ -1,0 +1,11 @@
+# Este directorio está reservado para archivos de cabecera (headers)
+# 
+# Aunque este ejercicio no requiere headers adicionales,
+# mantenemos la estructura estándar del proyecto.
+#
+# Los headers se incluirían aquí cuando:
+# - Se separe la implementación en múltiples archivos
+# - Se creen bibliotecas reutilizables
+# - Se definan estructuras o macros compartidas
+# - Se declaren prototipos de funciones públicas
+# - Se definan typedef para punteros a funciones

@@ -1,0 +1,77 @@
+# Archivos generados por el compilador
+*.o
+*.obj
+*.exe
+*.out
+*.app
+
+# Archivos de depuración
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+# Directorios de build
+build/
+cmake-build-*/
+.build/
+
+# Archivos de CMake
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+CTestTestfile.cmake
+Testing/
+
+# Archivos de configuración de IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Logs y archivos temporales
+*.log
+*.tmp
+*.temp
+
+# Archivos específicos del proyecto
+servidor_tcp_multicliente
+cliente_prueba
+benchmark_servidor
+test_servidor
+
+# Archivos de core dump
+core
+core.*
+
+# Archivos de backup
+*.bak
+*.backup
+
+# Archivos de Criterion (testing)
+*.gcda
+*.gcno
+*.gcov
+coverage/
+
+# Archivos de Valgrind
+*.valgrind
+
+# Archivos de profiling
+gmon.out
+perf.data
+perf.data.old
+
+# Directorios de dependencias
+deps/
+external/
+
+# Archivos de configuración local
+config.local
+.env.local

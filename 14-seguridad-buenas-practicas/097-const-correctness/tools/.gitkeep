@@ -1,0 +1,13 @@
+# Este archivo mantiene el directorio tools/ en el repositorio Git
+# 
+# El directorio tools/ está destinado para:
+# - Scripts de utilidad específicos del proyecto
+# - Herramientas de análisis personalizadas
+# - Scripts de automatización
+# - Utilidades para const-correctness
+#
+# Ejemplos de herramientas que podrían agregarse:
+# - check_const.sh: Script para verificar const-correctness
+# - analyze_const.py: Analizador de uso de const
+# - benchmark_const.c: Herramienta de benchmark
+# - demo_const.sh: Script de demostración automatizada

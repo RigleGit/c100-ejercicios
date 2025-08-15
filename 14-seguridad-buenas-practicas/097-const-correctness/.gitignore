@@ -1,0 +1,98 @@
+# Archivos de compilación
+build/
+bin/
+lib/
+obj/
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.dll
+*.dylib
+
+# Executables
+const_correctness
+test_const_correctness
+*.exe
+
+# Archivos de CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+*.cmake
+!CMakeLists.txt
+
+# Archivos de configuración de IDEs
+.vscode/
+.idea/
+*.vcxproj*
+*.sln
+*.user
+
+# Archivos de depuración
+*.dSYM/
+*.pdb
+*.ilk
+core
+vgcore.*
+*.gdb_history
+
+# Archivos de cobertura
+*.gcda
+*.gcno
+*.gcov
+*.info
+coverage/
+htmlcov/
+
+# Archivos de perfilado
+*.prof
+gmon.out
+callgrind.out.*
+massif.out.*
+
+# Archivos temporales del sistema
+.DS_Store
+Thumbs.db
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+.#*
+
+# Archivos de backup
+*.bak
+*.backup
+*.orig
+
+# Documentación generada
+docs/html/
+docs/latex/
+*.pdf
+!docs/*.pdf
+
+# Archivos de logs
+*.log
+
+# Archivos de configuración local
+config.local
+.env
+.local
+
+# Archivos de herramientas de análisis
+*.sarif
+scan-build-*/
+
+# Archivos de empaquetado
+*.tar.gz
+*.zip
+*.deb
+*.rpm
+_CPack_Packages/
+
+# Directorios de instalación local
+install/
+prefix/

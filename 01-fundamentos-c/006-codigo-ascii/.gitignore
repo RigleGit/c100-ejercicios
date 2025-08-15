@@ -1,0 +1,35 @@
+# Build directories
+build/
+bin/
+obj/
+
+# Ejecutables
+codigo_ascii
+test_codigo_ascii
+
+# Archivos de compilación
+*.o
+*.a
+*.so
+*.dylib
+
+# Archivos de debugging
+*.dSYM/
+
+# CMake files
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+
+# Test files temporales
+test_input.txt
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# macOS
+.DS_Store

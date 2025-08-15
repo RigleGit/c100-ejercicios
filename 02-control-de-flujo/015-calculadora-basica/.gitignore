@@ -1,0 +1,35 @@
+# Archivos compilados
+*.o
+*.exe
+*.out
+calculadora_basica
+
+# Directorios de compilación
+build/
+Build/
+cmake-build-*/
+
+# Archivos de CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+
+# Archivos de pruebas
+Testing/
+CTestTestfile.cmake
+test_input.txt
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Archivos temporales
+*~
+.#*

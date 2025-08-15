@@ -1,0 +1,81 @@
+# Archivos de compilación
+*.o
+*.obj
+*.exe
+*.out
+*.app
+*.so
+*.dylib
+*.dll
+*.a
+*.lib
+
+# Directorios de build
+build/
+Build/
+BUILD/
+debug/
+Debug/
+release/
+Release/
+
+# Archivos de CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+*.cmake
+!CMakeLists.txt
+
+# Archivos de IDE
+.vscode/
+.idea/
+*.user
+*.suo
+*.sdf
+*.opensdf
+*.vcproj
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+
+# Archivos del sistema
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Archivos de log y temporales
+*.log
+*.tmp
+*.temp
+*~
+*.swp
+*.swo
+
+# Ejecutables específicos del proyecto
+cola_lista
+test_cola_lista
+
+# Archivos de coverage
+*.gcda
+*.gcno
+*.gcov
+coverage/
+
+# Archivos de profiling
+gmon.out
+*.prof
+
+# Archivos de documentación generada
+doc/html/
+doc/latex/
+*.dox
+
+# Archivos de backup
+*.bak
+*.backup
+*~

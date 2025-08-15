@@ -1,0 +1,11 @@
+/*
+ * Directorio para archivos de cabecera del ejercicio 027
+ * 
+ * Este directorio puede contener:
+ * - Definiciones de algoritmos de conteo de bits
+ * - Macros para optimizaciones específicas
+ * - Constantes para tablas de lookup
+ * - Declaraciones de funciones utilitarias
+ * 
+ * Actualmente vacío ya que todas las funciones están en main.c
+ */

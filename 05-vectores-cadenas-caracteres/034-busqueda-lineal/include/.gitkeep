@@ -1,0 +1,12 @@
+# Este directorio está reservado para archivos de cabecera (.h)
+# 
+# Los archivos de cabecera se utilizan para:
+# - Declaraciones de funciones de búsqueda y algoritmos
+# - Definiciones de estructuras para resultados de búsqueda
+# - Constantes relacionadas con algoritmos de búsqueda
+# - Macros para optimización de búsquedas
+#
+# Ejemplo de estructura:
+# - busqueda.h (funciones de búsqueda lineal, binaria, etc.)
+# - algoritmos.h (definiciones de complejidad y tipos de algoritmos)
+# - resultados.h (estructuras para almacenar resultados de búsqueda)

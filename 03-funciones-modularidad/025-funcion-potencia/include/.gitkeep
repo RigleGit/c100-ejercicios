@@ -1,0 +1,10 @@
+/*
+ * Directorio para archivos de cabecera del ejercicio 025
+ * 
+ * Este directorio puede contener:
+ * - Declaraciones de funciones auxiliares
+ * - Constantes matemáticas
+ * - Estructuras para manejo de errores
+ * 
+ * Actualmente vacío ya que todas las funciones están en main.c
+ */

@@ -1,0 +1,217 @@
+# ============================================================================
+# ARCHIVOS DE COMPILACIÓN - C/C++
+# ============================================================================
+
+# Archivos objeto
+*.o
+*.obj
+*.lo
+*.slo
+
+# Bibliotecas compiladas
+*.so
+*.so.*
+*.dylib
+*.dll
+*.a
+*.lib
+*.la
+
+# Ejecutables
+*.exe
+*.out
+*.app
+main_basico
+demo_completo
+demo_debug
+test_constantes_preprocesador
+
+# Archivos de enlace
+*.lai
+*.la
+*.a
+*.lib
+
+# ============================================================================
+# CMAKE
+# ============================================================================
+
+# Directorio de build
+build/
+Build/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+*.cmake
+!CMakeLists.txt
+
+# Testing
+Testing/
+CTestTestfile.cmake
+
+# CPack
+_CPack_Packages/
+*.dmg
+*.gz
+*.bz2
+*.Z
+*.lzma
+*.xz
+
+# ============================================================================
+# ARCHIVOS DE DESARROLLO
+# ============================================================================
+
+# Archivos de respaldo del editor
+*~
+*.swp
+*.swo
+*#
+.#*
+
+# Archivos temporales de vim
+*.tmp
+*.temp
+
+# Archivos de VS Code
+.vscode/
+*.code-workspace
+
+# Archivos de CLion
+.idea/
+cmake-build-debug/
+cmake-build-release/
+
+# Archivos de Eclipse
+.project
+.cproject
+.settings/
+
+# Archivos de Xcode
+*.xcodeproj
+*.xcworkspace
+
+# ============================================================================
+# ARCHIVOS DE SISTEMA
+# ============================================================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.nfs*
+
+# ============================================================================
+# ARCHIVOS DE HERRAMIENTAS DE DESARROLLO
+# ============================================================================
+
+# GDB
+.gdb_history
+core
+core.*
+
+# Valgrind
+vgcore.*
+*.memcheck
+*.helgrind
+*.cachegrind
+*.callgrind
+
+# Gcov/Lcov
+*.gcno
+*.gcda
+*.gcov
+lcov.info
+coverage/
+
+# Doxygen
+docs/
+html/
+latex/
+
+# ============================================================================
+# ARCHIVOS DE PRUEBAS Y TEMPORALES
+# ============================================================================
+
+# Archivos de prueba temporales
+test_*.txt
+temp_*.dat
+salida_*.log
+*.backup
+
+# Archivos de datos de prueba
+datos_prueba/
+archivos_temp/
+
+# Salidas de programa
+output/
+resultados/
+
+# ============================================================================
+# ARCHIVOS DE CRITERIAS Y TESTING
+# ============================================================================
+
+# Resultados de Criterion
+*.xml
+test-results/
+
+# ============================================================================
+# ARCHIVOS ESPECÍFICOS DEL PROYECTO
+# ============================================================================
+
+# Archivos generados por las demostraciones
+archivo_prueba.txt
+datos_ejemplo.bin
+salida_demo.txt
+
+# Archivos de expansión del preprocesador
+*.i
+*.ii
+
+# ============================================================================
+# LOGS Y ARCHIVOS DE DEBUG
+# ============================================================================
+
+# Logs
+*.log
+debug.txt
+trace.txt
+
+# Archivos de profiling
+gmon.out
+prof.out
+
+# ============================================================================
+# EXCLUSIONES (archivos que SÍ queremos versionar)
+# ============================================================================
+
+# Asegurarse de incluir archivos importantes
+!.gitignore
+!CMakeLists.txt
+!README.md
+!LICENSE
+!*.h
+!*.c
+!*.md
+
+# Incluir directorios importantes (aunque estén vacíos)
+!include/
+!src/
+!tests/
+!docs/
+!scripts/

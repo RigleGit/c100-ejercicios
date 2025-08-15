@@ -1,0 +1,76 @@
+# Archivos compilados
+*.o
+*.obj
+*.exe
+*.out
+*.app
+
+# Archivos de debug
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+# Directorios de build
+build/
+cmake-build-*/
+.cmake/
+
+# Archivos de CMake
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+*.cmake
+!CMakeLists.txt
+
+# Archivos de configuración de IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Archivos de sistema macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Archivos de sistema Linux
+Thumbs.db
+ehthumbs.db
+
+# Archivos temporales
+*.tmp
+*.temp
+*.log
+
+# Archivos de test generados
+test_output.txt
+test_append.txt
+archivo1.txt
+archivo2.txt
+resultado.txt
+valido.txt
+origen.txt
+destino.txt
+archivo_grande.txt
+saludo.txt
+datos.txt
+copia_datos.txt
+
+# Ejecutables específicos del proyecto
+escribir_archivo
+test_escribir_archivo
+
+# Archivos de coverage
+*.gcov
+*.gcda
+*.gcno
+
+# Archivos de Valgrind
+vgcore.*
+
+# Archivos de backup
+*.bak
+*.backup

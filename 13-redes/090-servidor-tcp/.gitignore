@@ -1,0 +1,99 @@
+# Archivos de compilación
+build/
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+*.cmake
+
+# Ejecutables
+servidor_tcp
+cliente_prueba
+test_servidor_tcp
+tests
+*.exe
+
+# Archivos objeto y bibliotecas
+*.o
+*.a
+*.so
+*.dylib
+*.dll
+
+# Archivos de debug
+*.dSYM/
+*.pdb
+
+# Archivos temporales del editor
+*~
+*.swp
+*.swo
+.*.swp
+.*.swo
+
+# Archivos de IDE
+.vscode/
+.idea/
+*.pro.user
+*.kate-swp
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Logs y salida de programas
+*.log
+output.txt
+debug.txt
+
+# Archivos de test
+*.xml
+*.tap
+
+# Documentación generada
+docs/html/
+docs/latex/
+doxygen_warnings.txt
+
+# Archivos de coverage
+*.gcno
+*.gcda
+*.gcov
+coverage.info
+coverage/
+
+# Archivos de sanitizer
+*.asan
+*.tsan
+*.msan
+*.ubsan
+
+# Archivos de valgrind
+valgrind-out.txt
+massif.out.*
+callgrind.out.*
+
+# Archivos de profiling
+gmon.out
+perf.data*
+
+# Archivos de backup
+*.bak
+*.backup
+*.old
+
+# Archivos comprimidos
+*.tar.gz
+*.zip
+*.7z
+
+# Archivos de instalación
+install_manifest.txt
+/usr/local/
+
+# Archivos temporales de red
+core
+core.*
+
+# Archivos PID
+*.pid

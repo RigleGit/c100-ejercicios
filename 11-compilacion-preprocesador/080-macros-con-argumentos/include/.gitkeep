@@ -1,0 +1,13 @@
+# Este archivo mantiene el directorio include/ en el repositorio Git
+# 
+# El directorio include/ contiene:
+# - macros_con_argumentos.h: Definiciones de macros con parámetros
+#
+# Ejercicio 080: Macros con Argumentos
+# Módulo: Compilación y Preprocesador
+#
+# Conceptos demostrados:
+# - Evaluación múltiple de argumentos
+# - Efectos secundarios en macros
+# - Importancia de los paréntesis
+# - Diferencias entre macros y funciones

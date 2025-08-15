@@ -1,0 +1,214 @@
+#include <stdio.h>
+#include <stdint.h>
+#include "union_reinterpretar.h"
+
+// Función básica del enunciado
+void ejemplo_basico_enunciado(void) {
+    printf("=== Ejercicio 059: Union para Reinterpretar Datos ===\n");
+    printf("Ejemplo básico del enunciado:\n\n");
+    
+    // Implementación exacta del enunciado
+    union Datos d;
+    d.entero = 0x12345678; // Valor en hexadecimal
+
+    printf("Valor entero: 0x%X\n", d.entero);
+    printf("Bytes individuales:\n");
+    for (int i = 0; i < 4; i++) {
+        printf("Byte %d: 0x%X\n", i, (unsigned char)d.bytes[i]);
+    }
+}
+
+// Demostración extendida con análisis detallado
+void demostracion_completa(void) {
+    imprimir_separador("DEMOSTRACIÓN COMPLETA DE UNIONES");
+    
+    // 1. Ejemplo básico del enunciado
+    ejemplo_basico_enunciado();
+    
+    // 2. Análisis de endianness
+    mostrar_endianness();
+    
+    // 3. Múltiples valores de prueba
+    printf("\n=== Análisis de Diferentes Valores ===\n");
+    int32_t valores_prueba[] = {
+        0x12345678,
+        0xDEADBEEF,
+        0x00000001,
+        0xFFFFFFFF,
+        0x80000000,
+        1000000,
+        -1,
+        0
+    };
+    
+    int num_valores = sizeof(valores_prueba) / sizeof(valores_prueba[0]);
+    
+    for (int i = 0; i < num_valores; i++) {
+        printf("\n--- Valor %d: 0x%08X (%d) ---\n", 
+               i + 1, valores_prueba[i], valores_prueba[i]);
+        mostrar_bytes_entero(valores_prueba[i]);
+    }
+    
+    // 4. Análisis de tipos flotantes
+    printf("\n");
+    analizar_float_ieee754(3.14159f);
+    analizar_float_ieee754(-1.0f);
+    analizar_float_ieee754(0.0f);
+    
+    // 5. Demostración de manipulación
+    demo_manipulacion_bits(0x12345678);
+    
+    // 6. Comparación de signos
+    comparar_signos(-1);
+    comparar_signos(0x80000000);
+    
+    // 7. Ejemplos prácticos
+    ejemplos_practicos_uniones();
+    
+    // 8. Reinterpretación de tipos
+    demo_reinterpretacion_tipos();
+}
+
+// Programa interactivo
+void programa_interactivo(void) {
+    int opcion;
+    int32_t valor_usuario;
+    
+    printf("=== Explorador de Uniones y Reinterpretación de Datos ===\n");
+    
+    do {
+        printf("\n--- Menú Principal ---\n");
+        printf("1.  Ejemplo básico del enunciado\n");
+        printf("2.  Analizar valor personalizado\n");
+        printf("3.  Mostrar endianness del sistema\n");
+        printf("4.  Análisis de representación binaria\n");
+        printf("5.  Análizar float IEEE 754\n");
+        printf("6.  Demostración de manipulación de bits\n");
+        printf("7.  Comparar interpretaciones con/sin signo\n");
+        printf("8.  Ejemplos prácticos de uniones\n");
+        printf("9.  Intercambiar endianness\n");
+        printf("10. Demostración completa\n");
+        printf("0.  Salir\n");
+        printf("Selecciona una opción: ");
+        
+        if (scanf("%d", &opcion) != 1) {
+            printf("Error: Opción inválida.\n");
+            // Limpiar buffer
+            int c;
+            while ((c = getchar()) != '\n' && c != EOF);
+            continue;
+        }
+        
+        switch (opcion) {
+            case 1:
+                ejemplo_basico_enunciado();
+                break;
+                
+            case 2:
+                printf("Introduce un valor entero (decimal o 0x para hex): ");
+                if (scanf("%i", &valor_usuario) == 1) {
+                    printf("\n");
+                    mostrar_bytes_entero(valor_usuario);
+                    imprimir_analisis_datos(crear_datos(valor_usuario));
+                } else {
+                    printf("Error: Valor inválido.\n");
+                }
+                break;
+                
+            case 3:
+                mostrar_endianness();
+                break;
+                
+            case 4:
+                printf("Introduce un valor para análisis binario: ");
+                if (scanf("%i", &valor_usuario) == 1) {
+                    mostrar_representacion_binaria(valor_usuario);
+                } else {
+                    printf("Error: Valor inválido.\n");
+                }
+                break;
+                
+            case 5: {
+                float valor_float;
+                printf("Introduce un valor flotante: ");
+                if (scanf("%f", &valor_float) == 1) {
+                    analizar_float_ieee754(valor_float);
+                } else {
+                    printf("Error: Valor inválido.\n");
+                }
+                break;
+            }
+            
+            case 6:
+                printf("Introduce un valor para manipulación de bits: ");
+                if (scanf("%i", &valor_usuario) == 1) {
+                    demo_manipulacion_bits(valor_usuario);
+                } else {
+                    printf("Error: Valor inválido.\n");
+                }
+                break;
+                
+            case 7:
+                printf("Introduce un valor para comparar signos: ");
+                if (scanf("%i", &valor_usuario) == 1) {
+                    comparar_signos(valor_usuario);
+                } else {
+                    printf("Error: Valor inválido.\n");
+                }
+                break;
+                
+            case 8:
+                ejemplos_practicos_uniones();
+                break;
+                
+            case 9:
+                printf("Introduce un valor para intercambiar endianness: ");
+                if (scanf("%i", &valor_usuario) == 1) {
+                    int32_t intercambiado = intercambiar_endianness(valor_usuario);
+                    printf("\nValor original:    0x%08X (%d)\n", valor_usuario, valor_usuario);
+                    printf("Valor intercambiado: 0x%08X (%d)\n", intercambiado, intercambiado);
+                    
+                    printf("\nAnálisis original:\n");
+                    mostrar_bytes_entero(valor_usuario);
+                    printf("\nAnálisis intercambiado:\n");
+                    mostrar_bytes_entero(intercambiado);
+                } else {
+                    printf("Error: Valor inválido.\n");
+                }
+                break;
+                
+            case 10:
+                demostracion_completa();
+                break;
+                
+            case 0:
+                printf("¡Hasta luego!\n");
+                break;
+                
+            default:
+                printf("Opción inválida. Selecciona del 0 al 10.\n");
+                break;
+        }
+        
+        if (opcion != 0) {
+            printf("\nPresiona Enter para continuar...");
+            getchar(); // Consumir el newline del scanf anterior
+            getchar(); // Esperar Enter del usuario
+        }
+        
+    } while (opcion != 0);
+}
+
+int main(void) {
+    // Para permitir testing automático, usamos el ejemplo básico por defecto
+    ejemplo_basico_enunciado();
+    
+    // Para usar el programa interactivo, comenta la línea anterior
+    // y descomenta la siguiente:
+    // programa_interactivo();
+    
+    // Para la demostración completa, descomenta:
+    // demostracion_completa();
+    
+    return 0;
+}

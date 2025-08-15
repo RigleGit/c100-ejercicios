@@ -1,0 +1,81 @@
+# Archivos compilados y binarios
+*.o
+*.a
+*.so
+*.so.*
+*.dylib
+*.exe
+*.out
+
+# Directorios de compilación
+build/
+Build/
+BUILD/
+bin/
+lib/
+obj/
+
+# Archivos generados por CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+*.cmake
+install_manifest.txt
+CTestTestfile.cmake
+Testing/
+
+# Archivos de configuración específicos del IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Archivos de depuración
+*.dSYM/
+*.gdb_history
+core
+core.*
+vgcore.*
+
+# Archivos de análisis y profiling
+*.gcda
+*.gcno
+*.gcov
+callgrind.out.*
+cachegrind.out.*
+massif.out.*
+*.prof
+
+# Archivos de sanitizers
+*.asan
+*.tsan
+*.msan
+*.ubsan
+
+# Archivos temporales
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
+
+# Archivos de documentación generada
+docs/html/
+docs/latex/
+docs/xml/
+*.doxygen_sqlite3
+
+# Archivos de logs y output
+*.log
+*.txt.user
+test_results.xml
+benchmark_results.json
+
+# Archivos específicos del sistema
+.nfs*
+
+# Archivos de backup
+*.bak
+*.backup
+*~
