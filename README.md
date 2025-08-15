@@ -1,27 +1,10 @@
-# 🚀 C100 Ejer## 📋 Tabla de Contenidos
-
-- [📖 Sobre el Libro](#-sobre-el-libro)
-- [🎯 Descripción](#-descripción)
-- [📚 Estructura del Proyecto](#-estructura-del-proyecto)
-- [🚀 Inicio Rápido](#-inicio-rápido)
-- [🐳 Entorno Docker](#-entorno-docker)
-- [🔧 Instalación Manual](#-instalación-manual)
-- [🧪 Testing](#-testing)
-- [📖 Bloques de Ejercicios](#-bloques-de-ejercicios)Programación en C Completa
+# 🚀 C100 Ejercicios - Programación en C Completa
 
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](.) [![Tests](https://img.shields.io/badge/tests-100%25-success)](.) [![Docker](https://img.shields.io/badge/docker-ready-blue)](.) [![License](https://img.shields.io/badge/license-MIT-green)](.)
 
 Un conjunto completo de **100 ejercicios de programación en C** organizados por dificultad y tema, con sistema de testing automatizado, entorno Docker y documentación exhaustiva.
 
-## � Sobre el Libro
-
-Este repositorio es un **extra del libro "El Lenguaje C en 100 ejercicios explicados"**. Si este código te ha sido de ayuda y quieres apoyar el proyecto o acceder al contenido completo explicado paso a paso, puedes encontrar el libro aquí:
-
-**📘 [El Lenguaje C en 100 ejercicios explicados](https://www.amazon.com/Rodrigo-Iglesias-ebook/dp/B0CRVJKX5H)**
-
-¡Tu apoyo ayuda a mantener este proyecto actualizado y crear más recursos educativos! 🙏
-
-## �📋 Tabla de Contenidos
+## 📋 Tabla de Contenidos
 
 - [🎯 Descripción](#-descripción)
 - [📚 Estructura del Proyecto](#-estructura-del-proyecto)
@@ -131,7 +114,7 @@ sudo apt install build-essential cmake libcriterion-dev
 # Clonar y probar
 git clone <repo-url>
 cd c100-ejercicios
-./tools/prueba_everything_fresh.sh
+./tools/test_everything_fresh.sh
 ```
 
 ## 🐳 Entorno Docker
@@ -171,7 +154,7 @@ docker exec -it c100-ejercicios-dev /bin/bash
 # Pipeline de integración continua
 docker build -t c100-test .
 docker run --rm -v $(pwd):/workspace c100-test \
-  bash -c "./tools/prueba_everything_fresh.sh"
+  bash -c "./tools/test_everything_fresh.sh"
 ```
 
 📖 **Más detalles en [DOCKER_README.md](DOCKER_README.md)**
@@ -217,7 +200,7 @@ cmake --version
 pkg-config --exists criterion && echo "✅ Criterion OK"
 
 # Probar proyecto
-./tools/prueba_everything_fresh.sh
+./tools/test_everything_fresh.sh
 ```
 
 ## 🧪 Testing
@@ -228,7 +211,7 @@ El proyecto incluye un sistema de testing robusto y multicapa:
 
 ```bash
 # Método 1: Script maestro (recomendado)
-./tools/prueba_everything_fresh.sh
+./tools/test_everything_fresh.sh
 
 # Método 2: Docker
 ./tools/docker_build.sh test
@@ -478,9 +461,9 @@ El proyecto incluye un conjunto completo de herramientas de automatización:
 
 | Script | Propósito | Uso |
 |--------|-----------|-----|
-| `prueba_everything_fresh.sh` | Testing completo desde cero | `./tools/prueba_everything_fresh.sh` |
+| `test_everything_fresh.sh` | Testing completo desde cero | `./tools/test_everything_fresh.sh` |
 | `quick_test.sh` | Testing rápido por bloques | `./tools/quick_test.sh 5` |
-| `clean_all.sh` | Limpieza completa de artefactos | `./tools/clean_all.sh --apply` |
+| `clean_all.sh` | Limpieza completa | `./tools/clean_all.sh` |
 | `docker_build.sh` | Gestión de Docker | `./tools/docker_build.sh run` |
 
 ### 🐳 Scripts Docker
@@ -488,34 +471,15 @@ El proyecto incluye un conjunto completo de herramientas de automatización:
 | Script | Propósito | Uso |
 |--------|-----------|-----|
 | `docker_build.sh` | Gestión completa de Docker | `./tools/docker_build.sh test` |
-| `docker_test_runner.sh` | Testing optimizado en contenedor | `./tools/docker_test_runner.sh` |
+| `docker_test_runner.sh` | Testing optimizado en contenedor | `./tools/docker_test_runner.sh interactive` |
 
 ### 🔧 Utilidades
 
 - **Compilación automática** con detección de errores
 - **Testing paralelo** para velocidad
-- **Limpieza inteligente** de archivos generados (ejecutables, objetos, temporales, etc.)
-- **Gestión de contenedores** Docker con servicios auxiliares
-- **Scripts robustos** que funcionan en diferentes entornos (local/contenedor)
+- **Limpieza inteligente** de archivos generados
 - **Reportes detallados** de resultados
 - **Compatibilidad multiplataforma**
-
-### 🧹 Limpieza del Repositorio
-
-El script `clean_all.sh` limpia automáticamente todos los artefactos de compilación y testing:
-
-```bash
-# Ver qué se borraría (modo seguro)
-./tools/clean_all.sh
-
-# Aplicar limpieza
-./tools/clean_all.sh --apply
-
-# Limpieza agresiva (más profunda)
-./tools/clean_all.sh --apply --hard
-```
-
-**Limpia**: ejecutables, archivos objeto (`.o`), Makefiles generados, archivos temporales, directorios de build, archivos de debug (`.dSYM`), archivos de respaldo (`.bak`, `~`), y más.
 
 📖 **Documentación completa en [tools/README.md](tools/README.md)**
 
@@ -588,7 +552,7 @@ cd c100-ejercicios
 
 ```bash
 # Antes de reportar, ejecuta:
-./tools/prueba_everything_fresh.sh > debug_output.txt
+./tools/test_everything_fresh.sh > debug_output.txt
 
 # Incluye en tu reporte:
 # - Sistema operativo
@@ -645,6 +609,14 @@ cd c100-ejercicios
 | **Líneas de código** | ~50,000 |
 | **Documentación** | ~200 páginas |
 
+### 🎯 Roadmap
+
+- [ ] **Más ejercicios avanzados** (GPU, paralelismo)
+- [ ] **Interfaz web** para testing online
+- [ ] **Integración CI/CD** con GitHub Actions
+- [ ] **Métricas de calidad** automáticas
+- [ ] **Traducción** a otros idiomas
+
 ## 📄 Licencia
 
 Este proyecto está licenciado bajo la **MIT License** - ver [LICENSE](LICENSE) para detalles.
@@ -687,7 +659,7 @@ Este proyecto está licenciado bajo la **MIT License** - ver [LICENSE](LICENSE) 
 # Si persiste, reporta issue con:
 gcc --version
 cmake --version
-./tools/prueba_everything_fresh.sh > error.log 2>&1
+./tools/test_everything_fresh.sh > error.log 2>&1
 ```
 </details>
 
@@ -696,8 +668,8 @@ cmake --version
 
 ```bash
 # Limpia y vuelve a probar:
-./tools/clean_all.sh --apply
-./tools/prueba_everything_fresh.sh
+./tools/clean_all.sh
+./tools/test_everything_fresh.sh
 
 # Para un ejercicio específico:
 cd XX-bloque/XXX-ejercicio
