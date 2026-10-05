@@ -982,7 +982,9 @@ ResultadoEscritura concatenar_archivos(const char* archivo1, const char* archivo
     FILE *b = fopen(archivo2, "r");
     FILE *out = fopen(archivo_destino, "w");
     if (!a || !b || !out) {
-        if (a) fclose(a); if (b) fclose(b); if (out) fclose(out);
+        if (a) fclose(a);
+        if (b) fclose(b);
+        if (out) fclose(out);
         return resultado_error("Error al abrir el archivo");
     }
     char buf[4096];
