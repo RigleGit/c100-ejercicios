@@ -1,0 +1,28 @@
+ect /tmp/c100/15-proyectos-finales/099-agenda-contactos/build
+    Start 1: persistencia_control
+1/6 Test #1: persistencia_control .............   Passed    0.00 sec
+    Start 2: persistencia_comillas
+2/6 Test #2: persistencia_comillas ............   Passed    0.00 sec
+    Start 3: persistencia_importacion
+3/6 Test #3: persistencia_importacion .........   Passed    0.00 sec
+    Start 4: persistencia_invalido
+4/6 Test #4: persistencia_invalido ............   Passed    0.00 sec
+    Start 5: persistencia_backup
+5/6 Test #5: persistencia_backup ..............   Passed    0.00 sec
+    Start 6: persistencia_escritura
+6/6 Test #6: persistencia_escritura ...........   Passed    0.00 sec
+
+100% tests passed, 0 tests failed out of 6
+
+Total Test time (real) =   0.01 sec
+=== 15-proyectos-finales/100-evaluador-rpn/ ===
+Internal ctest changing into directory: /tmp/c100/15-proyectos-finales/100-evaluador-rpn/build
+Test project /tmp/c100/15-proyectos-finales/100-evaluador-rpn/build
+    Start 1: test_contrato
+1/1 Test #1: test_contrato ....................   Passed    0.00 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =   0.00 sec
+Probados: 100 | Exitosos: 100 | Fallidos: 0
+

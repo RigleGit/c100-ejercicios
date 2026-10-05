@@ -21,3 +21,7 @@
 9. Comprobación final desde árboles limpios: ejecutar suite completa en Linux/macOS, comprobar sanitizadores pertinentes y diff. Registrar resultados y lista de commits locales. No publicar.
 
 Cada reparación funcional sigue reproducción → cambio → prueba → revisión del diff → commit. No se promete una revisión manual exhaustiva de toda función ni ausencia absoluta de bugs.
+
+## Cierre de ejecución
+
+Los nueve bloques de reparación se han completado en commits locales. La numeración 085–087 coincide con el libro y el 094 anterior está fuera del índice. Véase [VERIFICACION.md](../VERIFICACION.md) para resultados y límites. No se ha hecho push.

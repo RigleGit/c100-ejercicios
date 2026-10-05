@@ -1,0 +1,802 @@
+[
+  {
+    "exercise": "01-fundamentos-c/001-hola-mundo",
+    "number": 1,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "01-fundamentos-c/002-suma-dos-numeros",
+    "number": 2,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "01-fundamentos-c/003-conversion-temperatura",
+    "number": 3,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "01-fundamentos-c/004-area-circulo",
+    "number": 4,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "01-fundamentos-c/005-formato-tiempo",
+    "number": 5,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "01-fundamentos-c/006-codigo-ascii",
+    "number": 6,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "01-fundamentos-c/007-distancia-euclidiana",
+    "number": 7,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "01-fundamentos-c/008-promedio-tres-numeros",
+    "number": 8,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "01-fundamentos-c/009-intercambio-variables",
+    "number": 9,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "01-fundamentos-c/010-volumen-esfera",
+    "number": 10,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "02-control-de-flujo/011-par-impar",
+    "number": 11,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "02-control-de-flujo/012-maximo-dos",
+    "number": 12,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "02-control-de-flujo/013-clasificacion-numerica",
+    "number": 13,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "02-control-de-flujo/014-mayor-tres-numeros",
+    "number": 14,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "02-control-de-flujo/015-calculadora-basica",
+    "number": 15,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "02-control-de-flujo/016-factorial",
+    "number": 16,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "02-control-de-flujo/017-suma-digitos",
+    "number": 17,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "02-control-de-flujo/018-adivina-numero",
+    "number": 18,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "02-control-de-flujo/019-triangulo-asteriscos",
+    "number": 19,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "02-control-de-flujo/020-numeros-primos-N",
+    "number": 20,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "03-funciones-modularidad/021-funcion-maximo-dos",
+    "number": 21,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "03-funciones-modularidad/022-factorial-recursivo",
+    "number": 22,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "03-funciones-modularidad/023-funcion-esprimo",
+    "number": 23,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "03-funciones-modularidad/024-funcion-mcd",
+    "number": 24,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "03-funciones-modularidad/025-funcion-potencia",
+    "number": 25,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "04-operaciones-nivel-bit/026-paridad-bits",
+    "number": 26,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "04-operaciones-nivel-bit/027-contar-bits-1",
+    "number": 27,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "04-operaciones-nivel-bit/028-potencia-2-bits",
+    "number": 28,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "04-operaciones-nivel-bit/029-intercambio-xor",
+    "number": 29,
+    "tests": 2,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "04-operaciones-nivel-bit/030-empaquetar-bytes",
+    "number": 30,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "05-vectores-cadenas-caracteres/031-invertir-array",
+    "number": 31,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "05-vectores-cadenas-caracteres/032-suma-promedio-array",
+    "number": 32,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "05-vectores-cadenas-caracteres/033-minimo-maximo-array",
+    "number": 33,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "05-vectores-cadenas-caracteres/034-busqueda-lineal",
+    "number": 34,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "05-vectores-cadenas-caracteres/035-ordenar-array-burbuja",
+    "number": 35,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "05-vectores-cadenas-caracteres/036-suma-matrices",
+    "number": 36,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "05-vectores-cadenas-caracteres/037-multiplicacion-matrices",
+    "number": 37,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "05-vectores-cadenas-caracteres/038-longitud-cadena",
+    "number": 38,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "05-vectores-cadenas-caracteres/039-contar-vocales",
+    "number": 39,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "05-vectores-cadenas-caracteres/040-invertir-cadena",
+    "number": 40,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "05-vectores-cadenas-caracteres/041-comparar-cadenas",
+    "number": 41,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "05-vectores-cadenas-caracteres/042-busqueda-subcadena",
+    "number": 42,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "06-punteros/043-introduccion-punteros",
+    "number": 43,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "06-punteros/044-swap-punteros",
+    "number": 44,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "06-punteros/045-recorrer-array-punteros",
+    "number": 45,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "06-punteros/046-copiar-cadena-punteros",
+    "number": 46,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "06-punteros/047-puntero-a-funcion",
+    "number": 47,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "06-punteros/048-buscar-caracter-punteros",
+    "number": 48,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "06-punteros/049-inspeccionar-bytes-entero",
+    "number": 49,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "06-punteros/050-puntero-void",
+    "number": 50,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "07-memoria-dinamica/051-entero-dinamico",
+    "number": 51,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "07-memoria-dinamica/052-array-dinamico",
+    "number": 52,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "07-memoria-dinamica/053-redimensionar-array-realloc",
+    "number": 53,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "07-memoria-dinamica/054-concatenar-cadenas-dinamico",
+    "number": 54,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "07-memoria-dinamica/055-matriz-dinamica-2d",
+    "number": 55,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "07-memoria-dinamica/056-array-dinamico-cadenas",
+    "number": 56,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "08-struct-union-enums/057-estructura-persona",
+    "number": 57,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "08-struct-union-enums/058-array-estructuras",
+    "number": 58,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "08-struct-union-enums/059-union-reinterpretar-datos",
+    "number": 59,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "08-struct-union-enums/060-enumeracion",
+    "number": 60,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "08-struct-union-enums/061-estructura-dinamica",
+    "number": 61,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "08-struct-union-enums/062-estructura-campos-bits",
+    "number": 62,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "09-estructuras-datos/063-lista-enlazada-simple",
+    "number": 63,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "09-estructuras-datos/064-eliminar-nodo-lista",
+    "number": 64,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "09-estructuras-datos/065-invertir-lista-enlazada",
+    "number": 65,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "09-estructuras-datos/066-pila-lista-enlazada",
+    "number": 66,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "09-estructuras-datos/067-cola-lista-enlazada",
+    "number": 67,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "09-estructuras-datos/068-arbol-binario-busqueda",
+    "number": 68,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "09-estructuras-datos/069-altura-arbol-recursivo",
+    "number": 69,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "09-estructuras-datos/070-lista-doblemente-enlazada",
+    "number": 70,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "09-estructuras-datos/071-quicksort",
+    "number": 71,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "09-estructuras-datos/072-busqueda-binaria",
+    "number": 72,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "10-archivos-manejo-ficheros/073-escribir-archivo-texto",
+    "number": 73,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "10-archivos-manejo-ficheros/074-leer-archivo-texto",
+    "number": 74,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "10-archivos-manejo-ficheros/075-copiar-archivo-texto",
+    "number": 75,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "10-archivos-manejo-ficheros/076-contar-lineas-palabras",
+    "number": 76,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "10-archivos-manejo-ficheros/077-escribir-registros-binario",
+    "number": 77,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "10-archivos-manejo-ficheros/078-leer-registros-binario",
+    "number": 78,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "11-compilacion-preprocesador/079-constantes-preprocesador",
+    "number": 79,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "11-compilacion-preprocesador/080-macros-con-argumentos",
+    "number": 80,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "11-compilacion-preprocesador/081-compilacion-condicional",
+    "number": 81,
+    "tests": 2,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "11-compilacion-preprocesador/082-reestructurar-archivos",
+    "number": 82,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "11-compilacion-preprocesador/083-assert-validacion",
+    "number": 83,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "12-concurrencia/084-hilos-basicos-pthread",
+    "number": 84,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "12-concurrencia/085-suma-paralela-arrays",
+    "number": 85,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "12-concurrencia/086-race-conditions",
+    "number": 86,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "12-concurrencia/087-sincronizacion-mutex",
+    "number": 87,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "12-concurrencia/088-productor-consumidor",
+    "number": 88,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "13-redes/089-cliente-tcp",
+    "number": 89,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "13-redes/090-servidor-tcp",
+    "number": 90,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "13-redes/091-comunicacion-udp",
+    "number": 91,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "13-redes/092-servidor-tcp-multicliente",
+    "number": 92,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "13-redes/093-cliente-http",
+    "number": 93,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "14-seguridad-buenas-practicas/094-entrada-segura-v2",
+    "number": 94,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "14-seguridad-buenas-practicas/095-funciones-seguras-cadenas",
+    "number": 95,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "14-seguridad-buenas-practicas/096-operaciones-aritmeticas-seguras",
+    "number": 96,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "14-seguridad-buenas-practicas/097-const-correctness",
+    "number": 97,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "14-seguridad-buenas-practicas/098-control-errores-robusto",
+    "number": 98,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "15-proyectos-finales/099-agenda-contactos",
+    "number": 99,
+    "tests": 6,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  },
+  {
+    "exercise": "15-proyectos-finales/100-evaluador-rpn",
+    "number": 100,
+    "tests": 1,
+    "configure": 0,
+    "build": 0,
+    "test": 0
+  }
+]
