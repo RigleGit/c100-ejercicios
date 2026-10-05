@@ -258,8 +258,8 @@ void demostrar_limites(void) {
     
     // Demostrar truncamiento
     printf("Truncamiento: ");
-    e.reservado = 16; // Se trunca a 0 (16 & 0xF = 0)
+    e.reservado = 16u & 0xFu; // Se trunca a 0 (16 & 0xF = 0)
     printf("16 -> %u, ", e.reservado);
-    e.reservado = 17; // Se trunca a 1 (17 & 0xF = 1)
+    e.reservado = 17u & 0xFu; // Se trunca a 1 (17 & 0xF = 1)
     printf("17 -> %u\n", e.reservado);
 }
