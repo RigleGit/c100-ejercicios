@@ -17,7 +17,7 @@ int main(void) {
     } else {
         printf("Error: No se pudo abrir el archivo '%s'\n", nombre_archivo);
         printf("Creando un archivo de ejemplo...\n");
-        
+
         // Crear archivo de ejemplo para demostración
         FILE* ejemplo = fopen(nombre_archivo, "w");
         if (ejemplo) {
@@ -27,9 +27,9 @@ int main(void) {
             fprintf(ejemplo, "\n");
             fprintf(ejemplo, "¡Funciona perfectamente!\n");
             fclose(ejemplo);
-            
+
             printf("Archivo de ejemplo creado. Analizando...\n\n");
-            
+
             if (contar_archivo_basico(nombre_archivo, &stats)) {
                 printf("Análisis del archivo de ejemplo:\n");
                 imprimir_estadisticas(&stats, nombre_archivo);

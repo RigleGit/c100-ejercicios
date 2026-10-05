@@ -28,4 +28,3 @@ Test project /Users/rigle/Programming/c100-ejercicios/15-proyectos-finales/100-e
 
 Total Test time (real) =   0.18 sec
 Probados: 100 | Exitosos: 100 | Fallidos: 0
-

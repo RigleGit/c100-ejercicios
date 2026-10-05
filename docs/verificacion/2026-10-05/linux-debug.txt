@@ -25,4 +25,3 @@ Test project /tmp/c100/15-proyectos-finales/100-evaluador-rpn/build
 
 Total Test time (real) =   0.00 sec
 Probados: 100 | Exitosos: 100 | Fallidos: 0
-
