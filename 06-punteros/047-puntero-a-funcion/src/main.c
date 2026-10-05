@@ -370,8 +370,8 @@ int main(void) {
     
     // Demostración detallada
     printf("🔹 ANÁLISIS DETALLADO:\n");
-    printf("Dirección de la función sumar: %p\n", (void *)sumar);
-    printf("Valor del puntero ptrFuncion: %p\n", (void *)ptrFuncion);
+    printf("Función seleccionada: sumar\n");
+    printf("Los punteros a función se comparan sin convertirlos a void *.\n");
     printf("¿Apuntan al mismo lugar? %s\n\n", 
            (sumar == ptrFuncion) ? "Sí" : "No");
     
@@ -472,7 +472,7 @@ int main(void) {
     
     // Puntero nulo
     int (*ptr_nulo)(int, int) = NULL;
-    printf("Puntero nulo: %p\n", (void *)ptr_nulo);
+    printf("Puntero nulo: %s\n", ptr_nulo == NULL ? "Sí" : "No");
     
     // Verificación antes de usar
     if (ptr_nulo != NULL) {
