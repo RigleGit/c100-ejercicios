@@ -363,17 +363,17 @@ void cliente_http_imprimir_headers(const respuesta_http_t *respuesta);
  * ================================ */
 
 #ifdef DEBUG
-    #define CLIENTE_HTTP_DEBUG(fmt, ...) \
-        fprintf(stderr, "[DEBUG] %s:%d: " fmt "\n", __FILE__, __LINE__, ##__VA_ARGS__)
+    #define CLIENTE_HTTP_DEBUG(...) \
+    do { fputs("[DEBUG] ", stderr); fprintf(stderr, "%s:%d: ", __FILE__, __LINE__); fprintf(stderr, __VA_ARGS__); fputc('\n', stderr); } while (0)
 #else
     #define CLIENTE_HTTP_DEBUG(fmt, ...)
 #endif
 
-#define CLIENTE_HTTP_LOG(fmt, ...) \
-    fprintf(stdout, "[CLIENTE_HTTP] " fmt "\n", ##__VA_ARGS__)
+#define CLIENTE_HTTP_LOG(...) \
+    do { fputs("[CLIENTE_HTTP] ", stdout); fprintf(stdout, __VA_ARGS__); fputc('\n', stdout); } while (0)
 
-#define CLIENTE_HTTP_ERROR(fmt, ...) \
-    fprintf(stderr, "[ERROR] " fmt "\n", ##__VA_ARGS__)
+#define CLIENTE_HTTP_ERROR(...) \
+    do { fputs("[ERROR] ", stderr); fprintf(stderr, __VA_ARGS__); fputc('\n', stderr); } while (0)
 
 /* ================================
  * CONSTANTES Y MACROS

@@ -12,8 +12,6 @@
  * VARIABLES GLOBALES
  * ================================ */
 
-static config_cliente_http_t config_global = {0};
-static bool config_inicializada = false;
 
 /* ================================
  * FUNCIONES AUXILIARES INTERNAS
@@ -81,39 +79,6 @@ static ssize_t enviar_completo(int socket, const char *buffer, size_t longitud) 
     }
     
     return enviado;
-}
-
-/**
- * @brief Recibe datos hasta encontrar delimitador
- */
-static ssize_t recibir_hasta_delimitador(int socket, char *buffer, size_t tamaño_buffer, 
-                                        const char *delimitador) {
-    size_t recibido = 0;
-    ssize_t resultado;
-    size_t len_delim = strlen(delimitador);
-    
-    while (recibido < tamaño_buffer - 1) {
-        resultado = recv(socket, buffer + recibido, 1, 0);
-        if (resultado < 0) {
-            if (errno == EINTR) continue;
-            return -1;
-        }
-        if (resultado == 0) {
-            break; // Conexión cerrada
-        }
-        
-        recibido++;
-        buffer[recibido] = '\0';
-        
-        // Verificar si encontramos el delimitador
-        if (recibido >= len_delim) {
-            if (strstr(buffer + recibido - len_delim, delimitador)) {
-                break;
-            }
-        }
-    }
-    
-    return recibido;
 }
 
 /* ================================
@@ -200,6 +165,7 @@ ssize_t cliente_http_enviar_peticion(int socket, const peticion_http_t *peticion
 }
 
 int cliente_http_recibir_respuesta(int socket, respuesta_http_t *respuesta, int timeout) {
+    if (!respuesta || socket < 0) return CLIENTE_HTTP_ERROR_PARAMETRO;
     char buffer[BUFFER_SIZE_DEFAULT];
     char *contenido_completo = NULL;
     size_t tamaño_total = 0;
@@ -277,9 +243,18 @@ int cliente_http_recibir_respuesta(int socket, respuesta_http_t *respuesta, int 
         return CLIENTE_HTTP_ERROR_RECEPCION;
     }
     
-    // Guardar contenido completo en la respuesta
+    if (!headers_completos) {
+        free(contenido_completo);
+        return CLIENTE_HTTP_ERROR_RESPUESTA_INVALIDA;
+    }
+    /* El contenido público contiene únicamente el cuerpo HTTP. */
+    pos_separador = strstr(contenido_completo, "\r\n\r\n");
+    size_t inicio_cuerpo = (size_t)(pos_separador - contenido_completo) + 4;
+    size_t tamaño_cuerpo = tamaño_total - inicio_cuerpo;
+    memmove(contenido_completo, contenido_completo + inicio_cuerpo, tamaño_cuerpo);
+    contenido_completo[tamaño_cuerpo] = '\0';
     respuesta->contenido = contenido_completo;
-    respuesta->tamaño_contenido = tamaño_total;
+    respuesta->tamaño_contenido = tamaño_cuerpo;
     respuesta->bytes_recibidos = tamaño_total;
     
     CLIENTE_HTTP_DEBUG("Recibida respuesta HTTP (%zu bytes)", tamaño_total);
