@@ -11,10 +11,17 @@
 
 #include "../include/copiar_archivo.h"
 #include <unistd.h>
+#include <sys/stat.h>
 
 /* ================================
  * FUNCIONES BÁSICAS DE COPIA
  * ================================ */
+
+static bool mismo_archivo(const char* origen, const char* destino) {
+    struct stat a, b;
+    return origen && destino && stat(origen, &a) == 0 && stat(destino, &b) == 0 &&
+           a.st_dev == b.st_dev && a.st_ino == b.st_ino;
+}
 
 ResultadoCopia copiar_archivo_basico(const char* archivo_origen, 
                                     const char* archivo_destino) {
@@ -26,9 +33,18 @@ ResultadoCopia copiar_archivo_basico(const char* archivo_origen,
         return resultado;
     }
     
+    if (mismo_archivo(archivo_origen, archivo_destino)) {
+        snprintf(resultado.mensaje, sizeof(resultado.mensaje), "Origen y destino son el mismo archivo");
+        return resultado;
+    }
+
     clock_t inicio = clock();
     
     FILE* origen = fopen(archivo_origen, "r");
+    if (!origen) {
+        snprintf(resultado.mensaje, sizeof(resultado.mensaje), "No se pudo abrir el origen");
+        return resultado;
+    }
     FILE* destino = fopen(archivo_destino, "w");
     char buffer[256];
     
@@ -53,8 +69,13 @@ ResultadoCopia copiar_archivo_basico(const char* archivo_origen,
         bytes_copiados += strlen(buffer);
     }
     
-    fclose(origen);
-    fclose(destino);
+    bool error_lectura = ferror(origen) != 0;
+    int cierre_origen = fclose(origen);
+    int cierre_destino = fclose(destino);
+    if (error_lectura || cierre_origen != 0 || cierre_destino != 0) {
+        snprintf(resultado.mensaje, sizeof(resultado.mensaje), "Error al leer o cerrar los archivos");
+        return resultado;
+    }
     
     clock_t fin = clock();
     double tiempo = ((double)(fin - inicio)) / CLOCKS_PER_SEC;
@@ -78,6 +99,11 @@ ResultadoCopia copiar_linea_por_linea(const char* archivo_origen,
         return resultado;
     }
     
+    if (mismo_archivo(archivo_origen, archivo_destino)) {
+        snprintf(resultado.mensaje, sizeof(resultado.mensaje), "Origen y destino son el mismo archivo");
+        return resultado;
+    }
+
     clock_t inicio = clock();
     
     FILE* origen = fopen(archivo_origen, "r");
@@ -120,8 +146,13 @@ ResultadoCopia copiar_linea_por_linea(const char* archivo_origen,
         return resultado;
     }
     
-    fclose(origen);
-    fclose(destino);
+    bool error_lectura = ferror(origen) != 0;
+    int cierre_origen = fclose(origen);
+    int cierre_destino = fclose(destino);
+    if (error_lectura || cierre_origen != 0 || cierre_destino != 0) {
+        snprintf(resultado.mensaje, sizeof(resultado.mensaje), "Error al leer o cerrar los archivos");
+        return resultado;
+    }
     
     clock_t fin = clock();
     double tiempo = ((double)(fin - inicio)) / CLOCKS_PER_SEC;
@@ -146,6 +177,11 @@ ResultadoCopia copiar_caracter_por_caracter(const char* archivo_origen,
         return resultado;
     }
     
+    if (mismo_archivo(archivo_origen, archivo_destino)) {
+        snprintf(resultado.mensaje, sizeof(resultado.mensaje), "Origen y destino son el mismo archivo");
+        return resultado;
+    }
+
     clock_t inicio = clock();
     
     FILE* origen = fopen(archivo_origen, "r");
@@ -187,8 +223,13 @@ ResultadoCopia copiar_caracter_por_caracter(const char* archivo_origen,
         return resultado;
     }
     
-    fclose(origen);
-    fclose(destino);
+    bool error_lectura = ferror(origen) != 0;
+    int cierre_origen = fclose(origen);
+    int cierre_destino = fclose(destino);
+    if (error_lectura || cierre_origen != 0 || cierre_destino != 0) {
+        snprintf(resultado.mensaje, sizeof(resultado.mensaje), "Error al leer o cerrar los archivos");
+        return resultado;
+    }
     
     clock_t fin = clock();
     double tiempo = ((double)(fin - inicio)) / CLOCKS_PER_SEC;
@@ -214,6 +255,11 @@ ResultadoCopia copiar_por_bloques(const char* archivo_origen,
         return resultado;
     }
     
+    if (mismo_archivo(archivo_origen, archivo_destino)) {
+        snprintf(resultado.mensaje, sizeof(resultado.mensaje), "Origen y destino son el mismo archivo");
+        return resultado;
+    }
+
     clock_t inicio = clock();
     
     FILE* origen = fopen(archivo_origen, "rb");  // Modo binario para bloques
@@ -270,8 +316,13 @@ ResultadoCopia copiar_por_bloques(const char* archivo_origen,
     }
     
     free(buffer);
-    fclose(origen);
-    fclose(destino);
+    bool error_lectura = ferror(origen) != 0;
+    int cierre_origen = fclose(origen);
+    int cierre_destino = fclose(destino);
+    if (error_lectura || cierre_origen != 0 || cierre_destino != 0) {
+        snprintf(resultado.mensaje, sizeof(resultado.mensaje), "Error al leer o cerrar los archivos");
+        return resultado;
+    }
     
     clock_t fin = clock();
     double tiempo = ((double)(fin - inicio)) / CLOCKS_PER_SEC;
@@ -357,7 +408,7 @@ ResultadoCopia copiar_archivo_configurado(const char* archivo_origen,
         // Actualizar mensaje con información de verificación
         char mensaje_temp[512];
         snprintf(mensaje_temp, sizeof(mensaje_temp), 
-                "%s - Verificación exitosa", resultado.mensaje);
+                "%.480s - Verificación exitosa", resultado.mensaje);
         strncpy(resultado.mensaje, mensaje_temp, sizeof(resultado.mensaje) - 1);
         resultado.mensaje[sizeof(resultado.mensaje) - 1] = '\0';
     }
@@ -385,6 +436,11 @@ ResultadoCopia copiar_archivo_con_progreso(const char* archivo_origen,
         return resultado;
     }
     
+    if (mismo_archivo(archivo_origen, archivo_destino)) {
+        snprintf(resultado.mensaje, sizeof(resultado.mensaje), "Origen y destino son el mismo archivo");
+        return resultado;
+    }
+
     clock_t inicio = clock();
     
     FILE* origen = fopen(archivo_origen, "rb");
@@ -445,8 +501,13 @@ ResultadoCopia copiar_archivo_con_progreso(const char* archivo_origen,
         }
     }
     
-    fclose(origen);
-    fclose(destino);
+    bool error_lectura = ferror(origen) != 0;
+    int cierre_origen = fclose(origen);
+    int cierre_destino = fclose(destino);
+    if (error_lectura || cierre_origen != 0 || cierre_destino != 0) {
+        snprintf(resultado.mensaje, sizeof(resultado.mensaje), "Error al leer o cerrar los archivos");
+        return resultado;
+    }
     
     clock_t fin = clock();
     double tiempo = ((double)(fin - inicio)) / CLOCKS_PER_SEC;
@@ -471,7 +532,7 @@ ResultadoCopia copiar_archivos_lote(const char** archivos_origen,
                 "Parámetros inválidos para copia en lote");
         return resultado;
     }
-    
+
     clock_t inicio = clock();
     long total_bytes = 0;
     int archivos_exitosos = 0;
@@ -610,7 +671,7 @@ ResultadoCopia verificar_integridad_copia(const char* archivo_origen,
                 "Archivo destino no existe: %s", archivo_destino);
         return resultado;
     }
-    
+
     clock_t inicio = clock();
     
     // Obtener tamaños
@@ -695,7 +756,7 @@ ResultadoCopia restaurar_desde_backup(const char* archivo_original) {
     
     if (!archivo_existe_y_legible(nombre_backup)) {
         snprintf(resultado.mensaje, sizeof(resultado.mensaje), 
-                "Archivo de backup no existe: %s", nombre_backup);
+                "Archivo de backup no existe: %.480s", nombre_backup);
         return resultado;
     }
     
@@ -1133,8 +1194,13 @@ int main_basico(void) {
         }
     }
 
-    fclose(origen);
-    fclose(destino);
+    bool error_lectura = ferror(origen) != 0;
+    int cierre_origen = fclose(origen);
+    int cierre_destino = fclose(destino);
+    if (error_lectura || cierre_origen != 0 || cierre_destino != 0) {
+        fprintf(stderr, "Error al leer o cerrar los archivos\n");
+        return 1;
+    }
 
     printf("Archivo copiado correctamente.\n");
     return 0;
