@@ -45,16 +45,16 @@ NodoArbol* nodo_crear(int valor) {
 
 bool arbol_insertar(ArbolBinario* arbol, int valor) {
     if (!arbol) return false;
-    
-    int tamanio_anterior = arbol->tamanio;
-    arbol->raiz = insertar_recursivo(arbol->raiz, valor);
-    
-    // Verificar si se insertó realmente
-    if (arbol->tamanio > tamanio_anterior) {
-        return true;
+    NodoArbol** enlace = &arbol->raiz;
+    while (*enlace) {
+        if (valor == (*enlace)->valor) return false;
+        enlace = valor < (*enlace)->valor ? &(*enlace)->izq : &(*enlace)->der;
     }
-    
-    return false;
+    NodoArbol* nuevo = nodo_crear(valor);
+    if (!nuevo) return false;
+    *enlace = nuevo;
+    arbol->tamanio++;
+    return true;
 }
 
 NodoArbol* insertar_recursivo(NodoArbol* raiz, int valor) {
@@ -518,5 +518,7 @@ int main(void) {
     printf("\n=== EJEMPLO INTERACTIVO ===\n");
     printf("Probando con diferentes estructuras:\n");
     
+    arbol_destruir(arbol);
+    return 0;
 }
 #endif // EXCLUDE_MAIN
