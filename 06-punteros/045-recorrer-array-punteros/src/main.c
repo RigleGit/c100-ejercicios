@@ -172,13 +172,14 @@ void demo_aritmetica_punteros(int *array, size_t tamaño) {
  */
 int suma_array_reverso(int *array, size_t tamaño) {
     int suma = 0;
-    int *ptr = array + tamaño - 1;  // Apuntar al último elemento
+    if (tamaño == 0) return 0;
+    int *ptr = array + tamaño;  // Una posición después del último elemento
     
     printf("Recorrido hacia atrás:\n");
     for (size_t i = tamaño; i > 0; i--) {
+        --ptr;
         printf("  *ptr = %d (posición %zu)\n", *ptr, i - 1);
         suma += *ptr;
-        ptr--;  // Retroceder
     }
     printf("  Suma total: %d\n\n", suma);
     
