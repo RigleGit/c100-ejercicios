@@ -33,6 +33,7 @@ static void manejador_shutdown(int signal) {
  * @brief Manejador para SIGCHLD (procesos hijos terminados)
  */
 static void manejador_sigchld(int signal) {
+    (void)signal;
     // Recoger procesos hijos zombi
     while (waitpid(-1, NULL, WNOHANG) > 0);
 }
