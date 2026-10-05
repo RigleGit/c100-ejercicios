@@ -56,24 +56,20 @@ int potencia(int base, int exponente) {
 }
 
 int raiz_cuadrada(int numero) {
-    if (numero < 0) {
-        return -1; // No hay raíz cuadrada real de números negativos
+    if (numero < 0) return -1;
+    if (numero < 2) return numero;
+    int inferior = 1, superior = numero / 2 + 1, resultado = 1;
+    while (inferior <= superior) {
+        int medio = inferior + (superior - inferior) / 2;
+        /* La división evita desbordar al calcular medio * medio. */
+        if (medio <= numero / medio) {
+            resultado = medio;
+            inferior = medio + 1;
+        } else {
+            superior = medio - 1;
+        }
     }
-    
-    if (numero == 0 || numero == 1) {
-        return numero;
-    }
-    
-    // Método de Newton-Raphson simplificado para enteros
-    int raiz = numero / 2;
-    int temp = 0;
-    
-    while (raiz != temp) {
-        temp = raiz;
-        raiz = (numero / raiz + raiz) / 2;
-    }
-    
-    return raiz;
+    return resultado;
 }
 
 long long factorial(int n) {
