@@ -1,9 +1,17 @@
 #include "contacto.h"
 #include <ctype.h>
 #include <regex.h>
+#include <strings.h>
 
 // Variables globales para estadísticas
 static int siguiente_id = 1;
+static bool contiene_sin_mayusculas(const char *texto, const char *patron) {
+    size_t longitud = strlen(patron);
+    do {
+        if (strncasecmp(texto, patron, longitud) == 0) return true;
+    } while (*texto++);
+    return false;
+}
 
 // ========================================
 // FUNCIONES AUXILIARES PRIVADAS
@@ -14,7 +22,7 @@ static void limpiar_string(char *str) {
     
     // Eliminar espacios al inicio y final
     char *inicio = str;
-    while (isspace(*inicio)) inicio++;
+    while (isspace((unsigned char)*inicio)) inicio++;
     
     if (*inicio == '\0') {
         str[0] = '\0';
@@ -22,7 +30,7 @@ static void limpiar_string(char *str) {
     }
     
     char *final = str + strlen(str) - 1;
-    while (final > str && isspace(*final)) final--;
+    while (final > str && isspace((unsigned char)*final)) final--;
     
     // Mover el string limpio al inicio del buffer
     size_t longitud = final - inicio + 1;
@@ -34,7 +42,7 @@ static bool es_string_vacio(const char *str) {
     if (!str) return true;
     
     while (*str) {
-        if (!isspace(*str)) return false;
+        if (!isspace((unsigned char)*str)) return false;
         str++;
     }
     return true;
@@ -146,7 +154,7 @@ bool validar_telefono(const char *telefono) {
     for (int i = 0; telefono[i] != '\0'; i++) {
         char c = telefono[i];
         
-        if (isdigit(c)) {
+        if (isdigit((unsigned char)c)) {
             digitos++;
         } else if (c != '-' && c != '(' && c != ')' && c != ' ' && c != '+') {
             tiene_solo_digitos_y_especiales = false;
@@ -301,7 +309,7 @@ int buscar_contactos_por_nombre_parcial(const nodo_t *cabeza, const char *nombre
     const nodo_t *actual = cabeza;
     
     while (actual && encontrados < max_resultados) {
-        if (strcasestr(actual->contacto.nombre, nombre_parcial)) {
+        if (contiene_sin_mayusculas(actual->contacto.nombre, nombre_parcial)) {
             (*resultados)[encontrados] = actual->contacto;
             encontrados++;
         }

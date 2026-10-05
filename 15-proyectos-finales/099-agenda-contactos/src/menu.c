@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <strings.h>
 
 void mostrar_banner(void) {
     printf("\n╔══════════════════════════════════════════════════════════════╗\n");
@@ -25,7 +26,7 @@ void mostrar_menu_principal(void) {
 
 opcion_menu_t leer_opcion_menu(void) {
     char buf[32]; int v;
-    if (!fgets(buf, sizeof buf, stdin)) return (opcion_menu_t)-1;
+    if (!fgets(buf, sizeof buf, stdin)) return OPCION_SALIR;
     if (sscanf(buf, "%d", &v) != 1) return (opcion_menu_t)-1;
     return (opcion_menu_t)v;
 }
@@ -43,7 +44,7 @@ int leer_entero_seguro(const char *prompt, int min, int max) {
     char buf[32]; int v;
     while (1) {
         printf("%s", prompt);
-        if (!fgets(buf, sizeof buf, stdin)) continue;
+        if (!fgets(buf, sizeof buf, stdin)) return min;
         if (sscanf(buf, "%d", &v) == 1 && v >= min && v <= max) return v;
         printf("Valor inválido. Rango [%d-%d]\n", min, max);
     }
@@ -69,7 +70,7 @@ categoria_t leer_categoria(void) {
     printf("Categorías: personal, trabajo, familia, amigos, otros\n");
     while (1) {
         printf("Categoría: ");
-        if (!leer_linea_segura(c, sizeof c)) continue;
+        if (!leer_linea_segura(c, sizeof c)) return CATEGORIA_OTROS;
         if (!strcasecmp(c, "personal")) return CATEGORIA_PERSONAL;
         if (!strcasecmp(c, "trabajo")) return CATEGORIA_TRABAJO;
         if (!strcasecmp(c, "familia")) return CATEGORIA_FAMILIA;
@@ -92,6 +93,7 @@ static contacto_t leer_contacto_interactivo(void) {
 
 void menu_agregar_contacto(nodo_t **agenda, const configuracion_app_t *config) {
     contacto_t c = leer_contacto_interactivo();
+    if (feof(stdin) || ferror(stdin)) return;
     resultado_t r = agregar_contacto(agenda, &c);
     if (r == RESULTADO_EXITO) printf("[OK] Contacto agregado\n"); else printf("[Error] %s\n", resultado_a_string(r));
     (void)config;
@@ -116,6 +118,7 @@ void menu_listar_contactos(const nodo_t *agenda) { listar_contactos(agenda, true
 void menu_modificar_contacto(nodo_t *agenda, const configuracion_app_t *config) {
     (void)config; char nombre[TAM_NOMBRE]; if (!leer_string_no_vacio("Nombre actual: ", nombre, sizeof nombre)) return;
     contacto_t nuevo = leer_contacto_interactivo();
+    if (feof(stdin) || ferror(stdin)) return;
     resultado_t r = modificar_contacto(agenda, nombre, &nuevo);
     if (r == RESULTADO_EXITO) printf("Modificado\n"); else printf("Error: %s\n", resultado_a_string(r));
 }

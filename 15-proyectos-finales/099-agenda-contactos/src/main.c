@@ -13,13 +13,10 @@
 
 static nodo_t *g_agenda = NULL;
 
+static volatile sig_atomic_t interrumpido = 0;
 static void manejar_sig(int sig) {
     (void)sig;
-    printf("\nInterrupción detectada. Guardando y saliendo...\n");
-    crear_directorio_datos();
-    guardar_contactos(g_agenda, "data/agenda.csv");
-    liberar_lista(&g_agenda);
-    exit(0);
+    interrumpido = 1;
 }
 
 #ifndef UNIT_TESTING
@@ -64,7 +61,11 @@ int main(int argc, char *argv[]) {
 
     // Intentar cargar datos previos
     if (archivo_existe("data/agenda.csv")) {
-        (void)cargar_contactos(&g_agenda, "data/agenda.csv");
+        if (cargar_contactos(&g_agenda, "data/agenda.csv") != RESULTADO_EXITO) {
+            fprintf(stderr, "No se pudo cargar la agenda. Se conserva el archivo original.\n");
+            liberar_lista(&g_agenda);
+            return 1;
+        }
     }
 
     // Mostrar estadísticas iniciales en modo demo
@@ -76,16 +77,20 @@ int main(int argc, char *argv[]) {
 
     // Bucle principal
     bool continuar = true;
-    while (continuar) {
+    while (continuar && !interrumpido) {
         mostrar_menu_principal();
         continuar = procesar_opcion_menu(&g_agenda, &config);
     }
 
     // Salida
+    int estado = 0;
     if (config.auto_guardar) {
-        guardar_contactos(g_agenda, "data/agenda.csv");
+        if (guardar_contactos(g_agenda, "data/agenda.csv") != RESULTADO_EXITO) {
+            fprintf(stderr, "No se pudo guardar la agenda.\n");
+            estado = 1;
+        }
     }
     liberar_lista(&g_agenda);
-    return 0;
+    return estado;
 }
 #endif

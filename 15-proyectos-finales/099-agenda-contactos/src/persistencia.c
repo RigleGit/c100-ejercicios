@@ -1,97 +1,176 @@
-/**
- * Persistencia - implementación alineada con persistencia.h y contacto.h
- */
-
+#define _XOPEN_SOURCE 700
 #include "persistencia.h"
-#include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <strings.h>
 #include <sys/stat.h>
+#include <unistd.h>
 #include <time.h>
-
-static void generar_nombre_backup(char *out, size_t n) {
-    time_t now = time(NULL);
-    struct tm tmv; localtime_r(&now, &tmv);
-    snprintf(out, n, "data/agenda_backup_%04d%02d%02d_%02d%02d%02d.csv",
-             tmv.tm_year + 1900, tmv.tm_mon + 1, tmv.tm_mday,
-             tmv.tm_hour, tmv.tm_min, tmv.tm_sec);
-}
 
 resultado_t crear_directorio_datos(void) {
     struct stat st;
     if (stat("data", &st) == 0 && S_ISDIR(st.st_mode)) return RESULTADO_EXITO;
-    if (mkdir("data", 0755) == 0) return RESULTADO_EXITO;
-    return RESULTADO_PARAMETRO_INVALIDO;
+    return mkdir("data", 0755) == 0 ? RESULTADO_EXITO : RESULTADO_PARAMETRO_INVALIDO;
 }
-
 bool archivo_existe(const char *nombre_archivo) {
+    if (!nombre_archivo) return false;
     FILE *f = fopen(nombre_archivo, "r");
-    if (!f) return false; fclose(f); return true;
+    if (!f) return false;
+    fclose(f);
+    return true;
 }
-
 long obtener_tamaño_archivo(const char *nombre_archivo) {
+    if (!nombre_archivo) return -1;
     FILE *f = fopen(nombre_archivo, "r");
-    if (!f) return -1; fseek(f, 0, SEEK_END); long s = ftell(f); fclose(f); return s;
+    if (!f) return -1;
+    long size = fseek(f, 0, SEEK_END) == 0 ? ftell(f) : -1;
+    if (fclose(f) != 0) return -1;
+    return size;
 }
-
-static void escribir_csv_header(FILE *fp) {
-    fprintf(fp, "nombre,telefono,email,categoria,direccion\n");
+static bool escribir_campo(FILE *f, const char *s) {
+    if (fputc('"', f) == EOF) return false;
+    for (; *s; ++s) {
+        if (*s == '"' && fputc('"', f) == EOF) return false;
+        if (fputc((unsigned char)*s, f) == EOF) return false;
+    }
+    return fputc('"', f) != EOF;
 }
-
-static void escribir_contacto_csv(FILE *fp, const contacto_t *c) {
-    fprintf(fp, "\"%s\",\"%s\",\"%s\",\"%s\",\"%s\"\n",
-            c->nombre, c->telefono, c->email, categoria_a_string(c->categoria), c->direccion);
+static bool escribir_agenda(FILE *f, const nodo_t *lista) {
+    if (fputs("nombre,telefono,email,categoria,direccion\n", f) == EOF) return false;
+    for (; lista; lista = lista->siguiente) {
+        const contacto_t *c = &lista->contacto;
+        const char *campos[] = {c->nombre,c->telefono,c->email,
+                               categoria_a_string(c->categoria),c->direccion};
+        for (size_t i = 0; i < 5; ++i) {
+            if (!escribir_campo(f, campos[i])) return false;
+            if (fputc(i == 4 ? '\n' : ',', f) == EOF) return false;
+        }
+    }
+    return !ferror(f);
 }
-
 resultado_t guardar_contactos(const nodo_t *cabeza, const char *nombre_archivo) {
     const char *ruta = nombre_archivo ? nombre_archivo : NOMBRE_ARCHIVO_DEFAULT;
-    FILE *fp = fopen(ruta, "w"); if (!fp) return RESULTADO_PARAMETRO_INVALIDO;
-    escribir_csv_header(fp);
-    for (const nodo_t *it = cabeza; it; it = it->siguiente) escribir_contacto_csv(fp, &it->contacto);
-    fclose(fp); return RESULTADO_EXITO;
-}
-
-static bool leer_campo_csv(char **cursor, char *out, size_t n) {
-    if (!*cursor) return false; char *p = *cursor;
-    if (*p == '"') {
-        p++; char *q = strchr(p, '"'); if (!q) return false; size_t len = (size_t)(q - p);
-        if (len >= n) len = n - 1; memcpy(out, p, len); out[len] = '\0'; q++; if (*q == ',') q++;
-        *cursor = q; return true;
+    struct stat st;
+    bool regular = stat(ruta, &st) != 0 || S_ISREG(st.st_mode);
+    char *temporal = NULL;
+    FILE *fp = NULL;
+    if (regular) {
+        temporal = malloc(strlen(ruta) + 12);
+        if (!temporal) return RESULTADO_ERROR_MEMORIA;
+        sprintf(temporal, "%s.tmp.XXXXXX", ruta);
+        int fd = mkstemp(temporal);
+        if (fd >= 0) {
+            fp = fdopen(fd, "w");
+            if (!fp) close(fd);
+        }
     } else {
-        char *q = strchr(p, ','); size_t len = q ? (size_t)(q - p) : strlen(p);
-        if (len >= n) len = n - 1; memcpy(out, p, len); out[len] = '\0'; *cursor = q ? q + 1 : NULL; return true;
+        fp = fopen(ruta, "w");
     }
-}
-
-resultado_t cargar_contactos(nodo_t **cabeza, const char *nombre_archivo) {
-    const char *ruta = nombre_archivo ? nombre_archivo : NOMBRE_ARCHIVO_DEFAULT;
-    FILE *fp = fopen(ruta, "r"); if (!fp) return RESULTADO_PARAMETRO_INVALIDO;
-    char linea[1024]; if (!fgets(linea, sizeof linea, fp)) { fclose(fp); return RESULTADO_PARAMETRO_INVALIDO; }
-    while (fgets(linea, sizeof linea, fp)) {
-        size_t len = strlen(linea); if (len && linea[len-1] == '\n') linea[len-1] = '\0';
-        char *cur = linea; char nombre[TAM_NOMBRE] = {0}, tel[TAM_TELEFONO] = {0}, email[TAM_EMAIL] = {0}, cat[32] = {0}, dir[TAM_DIRECCION] = {0};
-        if (!leer_campo_csv(&cur, nombre, sizeof nombre)) continue;
-        if (!leer_campo_csv(&cur, tel, sizeof tel)) continue;
-        if (!leer_campo_csv(&cur, email, sizeof email)) continue;
-        if (!leer_campo_csv(&cur, cat, sizeof cat)) continue;
-        (void)leer_campo_csv(&cur, dir, sizeof dir);
-        contacto_t c = crear_contacto(nombre, tel, email, dir, string_a_categoria(cat));
-        (void)agregar_contacto(cabeza, &c);
+    if (!fp) {
+        if (temporal) unlink(temporal);
+        free(temporal);
+        return RESULTADO_PARAMETRO_INVALIDO;
     }
-    fclose(fp); return RESULTADO_EXITO;
+    bool ok = escribir_agenda(fp, cabeza);
+    if (fclose(fp) != 0) ok = false;
+    if (ok && temporal && rename(temporal, ruta) != 0) ok = false;
+    if (temporal) unlink(temporal);
+    free(temporal);
+    return ok ? RESULTADO_EXITO : RESULTADO_PARAMETRO_INVALIDO;
 }
-
-resultado_t crear_backup(const nodo_t *cabeza) {
-    char ruta[256]; generar_nombre_backup(ruta, sizeof ruta); return guardar_contactos(cabeza, ruta);
+/* 1: registro lógico; 0: fin limpio; -1: CSV inválido o error. */
+static int leer_registro(FILE *f, char campos[5][TAM_DIRECCION]) {
+    int c = fgetc(f);
+    if (c == EOF) return ferror(f) ? -1 : 0;
+    for (size_t campo = 0; campo < 5; ++campo) {
+        size_t n = 0;
+        bool citado = c == '"';
+        if (citado) c = fgetc(f);
+        while (1) {
+            if (citado) {
+                if (c == EOF) return -1;
+                if (c == '"') {
+                    int next = fgetc(f);
+                    if (next != '"') { c = next; break; }
+                }
+            } else if (c == ',' || c == '\n' || c == '\r' || c == EOF) {
+                break;
+            } else if (c == '"') {
+                return -1;
+            }
+            if (c == 0 || n + 1 >= TAM_DIRECCION) return -1;
+            campos[campo][n++] = (char)c;
+            c = fgetc(f);
+        }
+        campos[campo][n] = '\0';
+        if (campo < 4) {
+            if (c != ',') return -1;
+            c = fgetc(f);
+        } else {
+            if (c == '\r') {
+                c = fgetc(f);
+                if (c != '\n' && c != EOF) return -1;
+            }
+            if (c != '\n' && c != EOF) return -1;
+        }
+    }
+    return ferror(f) ? -1 : 1;
 }
-
-resultado_t restaurar_backup(nodo_t **cabeza) { (void)cabeza; return RESULTADO_PARAMETRO_INVALIDO; }
-
-resultado_t exportar_csv(const nodo_t *cabeza, const char *nombre_archivo) { return guardar_contactos(cabeza, nombre_archivo); }
-
+static resultado_t leer_agenda(FILE *f, nodo_t **lista) {
+    char campos[5][TAM_DIRECCION];
+    const char *header[] = {"nombre","telefono","email","categoria","direccion"};
+    if (leer_registro(f, campos) != 1) return RESULTADO_PARAMETRO_INVALIDO;
+    for (size_t i = 0; i < 5; ++i)
+        if (strcmp(campos[i], header[i]) != 0) return RESULTADO_PARAMETRO_INVALIDO;
+    int estado;
+    while ((estado = leer_registro(f, campos)) == 1) {
+        if (strlen(campos[0]) >= TAM_NOMBRE || strlen(campos[1]) >= TAM_TELEFONO ||
+            strlen(campos[2]) >= TAM_EMAIL) return RESULTADO_PARAMETRO_INVALIDO;
+        categoria_t categoria = string_a_categoria(campos[3]);
+        if (strcasecmp(campos[3], categoria_a_string(categoria)) != 0)
+            return RESULTADO_PARAMETRO_INVALIDO;
+        contacto_t c = crear_contacto(campos[0],campos[1],campos[2],campos[4],categoria);
+        resultado_t resultado = agregar_contacto(lista, &c);
+        if (resultado != RESULTADO_EXITO) return resultado;
+    }
+    return estado == 0 ? RESULTADO_EXITO : RESULTADO_PARAMETRO_INVALIDO;
+}
 resultado_t importar_csv(nodo_t **cabeza, const char *nombre_archivo, bool reemplazar) {
-    if (reemplazar) liberar_lista(cabeza); return cargar_contactos(cabeza, nombre_archivo);
+    if (!cabeza) return RESULTADO_PARAMETRO_INVALIDO;
+    const char *ruta = nombre_archivo ? nombre_archivo : NOMBRE_ARCHIVO_DEFAULT;
+    FILE *fp = fopen(ruta, "r");
+    if (!fp) return RESULTADO_PARAMETRO_INVALIDO;
+    nodo_t *nueva = NULL;
+    resultado_t resultado = RESULTADO_EXITO;
+    if (!reemplazar) {
+        for (const nodo_t *it = *cabeza; it; it = it->siguiente) {
+            resultado = agregar_contacto(&nueva, &it->contacto);
+            if (resultado != RESULTADO_EXITO) break;
+        }
+    }
+    if (resultado == RESULTADO_EXITO) resultado = leer_agenda(fp, &nueva);
+    if (fclose(fp) != 0) resultado = RESULTADO_PARAMETRO_INVALIDO;
+    if (resultado == RESULTADO_EXITO) {
+        liberar_lista(cabeza);
+        *cabeza = nueva;
+    } else {
+        liberar_lista(&nueva);
+    }
+    return resultado;
+}
+resultado_t cargar_contactos(nodo_t **cabeza, const char *nombre_archivo) {
+    return importar_csv(cabeza, nombre_archivo, false);
+}
+resultado_t crear_backup(const nodo_t *cabeza) {
+    if (crear_directorio_datos() != RESULTADO_EXITO) return RESULTADO_PARAMETRO_INVALIDO;
+    return guardar_contactos(cabeza, NOMBRE_ARCHIVO_BACKUP);
+}
+resultado_t restaurar_backup(nodo_t **cabeza) {
+    return importar_csv(cabeza, NOMBRE_ARCHIVO_BACKUP, true);
+}
+resultado_t exportar_csv(const nodo_t *cabeza, const char *nombre_archivo) {
+    return guardar_contactos(cabeza, nombre_archivo);
 }
 
 resultado_t guardar_binario(const nodo_t *cabeza, const char *nombre_archivo) { (void)cabeza; (void)nombre_archivo; return RESULTADO_PARAMETRO_INVALIDO; }
