@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 /**
  * Calcula la longitud de una cadena sin usar strlen()
@@ -65,22 +66,13 @@ int main(void) {
         // Información adicional para aprendizaje
         printf("\n=== Análisis de la cadena ===\n");
         printf("Cadena introducida: \"%s\"", cadena);
-        printf("Caracteres analizados:\n");
-        
-        for (int i = 0; i < longitud && i < 20; i++) { // Limitar a 20 chars para visualización
-            printf("  [%d]: '%c' (ASCII: %d)\n", i, cadena[i], (int)cadena[i]);
+        size_t bytes = strlen(cadena);
+        printf("Bytes analizados (UTF-8):\n");
+        for (size_t i = 0; i < bytes && i < 20; i++) {
+            printf("  [%zu]: 0x%02X\n", i, (unsigned char)cadena[i]);
         }
-        
-        if (longitud > 20) {
-            printf("  ... (mostrando solo los primeros 20 caracteres)\n");
-        }
-        
-        // Mostrar el terminador
-        if (cadena[longitud] == '\n') {
-            printf("  [%d]: '\\n' (ASCII: %d)\n", longitud, (int)cadena[longitud]);
-        }
-        printf("  [%d]: '\\0' (ASCII: %d) <- Terminador nulo\n", 
-               longitud_total, (int)cadena[longitud_total]);
+        if (bytes > 20) printf("  ... (primeros 20 bytes)\n");
+        printf("  [%zu]: '\\0' <- Terminador nulo\n", bytes);
     } else {
         printf("Error al leer la cadena.\n");
         return 1;
