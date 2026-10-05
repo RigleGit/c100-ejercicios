@@ -80,19 +80,11 @@ void imprimir_mensaje_correcto(const char* mensaje) {
 }
 
 int buscar_caracter_correcto(const char* cadena, char caracter) {
-    if (!cadena) {
-        return -1;
-    }
-    int posicion_sin_espacios = 0;
+    if (!cadena) return -1;
     for (int i = 0; cadena[i] != '\0'; i++) {
-        if (cadena[i] == caracter) {
-            return posicion_sin_espacios;
-        }
-        if (cadena[i] != ' ') {
-            posicion_sin_espacios++;
-        }
+        if (cadena[i] == caracter) return i;
     }
-    return -1;  // No encontrado
+    return -1;
 }
 
 bool comparar_cadenas_correcto(const char* cadena1, const char* cadena2) {
@@ -180,24 +172,14 @@ int encontrar_maximo_const_completo(const int* const ptr_const_a_const_data, siz
 // FUNCIONES PARA TRABAJAR CON ESTRUCTURAS Y CONST
 // =============================================================================
 
-bool inicializar_configuracion(configuracion_t* config, int id, 
+bool inicializar_configuracion(configuracion_t* config, int id,
                               const char* nombre, double factor) {
-    if (!config || !nombre) {
-        return false;
-    }
-    
-    // config->id = id;  // ¡Error! id es const en la estructura
-    // Necesitaríamos usar compound literal o memcpy para inicializar campos const
-    
-    // Para este ejemplo, asumimos que inicializamos con valores válidos
-    if (strlen(nombre) >= sizeof(config->nombre)) {
-        return false;
-    }
-    
+    /* Los miembros const se inicializan al declarar la estructura. */
+    if (!config || !nombre || config->id != id ||
+        config->factor_conversion != factor ||
+        strlen(nombre) >= sizeof(config->nombre)) return false;
     strcpy(config->nombre, nombre);
-    // config->factor_conversion = factor;  // ¡Error! factor_conversion es const
     config->activo = true;
-    
     return true;
 }
 
