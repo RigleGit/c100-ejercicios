@@ -39,19 +39,8 @@ void comparar_punteros(int *var1, int *var2, const char *nombre1, const char *no
     printf("%s: dirección %p, valor %d\n", nombre1, (void *)var1, *var1);
     printf("%s: dirección %p, valor %d\n", nombre2, (void *)var2, *var2);
     
-    // Calcular diferencia de direcciones
-    ptrdiff_t diferencia = var2 - var1;
-    printf("Diferencia de direcciones: %td posiciones de int\n", diferencia);
-    printf("Diferencia en bytes: %td bytes\n", diferencia * sizeof(int));
-    
-    // Comparar direcciones
-    if (var1 == var2) {
-        printf("¡Los punteros apuntan a la MISMA dirección!\n");
-    } else if (var1 < var2) {
-        printf("%s está ANTES que %s en memoria\n", nombre1, nombre2);
-    } else {
-        printf("%s está DESPUÉS que %s en memoria\n", nombre1, nombre2);
-    }
+    /* Solo se pueden restar u ordenar punteros del mismo array. */
+    printf("Misma dirección: %s\n", var1 == var2 ? "sí" : "no");
     printf("\n");
 }
 
@@ -67,7 +56,7 @@ void demostrar_aritmetica_punteros(int *base_ptr, int tamaño) {
     for (int i = 0; i < tamaño; i++) {
         int *ptr_actual = base_ptr + i;
         printf("base + %d = %p (diferencia: %td bytes)\n", 
-               i, (void *)ptr_actual, (char *)ptr_actual - (char *)base_ptr);
+               i, (void *)ptr_actual, (ptr_actual - base_ptr) * (ptrdiff_t)sizeof(*base_ptr));
     }
     printf("\n");
 }
