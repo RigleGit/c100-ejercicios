@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
+#include <limits.h>
 
 void inicializar_estadisticas(EstadisticasArchivo* stats) {
     if (stats) {
@@ -14,7 +15,7 @@ void inicializar_estadisticas(EstadisticasArchivo* stats) {
 }
 
 bool es_separador_palabra(char c) {
-    return isspace(c) || c == '\t' || c == '\n' || c == '\r';
+    return isspace((unsigned char)c) || c == '\t' || c == '\n' || c == '\r';
 }
 
 bool contar_archivo_basico(const char* nombre_archivo, EstadisticasArchivo* stats) {
@@ -138,29 +139,28 @@ bool contar_palabras_robusto(const char* nombre_archivo, EstadisticasArchivo* st
     }
 
     inicializar_estadisticas(stats);
-    char buffer[1024];
     bool en_palabra = false;
-
-    while (fgets(buffer, sizeof(buffer), archivo)) {
-        stats->lineas++;
-        
-        for (int i = 0; buffer[i] != '\0'; i++) {
-            stats->caracteres++;
-
-            // Lógica más robusta para palabras
-            if (isalnum(buffer[i]) || buffer[i] == '_' || buffer[i] == '-') {
-                if (!en_palabra) {
-                    en_palabra = true;
-                    stats->palabras++;
-                }
-            } else {
-                en_palabra = false;
+    int c;
+    while ((c = fgetc(archivo)) != EOF) {
+        if (stats->caracteres == INT_MAX || stats->bytes == INT_MAX) {
+            fclose(archivo);
+            return false;
+        }
+        stats->caracteres++;
+        stats->bytes++;
+        if (c == '\n') stats->lineas++;
+        if (isalnum((unsigned char)c) || c == '_' || c == '-') {
+            if (!en_palabra) {
+                en_palabra = true;
+                stats->palabras++;
             }
+        } else {
+            en_palabra = false;
         }
     }
-
-    fclose(archivo);
-    return true;
+    bool ok = !ferror(archivo);
+    if (fclose(archivo) != 0) ok = false;
+    return ok;
 }
 
 void imprimir_estadisticas(const EstadisticasArchivo* stats, const char* nombre_archivo) {
@@ -204,7 +204,7 @@ int main_usuario_basico(void) {
 
     int caracteres = 0, palabras = 0, lineas = 0;
     int en_palabra = 0;
-    char c;
+    int c;
 
     while ((c = fgetc(archivo)) != EOF) {
         caracteres++;
@@ -213,7 +213,7 @@ int main_usuario_basico(void) {
             lineas++;
         }
 
-        if (isspace(c)) {
+        if (isspace((unsigned char)c)) {
             en_palabra = 0;
         } else if (!en_palabra) {
             en_palabra = 1;
@@ -226,47 +226,6 @@ int main_usuario_basico(void) {
     printf("Líneas: %d\n", lineas);
     printf("Palabras: %d\n", palabras);
     printf("Caracteres: %d\n", caracteres);
-
-    return 0;
-}
-
-// Función principal mejorada
-int main(void) {
-    const char* nombre_archivo = "entrada.txt";
-    EstadisticasArchivo stats;
-
-    printf("=== Contador de líneas, palabras y caracteres ===\n\n");
-
-    // Intentar análisis básico
-    if (contar_archivo_basico(nombre_archivo, &stats)) {
-        printf("Análisis básico:\n");
-        imprimir_estadisticas(&stats, nombre_archivo);
-        printf("\nFormato wc:\n");
-        imprimir_formato_wc(&stats, nombre_archivo);
-    } else {
-        printf("Error: No se pudo abrir el archivo '%s'\n", nombre_archivo);
-        printf("Creando un archivo de ejemplo...\n");
-        
-        // Crear archivo de ejemplo para demostración
-        FILE* ejemplo = fopen(nombre_archivo, "w");
-        if (ejemplo) {
-            fprintf(ejemplo, "Hola mundo\n");
-            fprintf(ejemplo, "Este es un archivo de prueba\n");
-            fprintf(ejemplo, "con varias líneas y palabras.\n");
-            fprintf(ejemplo, "\n");
-            fprintf(ejemplo, "¡Funciona perfectamente!\n");
-            fclose(ejemplo);
-            
-            printf("Archivo de ejemplo creado. Analizando...\n\n");
-            
-            if (contar_archivo_basico(nombre_archivo, &stats)) {
-                printf("Análisis del archivo de ejemplo:\n");
-                imprimir_estadisticas(&stats, nombre_archivo);
-                printf("\nFormato wc:\n");
-                imprimir_formato_wc(&stats, nombre_archivo);
-            }
-        }
-    }
 
     return 0;
 }
