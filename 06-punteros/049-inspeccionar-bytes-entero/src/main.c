@@ -29,7 +29,7 @@ void inspeccionarBytes(int32_t valor) {
     
     // Mostrar en binario
     for (int i = 31; i >= 0; i--) {
-        printf("%d", (valor >> i) & 1);
+        printf("%d", ((uint32_t)valor >> i) & 1);
         if (i % 8 == 0 && i != 0) printf(" ");
     }
     printf("\n\n");
@@ -41,7 +41,7 @@ void inspeccionarBytes(int32_t valor) {
     printf("Dirección del entero: %p\n", (void*)&valor);
     printf("Tamaño del entero: %zu bytes\n\n", sizeof(valor));
     
-    for (int i = 0; i < sizeof(int32_t); i++) {
+    for (int i = 0; i < (int)sizeof(int32_t); i++) {
         printf("Byte %d:\n", i);
         printf("  Dirección: %p\n", (void*)(ptr + i));
         printf("  Valor decimal: %u\n", ptr[i]);
@@ -70,7 +70,7 @@ void inspeccionarBytes(int32_t valor) {
  * @param nuevo_valor Nuevo valor para el byte
  */
 void modificarByte(int32_t *valor, int byte_pos, unsigned char nuevo_valor) {
-    if (byte_pos < 0 || byte_pos >= sizeof(int32_t)) {
+    if (byte_pos < 0 || byte_pos >= (int)sizeof(int32_t)) {
         printf("Error: Posición de byte inválida (%d). Debe estar entre 0 y %zu\n", 
                byte_pos, sizeof(int32_t) - 1);
         return;
@@ -154,7 +154,7 @@ int32_t intercambiarBytes(int32_t valor) {
  * @return Valor extraído
  */
 uint32_t extraerBits(int32_t valor, int inicio, int longitud) {
-    if (inicio < 0 || inicio >= 32 || longitud <= 0 || inicio + longitud > 32) {
+    if (inicio < 0 || inicio >= 32 || longitud <= 0 || longitud > 32 - inicio) {
         printf("Error: Parámetros de extracción inválidos\n");
         return 0;
     }
@@ -164,7 +164,7 @@ uint32_t extraerBits(int32_t valor, int inicio, int longitud) {
     printf("Extraer %d bits desde posición %d\n", longitud, inicio);
     
     // Crear máscara
-    uint32_t mascara = (1U << longitud) - 1;
+    uint32_t mascara = longitud == 32 ? UINT32_MAX : (UINT32_C(1) << longitud) - 1;
     uint32_t resultado = ((uint32_t)valor >> inicio) & mascara;
     
     printf("Máscara: 0x%08X\n", mascara);
