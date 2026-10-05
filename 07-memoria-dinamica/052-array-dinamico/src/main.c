@@ -53,7 +53,7 @@ int* crearArray(int tamaño) {
         return NULL;
     }
     
-    if (tamaño > INT_MAX / sizeof(int)) {
+    if ((size_t)tamaño > INT_MAX / sizeof(int)) {
         printf("Error: Tamaño demasiado grande, posible overflow\n");
         return NULL;
     }
