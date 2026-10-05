@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdint.h>
+#include <limits.h>
 
 /**
  * Intercambio clásico usando variable temporal
@@ -45,7 +46,11 @@ void intercambio_xor(int *a, int *b) {
 void intercambio_aritmetico(int *a, int *b) {
     if (a == b) return;
     
-    // Cuidado con overflow
+    if ((*b > 0 && *a > INT_MAX - *b) ||
+        (*b < 0 && *a < INT_MIN - *b)) {
+        intercambio_temporal(a, b);
+        return;
+    }
     *a = *a + *b;
     *b = *a - *b;  // b = (a + b) - b = a
     *a = *a - *b;  // a = (a + b) - a = b
@@ -58,8 +63,20 @@ void intercambio_aritmetico(int *a, int *b) {
  * @param b Puntero a la segunda variable
  */
 void intercambio_multiplicativo(int *a, int *b) {
-    if (a == b || *a == 0 || *b == 0) return;
+    if (a == b) return;
+    if (*a == 0 || *b == 0 ||
+        (*a == -1 && *b == INT_MIN) || (*b == -1 && *a == INT_MIN)) {
+        intercambio_temporal(a, b);
+        return;
+    }
     
+    if ((*a > 0 && ((*b > 0 && *a > INT_MAX / *b) ||
+                    (*b < 0 && *b < INT_MIN / *a))) ||
+        (*a < 0 && ((*b > 0 && *a < INT_MIN / *b) ||
+                    (*b < 0 && *a < INT_MAX / *b)))) {
+        intercambio_temporal(a, b);
+        return;
+    }
     *a = *a * *b;
     *b = *a / *b;  // b = (a * b) / b = a
     *a = *a / *b;  // a = (a * b) / a = b
