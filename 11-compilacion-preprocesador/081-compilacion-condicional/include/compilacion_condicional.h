@@ -46,7 +46,8 @@
 
 #ifdef DEBUG
     #define DEBUG_PRINT(msg) printf("[DEBUG] %s\n", (msg))
-    #define DEBUG_PRINTF(fmt, ...) printf("[DEBUG] " fmt "\n", ##__VA_ARGS__)
+    #define DEBUG_PRINTF(...) \
+    do { fputs("[DEBUG] ", stdout); fprintf(stdout, __VA_ARGS__); fputc('\n', stdout); } while (0)
     #define DEBUG_VAR(var) printf("[DEBUG] %s = %d\n", #var, (var))
     #define DEBUG_FLOAT(var) printf("[DEBUG] %s = %.2f\n", #var, (var))
     #define DEBUG_STRING(var) printf("[DEBUG] %s = \"%s\"\n", #var, (var))
@@ -68,7 +69,8 @@
 
 #ifdef DEBUG_VERBOSE
     #define VERBOSE_PRINT(msg) printf("[VERBOSE] %s\n", (msg))
-    #define VERBOSE_PRINTF(fmt, ...) printf("[VERBOSE] " fmt "\n", ##__VA_ARGS__)
+    #define VERBOSE_PRINTF(...) \
+    do { fputs("[VERBOSE] ", stdout); fprintf(stdout, __VA_ARGS__); fputc('\n', stdout); } while (0)
     #define VERBOSE_STRING(var) printf("[VERBOSE] %s = \"%s\"\n", #var, (var))
 #else
     #define VERBOSE_PRINT(msg)

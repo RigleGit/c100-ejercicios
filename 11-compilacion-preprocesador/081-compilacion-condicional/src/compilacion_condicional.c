@@ -63,12 +63,15 @@ void demo_niveles_debug(void) {
     DEBUG_PRINTF("Variable de prueba: %d", 42);
     
     int variable_ejemplo = 100;
+    (void)variable_ejemplo;
     DEBUG_VAR(variable_ejemplo);
     
     float valor_float = 3.14159f;
+    (void)valor_float;
     DEBUG_FLOAT(valor_float);
     
     char* cadena_ejemplo = "Hola mundo";
+    (void)cadena_ejemplo;
     DEBUG_STRING(cadena_ejemplo);
 
     // Debug verbose
@@ -169,16 +172,19 @@ void demo_aserciones(void) {
 
     // Aserción que pasa
     int valor_valido = 10;
+    (void)valor_valido;
     ASSERT(valor_valido > 0);
     printf("✓ Aserción 1 pasó: valor_valido > 0\n");
 
     // Aserción con puntero
     char* puntero_valido = "test";
+    (void)puntero_valido;
     ASSERT_NOT_NULL(puntero_valido);
     printf("✓ Aserción 2 pasó: puntero no es NULL\n");
 
     // Aserción matemática
     int a = 5, b = 3;
+    (void)a; (void)b;
     ASSERT(a > b);
     printf("✓ Aserción 3 pasó: a > b\n");
 
@@ -247,6 +253,7 @@ void funcion_con_timing(int iteraciones) {
         }
     }
     
+    (void)suma;
     DEBUG_PRINTF("Suma total calculada: %d", suma);
     
     TIME_END(procesamiento);
@@ -351,6 +358,7 @@ int procesar_archivo_simulado(const char* nombre_archivo) {
     
     TIME_END(lectura_archivo);
     
+    (void)bytes_leidos;
     DEBUG_PRINTF("Archivo procesado: %d líneas, %d bytes", lineas_procesadas, bytes_leidos);
     LOG_INFO("Procesamiento de archivo completado");
     
