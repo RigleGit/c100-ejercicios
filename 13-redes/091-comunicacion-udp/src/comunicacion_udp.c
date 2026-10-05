@@ -820,6 +820,7 @@ resultado_udp_t demo_performance_udp(const char* host, int puerto,
 resultado_udp_t comparar_tcp_vs_udp(const char* host, int puerto_tcp, int puerto_udp,
                                    int num_mensajes, int tamaño_mensaje,
                                    comparacion_tcp_udp_t* resultado) {
+    (void)puerto_tcp;
     if (!host || !resultado) return UDP_ERROR_PARAMETRO;
     
     printf("\n=== COMPARACIÓN TCP vs UDP ===\n");
@@ -936,7 +937,7 @@ resultado_udp_t crear_receptor_testing(int puerto, int timeout_segundos, int res
             printf("[TEST] Recibido: \"%s\"\n", buffer);
             
             if (respuesta_automatica) {
-                char respuesta[256];
+                char respuesta[sizeof(buffer) + 6];
                 snprintf(respuesta, sizeof(respuesta), "ACK: %s", buffer);
                 
                 char ip_origen[INET_ADDRSTRLEN];
