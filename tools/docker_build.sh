@@ -2,6 +2,8 @@
 # docker_build.sh - Script para construir y gestionar el entorno Docker
 
 set -e
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$REPO_ROOT"
 
 # Colores para output
 RED='\033[0;31m'
@@ -124,7 +126,7 @@ run_test_block() {
     docker run --rm \
         -v "$(pwd):/workspace" \
         c100-ejercicios:latest \
-        bash -c "cd /workspace && ./tools/quick_test.sh $block"
+        bash /workspace/tools/quick_test.sh "$block"
 }
 
 # Limpiar contenedores e imágenes
@@ -140,8 +142,6 @@ clean_docker() {
     # Eliminar imagen
     docker rmi c100-ejercicios:latest 2>/dev/null || true
     
-    # Limpiar volúmenes huérfanos
-    docker volume prune -f
     
     log_success "Limpieza completada"
 }

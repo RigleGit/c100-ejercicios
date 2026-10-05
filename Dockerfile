@@ -24,8 +24,8 @@ RUN apt-get update && apt-get install -y \
     cppcheck \
     clang-format \
     \
-    # Testing framework Criterion
-    libcriterion-dev \
+    # Pruebas CLI con la biblioteca estándar de Python
+    python3 \
     \
     # Herramientas de sistema y utilidades
     git \
@@ -67,7 +67,7 @@ echo "================================================"
 echo "📁 Directorio de trabajo: /workspace"
 echo "🔧 Herramientas disponibles en: /workspace/tools/"
 echo "📋 Comandos útiles:"
-echo "  - tools/prueba_everything_fresh.sh  # Probar todos los ejercicios"
+echo "  - tools/test_everything_fresh.sh  # Probar todos los ejercicios"
 echo "  - tools/quick_test.sh [BLOQUE]    # Probar bloque específico"
 echo "  - tools/clean_all.sh              # Limpiar archivos compilados"
 echo "================================================"
