@@ -1,6 +1,7 @@
 #ifndef ESTRUCTURA_DINAMICA_H
 #define ESTRUCTURA_DINAMICA_H
 
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
