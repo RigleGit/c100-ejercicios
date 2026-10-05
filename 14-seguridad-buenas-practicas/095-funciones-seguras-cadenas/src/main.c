@@ -223,7 +223,7 @@ void ejercicio_guiado_conversion(void) {
     printf("   │ strcpy(buffer, \"Hola \");     // PROBLEMA 2          │\n");
     printf("   │ strcat(buffer, usuario);    // PROBLEMA 3          │\n");
     printf("   │                                                     │\n");
-    printf("   │ sprintf(mensaje, \"Usuario: %s, Tiempo: %ld\",       │\n");
+    printf("   │ sprintf(mensaje, \"Usuario: %%s, Tiempo: %%ld\",       │\n");
     printf("   │         usuario, time(NULL)); // PROBLEMA 4        │\n");
     printf("   ╰─────────────────────────────────────────────────────╯\n");
     printf("\n");
@@ -275,7 +275,7 @@ void ejercicio_guiado_conversion(void) {
     printf("   ❌ sprintf(mensaje, \"Usuario: %%s, Tiempo: %%ld\", usuario, time(NULL));\n");
     printf("   ✅ formatea_seguro(mensaje, sizeof(mensaje), \"Usuario: %%s, Tiempo: %%ld\", usuario, time(NULL));\n");
     
-    resultado = formatea_seguro(mensaje, sizeof(mensaje), "Usuario: %s, Tiempo: %ld", usuario, time(NULL));
+    resultado = formatea_seguro(mensaje, sizeof(mensaje), "Usuario: %%s, Tiempo: %%ld", usuario, time(NULL));
     printf("   ✅ Resultado: %s\n", resultado_cadena_string(resultado));
     printf("   ✅ Mensaje: \"%s\"\n\n", mensaje);
     

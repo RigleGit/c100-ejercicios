@@ -332,8 +332,8 @@ void init_info_buffer(info_buffer_t *info, void *buffer, size_t tamaño, const c
 /**
  * @brief Formateo seguro con verificación en tiempo de compilación
  */
-#define FORMATEA_SEGURO(destino, formato, ...) \
-    formatea_seguro((destino), sizeof(destino), (formato), ##__VA_ARGS__)
+#define FORMATEA_SEGURO(destino, ...) \
+    formatea_seguro((destino), sizeof(destino), __VA_ARGS__)
 
 /**
  * @brief Verifica que un buffer sea válido
@@ -352,20 +352,20 @@ void init_info_buffer(info_buffer_t *info, void *buffer, size_t tamaño, const c
  * ================================ */
 
 #ifdef DEBUG
-    #define CADENAS_DEBUG(fmt, ...) \
-        fprintf(stderr, "[DEBUG] %s:%d: " fmt "\n", __FILE__, __LINE__, ##__VA_ARGS__)
+    #define CADENAS_DEBUG(...) \
+    do { fputs("[DEBUG] ", stderr); fprintf(stderr, "%s:%d: ", __FILE__, __LINE__); fprintf(stderr, __VA_ARGS__); fputc('\n', stderr); } while (0)
 #else
     #define CADENAS_DEBUG(fmt, ...)
 #endif
 
-#define CADENAS_LOG(fmt, ...) \
-    fprintf(stdout, "[CADENAS] " fmt "\n", ##__VA_ARGS__)
+#define CADENAS_LOG(...) \
+    do { fputs("[CADENAS] ", stdout); fprintf(stdout, __VA_ARGS__); fputc('\n', stdout); } while (0)
 
-#define CADENAS_ERROR(fmt, ...) \
-    fprintf(stderr, "[ERROR] " fmt "\n", ##__VA_ARGS__)
+#define CADENAS_ERROR(...) \
+    do { fputs("[ERROR] ", stderr); fprintf(stderr, __VA_ARGS__); fputc('\n', stderr); } while (0)
 
-#define CADENAS_WARNING(fmt, ...) \
-    fprintf(stderr, "[WARNING] " fmt "\n", ##__VA_ARGS__)
+#define CADENAS_WARNING(...) \
+    do { fputs("[WARNING] ", stderr); fprintf(stderr, __VA_ARGS__); fputc('\n', stderr); } while (0)
 
 /* ================================
  * CONSTANTES DE CONFIGURACIÓN
