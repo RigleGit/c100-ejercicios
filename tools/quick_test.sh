@@ -1,152 +1,61 @@
 #!/bin/bash
+# Compila y ejecuta todas las pruebas CTest de la selección.
+set -eu
+shopt -s nullglob
+PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$PROJECT_DIR"
 
-# Script rápido para probar ejercicios específicos
-# Uso: ./quick_test.sh [bloque] [ejercicio]
-
-set -e
-
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-BLUE='\033[0;34m'
-NC='\033[0m'
-
-log() {
-    case $1 in
-        "INFO")  echo -e "${BLUE}[INFO]${NC} $2" ;;
-        "WARN")  echo -e "${YELLOW}[WARN]${NC} $2" ;;
-        "ERROR") echo -e "${RED}[ERROR]${NC} $2" ;;
-        "SUCCESS") echo -e "${GREEN}[SUCCESS]${NC} $2" ;;
-    esac
-}
-
-test_exercise() {
-    local dir=$1
-    local name=$(basename "$dir")
-    
-    if [ ! -f "$dir/CMakeLists.txt" ]; then
-        log "WARN" "$name: No tiene CMakeLists.txt"
-        return 1
-    fi
-    
-    cd "$dir"
-    
-    log "INFO" "$name: Compilando..."
-    cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -Wno-dev > /dev/null 2>&1 || {
-        log "ERROR" "$name: Error en cmake"
-        cd - > /dev/null
-        return 1
-    }
-    
-    cmake --build build -j 4 > /dev/null 2>&1 || {
-        log "ERROR" "$name: Error en build"
-        cd - > /dev/null  
-        return 1
-    }
-    
-    # Buscar ejecutable de tests
-    local test_found=false
-    for test_exe in build/test_* build/tests/test_* build/bin/test_* test_runner build/test_runner; do
-        if [ -x "$test_exe" ]; then
-            log "INFO" "$name: Ejecutando tests..."
-            "./$test_exe" > /dev/null 2>&1 && {
-                log "SUCCESS" "$name: ✓ Tests OK"
-                test_found=true
-                break
-            } || {
-                log "WARN" "$name: Tests fallaron"
-                test_found=true
-                break
-            }
-        fi
+if [[ ${1:-} == help || ${1:-} == --help ]]; then
+    echo "Uso: $0 [bloque] [ejercicio] | clean"
+    exit 0
+fi
+if [[ ${1:-} == clean ]]; then
+    for folder in [0-9][0-9]-*/[0-9][0-9][0-9]-*/; do
+        rm -rf "$folder/build"
     done
-    
-    if [ "$test_found" = false ]; then
-        log "INFO" "$name: ✓ Compiló OK (sin tests)"
-    fi
-    
-    cd - > /dev/null
-    return 0
-}
+    exit 0
+fi
+if [[ $# -gt 2 ]]; then
+    echo "Demasiados argumentos" >&2; exit 1
+fi
+block=""; exercise=""
+if [[ -n ${1:-} ]]; then
+    [[ $1 =~ ^[0-9]{1,2}$ ]] || { echo "Bloque inválido" >&2; exit 1; }
+    printf -v block '%02d' "$((10#$1))"
+fi
+if [[ -n ${2:-} ]]; then
+    [[ $2 =~ ^[0-9]{1,3}$ ]] || { echo "Ejercicio inválido" >&2; exit 1; }
+    printf -v exercise '%03d' "$((10#$2))"
+fi
+timeout="${C100_TEST_TIMEOUT:-15}"
+[[ $timeout =~ ^[1-9][0-9]*$ ]] || { echo "Timeout inválido" >&2; exit 1; }
 
-clean_all() {
-    log "INFO" "Limpiando archivos de build..."
-    find . -name "build" -type d -exec rm -rf {} + 2>/dev/null || true
-    find . -name "*.o" -delete 2>/dev/null || true
-    find . -name "a.out" -delete 2>/dev/null || true
-    find . -name "test_runner" -delete 2>/dev/null || true
-    log "SUCCESS" "Limpieza completada"
-}
+test_exercise() (
+    cd "$1"
+    echo "=== $1 ==="
+    if ! cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug > /tmp/c100-configure-$$.log 2>&1; then
+        cat /tmp/c100-configure-$$.log; rm -f /tmp/c100-configure-$$.log; exit 1
+    fi
+    rm -f /tmp/c100-configure-$$.log
+    if ! cmake --build build -j 4 > build/compile.log 2>&1; then
+        cat build/compile.log; exit 1
+    fi
+    LC_ALL=C ctest --test-dir build -N > build/test-list.log
+    if ! grep -Eq 'Total Tests: [1-9][0-9]*' build/test-list.log; then
+        echo "Error: no hay pruebas registradas" >&2; exit 1
+    fi
+    ctest --test-dir build --output-on-failure --timeout "$timeout"
+)
 
-main() {
-    if [ "$1" = "clean" ]; then
-        clean_all
-        exit 0
-    fi
-    
-    if [ "$1" = "help" ] || [ "$1" = "--help" ]; then
-        echo "Uso: $0 [bloque] [ejercicio] | clean | help"
-        echo "Ejemplos:"
-        echo "  $0                # Probar todos"
-        echo "  $0 12             # Solo bloque 12"
-        echo "  $0 12 088         # Solo ejercicio 088"
-        echo "  $0 clean          # Limpiar builds"
-        exit 0
-    fi
-    
-    local count=0
-    local success=0
-    
-    if [ -n "$2" ]; then
-        # Ejercicio específico
-        for dir in */; do
-            for subdir in "$dir"*"$2"*/; do
-                if [ -d "$subdir" ]; then
-                    count=$((count + 1))
-                    test_exercise "$subdir" && success=$((success + 1))
-                fi
-            done
-        done
-    elif [ -n "$1" ]; then
-        # Bloque específico
-        local pattern=$(printf "%02d-*" "$1")
-        for dir in $pattern/; do
-            if [ -d "$dir" ]; then
-                for subdir in "$dir"*/; do
-                    if [ -d "$subdir" ]; then
-                        count=$((count + 1))
-                        test_exercise "$subdir" && success=$((success + 1))
-                    fi
-                done
-            fi
-        done
-    else
-        # Todos los ejercicios
-        for dir in [0-9][0-9]-*/; do
-            if [ -d "$dir" ]; then
-                for subdir in "$dir"*/; do
-                    if [ -d "$subdir" ]; then
-                        count=$((count + 1))
-                        test_exercise "$subdir" && success=$((success + 1))
-                    fi
-                done
-            fi
-        done
-    fi
-    
-    echo
-    echo "=================================================="
-    echo -e "Probados: $count | Exitosos: ${GREEN}$success${NC} | Fallidos: ${RED}$((count - success))${NC}"
-    echo "=================================================="
-    
-    if [ $success -eq $count ]; then
-        log "SUCCESS" "¡Todos los ejercicios OK!"
-        exit 0
-    else
-        log "WARN" "Algunos ejercicios necesitan atención"
-        exit 1
-    fi
-}
-
-main "$@"
-
+count=0; success=0
+for folder in [0-9][0-9]-*/[0-9][0-9][0-9]-*/; do
+    parent="${folder%%/*}"
+    name="$(basename "$folder")"
+    [[ $parent == 00-* ]] && continue
+    [[ -z $block || $parent == "$block"-* ]] || continue
+    [[ -z $exercise || $name == "$exercise"-* ]] || continue
+    count=$((count + 1))
+    if test_exercise "$folder"; then success=$((success + 1)); fi
+done
+echo "Probados: $count | Exitosos: $success | Fallidos: $((count - success))"
+[[ $count -gt 0 && $success -eq $count ]]
