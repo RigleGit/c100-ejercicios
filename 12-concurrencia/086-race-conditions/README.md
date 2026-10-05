@@ -1,4 +1,4 @@
-# Ejercicio 087: Race Conditions
+# Ejercicio 086: Race Conditions
 
 ## Descripción
 
@@ -78,7 +78,7 @@ Si ambos hilos leen el mismo valor inicial, ambos escribirán el mismo valor inc
 ## Estructura del Proyecto
 
 ```
-087-race-conditions/
+086-race-conditions/
 ├── include/
 │   └── race_conditions.h          # Declaraciones y tipos
 ├── src/

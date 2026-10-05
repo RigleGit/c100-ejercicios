@@ -5,7 +5,7 @@
 #include <unistd.h>
 
 static void imprimir_menu(void) {
-    printf("\n=== Ejercicio 085: Sincronización con Mutex ===\n");
+    printf("\n=== Ejercicio 087: Sincronización con Mutex ===\n");
     printf("1. Demostrar race condition (sin mutex)\n");
     printf("2. Demostrar solución con mutex\n");
     printf("3. Comparar rendimiento (con vs sin mutex)\n");

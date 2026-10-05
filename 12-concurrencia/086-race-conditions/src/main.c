@@ -257,7 +257,7 @@ void mostrar_informacion_educativa(void) {
 
 #ifndef UNIT_TESTING
 int main(void) {
-    printf("=== EJERCICIO 087: RACE CONDITIONS ===\n");
+    printf("=== EJERCICIO 086: RACE CONDITIONS ===\n");
     printf("Demostración de condiciones de carrera en programación concurrente\n");
     
     int opcion;

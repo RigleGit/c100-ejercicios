@@ -1,4 +1,4 @@
-# Ejercicio 085: Sincronización con Mutex
+# Ejercicio 087: Sincronización con Mutex
 
 ## Descripción
 
@@ -92,7 +92,7 @@ int resultado = pthread_mutex_timedlock(&mutex, &timeout);
 ## Estructura del Proyecto
 
 ```
-085-sincronizacion-mutex/
+087-sincronizacion-mutex/
 ├── include/
 │   └── sincronizacion_mutex.h     # Declaraciones y estructuras
 ├── src/

@@ -9,7 +9,7 @@
 
 /**
  * @file race_conditions.h
- * @brief Ejercicio 087: Demostración de Race Conditions
+ * @brief Ejercicio 086: Demostración de Race Conditions
  * 
  * Este ejercicio demuestra las condiciones de carrera (race conditions)
  * que ocurren cuando múltiples hilos acceden concurrentemente a recursos

@@ -1,4 +1,4 @@
-# Ejercicio 086: Suma Paralela de Arrays con Hilos
+# Ejercicio 085: Suma Paralela de Arrays con Hilos
 
 ## Descripción
 
@@ -133,7 +133,7 @@ int calcular_num_hilos_optimo(size_t tamano_array) {
 ## Estructura del Proyecto
 
 ```
-086-suma-paralela-arrays/
+085-suma-paralela-arrays/
 ├── include/
 │   └── suma_paralela_arrays.h     # Declaraciones y estructuras
 ├── src/

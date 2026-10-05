@@ -7,7 +7,7 @@
 
 /**
  * @file sincronizacion_mutex.h
- * @brief Ejercicio 085: Sincronización con Mutex
+ * @brief Ejercicio 087: Sincronización con Mutex
  * 
  * Este ejercicio demuestra el uso de mutex (mutual exclusion) para
  * sincronizar el acceso a recursos compartidos entre hilos.

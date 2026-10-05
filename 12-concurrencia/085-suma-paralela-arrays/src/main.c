@@ -5,7 +5,7 @@
 #include <unistd.h>
 
 static void imprimir_menu(void) {
-    printf("\n=== Ejercicio 086: Suma Paralela de Arrays ===\n");
+    printf("\n=== Ejercicio 085: Suma Paralela de Arrays ===\n");
     printf("1. Ejemplo básico (como en el enunciado)\n");
     printf("2. Benchmark secuencial vs paralelo\n");
     printf("3. Pruebas de escalabilidad\n");

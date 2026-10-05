@@ -8,7 +8,7 @@
 
 /**
  * @file suma_paralela_arrays.h
- * @brief Ejercicio 086: Suma Paralela de Arrays con Hilos
+ * @brief Ejercicio 085: Suma Paralela de Arrays con Hilos
  * 
  * Este ejercicio demuestra cómo dividir tareas computacionales entre
  * múltiples hilos para aprovechar sistemas con múltiples núcleos.
