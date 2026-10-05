@@ -5,8 +5,8 @@ ehthumbs.db
 Icon\r
 
 # Build artefacts
-/build/
-/build-*/
+build/
+build-*/
 /bin/
 /obj/
 /out/
@@ -24,7 +24,7 @@ CMakeCache.txt
 cmake_install.cmake
 Makefile
 CTestTestfile.cmake
-/build/
+build/
 
 # Editor/IDE
 .vscode/
@@ -74,3 +74,5 @@ error.log
 
 __pycache__/
 *.pyc
+
+/.verification/
