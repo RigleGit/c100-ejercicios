@@ -1,3 +1,4 @@
+#include <inttypes.h>
 #include "../include/race_conditions.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -130,7 +131,7 @@ bool ejecutar_experimento_race_condition(const configuracion_experimento_t* conf
                config->usar_delay ? "Sí" : "No");
         
         for (int i = 0; i < config->num_hilos; i++) {
-            printf("Hilo %d: tiempo=%lu us\n",
+            printf("Hilo %d: tiempo=%" PRIu64 " us\n",
                    resultado->resultados_hilos[i].id_hilo,
                    resultado->resultados_hilos[i].tiempo_fin - 
                    resultado->resultados_hilos[i].tiempo_inicio);
@@ -435,7 +436,7 @@ void imprimir_resultado_experimento(const resultado_experimento_t* resultado) {
     printf("  Valor obtenido: %d\n", resultado->valor_obtenido);
     printf("  Diferencia: %d\n", resultado->diferencia);
     printf("  Error: %.2f%%\n", resultado->porcentaje_error);
-    printf("  Tiempo total: %lu μs (%.3f ms)\n", 
+    printf("  Tiempo total: %" PRIu64 " μs (%.3f ms)\n",
            resultado->tiempo_total_us, resultado->tiempo_total_us / 1000.0);
     
     if (resultado->diferencia == 0) {
@@ -472,8 +473,8 @@ void imprimir_analisis_estadistico(const analisis_estadistico_t* analisis) {
     printf("  Error promedio: %.2f%%\n", analisis->error_promedio);
     
     printf("\nEstadísticas de tiempo:\n");
-    printf("  Tiempo mínimo: %lu μs\n", analisis->tiempo_min_us);
-    printf("  Tiempo máximo: %lu μs\n", analisis->tiempo_max_us);
+    printf("  Tiempo mínimo: %" PRIu64 " μs\n", analisis->tiempo_min_us);
+    printf("  Tiempo máximo: %" PRIu64 " μs\n", analisis->tiempo_max_us);
     printf("  Tiempo promedio: %.2f μs\n", analisis->tiempo_promedio_us);
     
     printf("\nAnálisis de consistencia:\n");
@@ -505,16 +506,16 @@ void imprimir_comparacion_sincronizacion(const comparacion_sincronizacion_t* com
     printf("  Valor obtenido: %d\n", comparacion->experimento_race.valor_obtenido);
     printf("  Diferencia: %d\n", comparacion->experimento_race.diferencia);
     printf("  Error: %.2f%%\n", comparacion->experimento_race.porcentaje_error);
-    printf("  Tiempo: %lu μs\n", comparacion->experimento_race.tiempo_total_us);
+    printf("  Tiempo: %" PRIu64 " μs\n", comparacion->experimento_race.tiempo_total_us);
     
     printf("\nExperimento Sincronizado:\n");
     printf("  Valor obtenido: %d\n", comparacion->experimento_seguro.valor_obtenido);
     printf("  Diferencia: %d\n", comparacion->experimento_seguro.diferencia);
     printf("  Error: %.2f%%\n", comparacion->experimento_seguro.porcentaje_error);
-    printf("  Tiempo: %lu μs\n", comparacion->experimento_seguro.tiempo_total_us);
+    printf("  Tiempo: %" PRIu64 " μs\n", comparacion->experimento_seguro.tiempo_total_us);
     
     printf("\nAnálisis de rendimiento:\n");
-    printf("  Overhead de sincronización: %lu μs\n", comparacion->overhead_sincronizacion_us);
+    printf("  Overhead de sincronización: %" PRIu64 " μs\n", comparacion->overhead_sincronizacion_us);
     printf("  Factor de ralentización: %.2fx\n", comparacion->factor_slowdown);
     
     if (comparacion->experimento_race.diferencia == 0) {

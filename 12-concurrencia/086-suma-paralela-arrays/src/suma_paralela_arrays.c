@@ -1,3 +1,4 @@
+#include <inttypes.h>
 #include "../include/suma_paralela_arrays.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -117,7 +118,7 @@ bool suma_paralela(const configuracion_suma_t* config, resultado_suma_paralela_t
         printf("Tamaño del array: %zu\n", config->tamano);
         
         for (int i = 0; i < num_hilos_efectivo; i++) {
-            printf("Hilo %d: rango [%zu, %zu), suma=%ld, tiempo=%lu us\n",
+            printf("Hilo %d: rango [%zu, %zu), suma=%" PRId64 ", tiempo=%" PRIu64 " us\n",
                    resultado->resultados_hilos[i].id_hilo,
                    resultado->resultados_hilos[i].inicio,
                    resultado->resultados_hilos[i].fin,
@@ -284,8 +285,8 @@ void imprimir_resultados_suma_paralela(const resultado_suma_paralela_t* resultad
     }
     
     printf("\n=== Resultados de Suma Paralela ===\n");
-    printf("Suma total: %ld\n", resultado->suma_total);
-    printf("Tiempo total: %lu microsegundos (%.3f ms)\n", 
+    printf("Suma total: %" PRId64 "\n", resultado->suma_total);
+    printf("Tiempo total: %" PRIu64 " microsegundos (%.3f ms)\n",
            resultado->tiempo_total_us, resultado->tiempo_total_us / 1000.0);
     printf("Hilos utilizados: %d\n", resultado->num_hilos_usados);
     
@@ -304,10 +305,10 @@ void imprimir_benchmark(const benchmark_suma_t* benchmark) {
     printf("Tamaño del array: %zu elementos\n", benchmark->tamano_array);
     printf("Número de hilos: %d\n", benchmark->num_hilos);
     printf("\nResultados:\n");
-    printf("  Suma secuencial: %ld (%lu us = %.3f ms)\n", 
+    printf("  Suma secuencial: %" PRId64 " (%" PRIu64 " us = %.3f ms)\n",
            benchmark->suma_secuencial, benchmark->tiempo_secuencial_us,
            benchmark->tiempo_secuencial_us / 1000.0);
-    printf("  Suma paralela:   %ld (%lu us = %.3f ms)\n", 
+    printf("  Suma paralela:   %" PRId64 " (%" PRIu64 " us = %.3f ms)\n",
            benchmark->suma_paralela, benchmark->tiempo_paralelo_us,
            benchmark->tiempo_paralelo_us / 1000.0);
     
@@ -397,7 +398,7 @@ bool ejecutar_pruebas_escalabilidad(const int* array, size_t tamano, int max_hil
            "-----", "---------", "-------", "-----", "----", "------");
     
     // Imprimir referencia secuencial
-    printf("%-6d %-12.3f %-12.2f %-8.1f %-10ld %-8s\n",
+    printf("%-6d %-12.3f %-12.2f %-8.1f %-10" PRId64 " %-8s\n",
            1, tiempo_secuencial / 1000.0, 1.0, 100.0, suma_referencia, "REF");
     
     for (int num_hilos = 2; num_hilos <= max_hilos; num_hilos++) {
@@ -406,7 +407,7 @@ bool ejecutar_pruebas_escalabilidad(const int* array, size_t tamano, int max_hil
         
         if (exito) {
             bool correcto = verificar_sumas_iguales(suma_referencia, benchmark.suma_paralela);
-            printf("%-6d %-12.3f %-12.2f %-8.1f %-10ld %-8s\n",
+            printf("%-6d %-12.3f %-12.2f %-8.1f %-10" PRId64 " %-8s\n",
                    num_hilos, 
                    benchmark.tiempo_paralelo_us / 1000.0,
                    benchmark.speedup,
@@ -439,8 +440,8 @@ bool ejecutar_demo_completa_suma_paralela(void) {
     
     resultado_suma_paralela_t resultado_basico;
     if (suma_paralela(&config_basico, &resultado_basico)) {
-        printf("Suma total: %ld\n", resultado_basico.suma_total);
-        printf("Tiempo: %lu microsegundos\n", resultado_basico.tiempo_total_us);
+        printf("Suma total: %" PRId64 "\n", resultado_basico.suma_total);
+        printf("Tiempo: %" PRIu64 " microsegundos\n", resultado_basico.tiempo_total_us);
         limpiar_resultado_suma(&resultado_basico);
     }
     
@@ -477,7 +478,7 @@ bool ejecutar_demo_completa_suma_paralela(void) {
     if (array_aleatorio != NULL) {
         benchmark_suma_t bench_aleatorio;
         if (ejecutar_benchmark_suma(array_aleatorio, 100000, 4, &bench_aleatorio)) {
-            printf("Suma: %ld, Speedup: %.2fx\n", 
+            printf("Suma: %" PRId64 ", Speedup: %.2fx\n",
                    bench_aleatorio.suma_paralela, bench_aleatorio.speedup);
         }
         free(array_aleatorio);

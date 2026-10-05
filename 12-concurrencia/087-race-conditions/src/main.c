@@ -1,3 +1,4 @@
+#include <inttypes.h>
 /**
  * @file main.c
  * @brief Programa principal para demostrar race conditions

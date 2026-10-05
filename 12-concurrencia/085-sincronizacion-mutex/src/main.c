@@ -1,3 +1,4 @@
+#include <inttypes.h>
 #include "../include/sincronizacion_mutex.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -20,7 +21,7 @@ static void demo_race_condition(void) {
     printf("Ejecutando múltiples hilos que incrementan un contador sin protección...\n");
     
     int64_t resultado = demostrar_race_condition(5, 2000);
-    printf("\nComo puede ver, el resultado final (%ld) probablemente no coincide\n", resultado);
+    printf("\nComo puede ver, el resultado final (%" PRId64 ") probablemente no coincide\n", resultado);
     printf("con el valor esperado (10000). Esto demuestra el problema de las\n");
     printf("condiciones de carrera cuando múltiples hilos acceden concurrentemente\n");
     printf("a un recurso compartido sin sincronización.\n");

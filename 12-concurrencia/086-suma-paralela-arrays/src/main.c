@@ -1,3 +1,4 @@
+#include <inttypes.h>
 #include "../include/suma_paralela_arrays.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -39,8 +40,8 @@ static void ejemplo_basico(void) {
     
     resultado_suma_paralela_t resultado;
     if (suma_paralela(&config, &resultado)) {
-        printf("\nResultado: %ld\n", resultado.suma_total);
-        printf("Tiempo de ejecución: %lu microsegundos\n", resultado.tiempo_total_us);
+        printf("\nResultado: %" PRId64 "\n", resultado.suma_total);
+        printf("Tiempo de ejecución: %" PRIu64 " microsegundos\n", resultado.tiempo_total_us);
         
         if (resultado.suma_total == 55) {
             printf("✓ CORRECTO: La suma coincide con el valor esperado\n");

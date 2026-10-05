@@ -1,3 +1,4 @@
+#include <inttypes.h>
 #include "../include/sincronizacion_mutex.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -275,7 +276,7 @@ bool ejecutar_prueba_rendimiento(parametros_prueba_t* params) {
     
     uint64_t tiempo_total = (obtener_tiempo_microsegundos() - inicio_prueba) / 1000;
     
-    printf("Prueba completada en %lu ms\n", tiempo_total);
+    printf("Prueba completada en %" PRIu64 " ms\n", tiempo_total);
     
     int64_t valor_final;
     if (params->usar_mutex) {
@@ -284,8 +285,8 @@ bool ejecutar_prueba_rendimiento(parametros_prueba_t* params) {
         valor_final = params->recurso->valor;
     }
     
-    printf("Valor final del recurso: %ld\n", valor_final);
-    printf("Valor esperado: %ld\n", 
+    printf("Valor final del recurso: %" PRId64 "\n", valor_final);
+    printf("Valor esperado: %" PRId64 "\n",
            (int64_t)(params->num_hilos * params->operaciones_por_hilo * 2 / 3)); // 2/3 son escrituras
     
     imprimir_estadisticas_rendimiento(params->stats, tiempo_total);
@@ -527,12 +528,12 @@ void imprimir_estadisticas_rendimiento(estadisticas_mutex_t* stats, uint64_t tie
     }
     
     printf("\n=== Estadísticas de Rendimiento ===\n");
-    printf("Operaciones de lectura: %lu\n", copia.operaciones_lectura);
-    printf("Operaciones de escritura: %lu\n", copia.operaciones_escritura);
-    printf("Total de operaciones: %lu\n", 
+    printf("Operaciones de lectura: %" PRIu64 "\n", copia.operaciones_lectura);
+    printf("Operaciones de escritura: %" PRIu64 "\n", copia.operaciones_escritura);
+    printf("Total de operaciones: %" PRIu64 "\n",
            copia.operaciones_lectura + copia.operaciones_escritura);
-    printf("Tiempo total de espera: %lu ms\n", copia.tiempo_espera_ms);
-    printf("Tiempo total de prueba: %lu ms\n", tiempo_total_ms);
+    printf("Tiempo total de espera: %" PRIu64 " ms\n", copia.tiempo_espera_ms);
+    printf("Tiempo total de prueba: %" PRIu64 " ms\n", tiempo_total_ms);
     
     if (tiempo_total_ms > 0) {
         uint64_t total_ops = copia.operaciones_lectura + copia.operaciones_escritura;
