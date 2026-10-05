@@ -60,31 +60,6 @@ El número debe ser positivo.
 | 1 | 1 % 10 | 1 | Último dígito |
 | 1 | 1 / 10 | 0 | Sin último dígito |
 
-## Compilación y ejecución
-
-```bash
-# Compilar el programa
-mkdir build && cd build
-cmake ..
-make
-
-# Ejecutar el programa
-./suma_digitos
-
-# Ejecutar las pruebas (si están disponibles)
-make test
-```
-
-## Pruebas incluidas
-
-El programa incluye pruebas automáticas que verifican:
-
-- ✅ Números de un solo dígito (0, 5, 9)
-- ✅ Números de dos dígitos (12, 99, 10)
-- ✅ Números de tres dígitos (123, 456, 999)
-- ✅ Números más grandes (1234, 9876, 12345)
-- ✅ Casos especiales (100, 1000, 2020)
-
 ## Posibles extensiones
 
 1. **Versión recursiva**: Implementar la suma de dígitos usando recursión
@@ -99,3 +74,22 @@ El programa incluye pruebas automáticas que verifican:
 - El algoritmo es eficiente con complejidad O(log n)
 - Las pruebas cubren casos típicos y extremos
 - El código está bien comentado para fines educativos
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/suma_digitos
+```
+
+## Pruebas de esta revisión
+
+Entradas y salidas observables del programa.
+
+Código: [pruebas CLI](../../tools/tests/test_cli_exercises.py). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

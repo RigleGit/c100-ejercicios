@@ -208,30 +208,6 @@ void procesar_array_optimizado(int arr[], int n) {
 }
 ```
 
-## Casos de Prueba
-
-### Casos Básicos
-```c
-assert((0 & 1) == 0);   // 0 es par
-assert((1 & 1) == 1);   // 1 es impar
-assert((2 & 1) == 0);   // 2 es par
-assert((3 & 1) == 1);   // 3 es impar
-```
-
-### Casos con Negativos
-```c
-assert((-2 & 1) == 0);  // -2 es par
-assert((-1 & 1) == 1);  // -1 es impar
-assert((-4 & 1) == 0);  // -4 es par
-assert((-3 & 1) == 1);  // -3 es impar
-```
-
-### Casos Extremos
-```c
-assert((INT_MAX & 1) == 1);  // INT_MAX es impar
-assert((INT_MIN & 1) == 0);  // INT_MIN es par
-```
-
 ## Extensiones Sugeridas
 
 ### 1. **Análisis de Patrones**
@@ -336,30 +312,28 @@ void comparar_rendimiento(int iteraciones) {
 - **Cero**: Considerado par (LSB = 0)
 - **Overflow**: No afecta la operación AND
 
-## Compilación y Ejecución
-
-```bash
-# Compilar el programa principal
-gcc -o paridad_bits src/main.c -std=c99 -Wall -Wextra
-
-# Ejecutar
-./paridad_bits
-
-# Compilar y ejecutar tests (si tienes Criterion)
-gcc -o test_paridad test/test_main.c -lcriterion
-./test_paridad
-
-# Con CMake
-mkdir build && cd build
-cmake ..
-make
-./paridad_bits
-make test  # Ejecutar pruebas automáticas
-```
-
 ## Referencias
 
 - **K&R**: "The C Programming Language" - Operadores bit a bit
 - **Hacker's Delight**: Henry S. Warren Jr. - Trucos con bits
 - **Intel Manual**: Instruction set reference - AND operation
 - **IEEE Standards**: Representación de enteros en complemento a dos
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/paridad_bits
+```
+
+## Pruebas de esta revisión
+
+Entradas y salidas observables del programa.
+
+Código: [pruebas CLI](../../tools/tests/test_cli_exercises.py). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

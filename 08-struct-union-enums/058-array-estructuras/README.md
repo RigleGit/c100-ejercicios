@@ -47,25 +47,6 @@ void imprimir_mayores_de(Persona personas[], int cantidad, int edad_limite);
 - Validación de datos de entrada
 - Carga de datos de ejemplo
 
-## Estructura del Proyecto
-
-```
-058-array-estructuras/
-├── src/
-│   ├── array_estructuras.c     # Implementación principal
-│   └── main.c                  # Programa demostración
-├── include/
-│   └── array_estructuras.h     # Definiciones y prototipos
-├── tests/
-│   └── test_array_estructuras.c # Tests unitarios
-├── test_simple.c               # Tests simples (sin Criterion)
-├── debug_test.c               # Test de debug para verificación
-├── CMakeLists.txt              # Configuración de build
-├── Makefile                    # Makefile para compilación
-├── README.md                   # Este archivo
-└── .gitignore                  # Exclusiones de Git
-```
-
 ## Estructuras de Datos
 
 ### Estructura Persona
@@ -82,33 +63,6 @@ typedef struct {
     Persona personas[MAX_PERSONAS]; // Array de personas (5 elementos)
     int cantidad;                    // Número actual de personas
 } ListaPersonas;
-```
-
-## Compilación
-
-### Usando CMake (Recomendado)
-```bash
-mkdir build && cd build
-cmake ..
-make
-
-# Ejecutar programa
-./array_estructuras
-
-# Ejecutar tests (requiere Criterion)
-make run_tests
-
-# O directamente:
-./test_array_estructuras
-```
-
-### Compilación Manual
-```bash
-# Compilar programa principal
-gcc -std=c99 -Wall -Wextra -Iinclude -o array_estructuras src/*.c
-
-# Compilar tests (requiere Criterion)
-gcc -std=c99 -Wall -Wextra -Iinclude -o test_array_estructuras src/array_estructuras.c tests/test_array_estructuras.c -lcriterion
 ```
 
 ## Uso del Programa
@@ -150,72 +104,6 @@ ListaPersonas lista;
 cargar_datos_ejemplo(&lista);
 ordenar_por_edad(&lista);
 mostrar_lista_completa(&lista);
-```
-
-## Compilación y Ejecución
-
-### Usando Makefile (Recomendado)
-```bash
-# Compilar programa principal
-make
-
-# Ejecutar tests completos
-make test
-
-# Ejecutar tests simples (sin Criterion)
-make test-simple
-
-# Ejecutar con datos de ejemplo
-make run-example
-
-# Ver opciones disponibles
-make help
-
-# Limpiar archivos compilados
-make clean
-```
-
-### Compilación Manual
-```bash
-# Programa principal
-gcc -Wall -Wextra -std=c99 -Iinclude -o array_estructuras src/array_estructuras.c src/main.c
-
-# Tests con Criterion (macOS)
-gcc -Wall -Wextra -std=c99 -I/opt/homebrew/include -Iinclude -L/opt/homebrew/lib -o test_array_estructuras src/array_estructuras.c tests/test_array_estructuras.c -lcriterion
-
-# Tests simples
-gcc -Wall -Wextra -std=c99 -Iinclude -o test_simple src/array_estructuras.c test_simple.c
-```
-
-## Tests
-
-El proyecto incluye tests comprehensivos usando **Criterion**:
-
-### Estado de Tests
-✅ **Todos los tests pasan** - 19/19 tests exitosos
-
-### Categorías de Tests
-- ✅ **Funciones básicas**: Inicialización, agregar/eliminar personas
-- ✅ **Filtrado**: Todos los tipos de filtros implementados  
-- ✅ **Ordenamiento**: Por edad y por nombre
-- ✅ **Búsqueda**: Por nombre exacto y contadores
-- ✅ **Funciones auxiliares**: Validación, copia, datos de ejemplo
-- ✅ **Casos límite**: Lista llena, vacía, nombres especiales
-
-### Ejecutar Tests
-```bash
-# Con Makefile
-make test
-
-# Directamente
-./test_array_estructuras
-
-# Tests específicos
-./test_array_estructuras --filter test_basicas
-./test_array_estructuras --filter test_filtrado
-
-# Formato TAP para CI/CD
-./test_array_estructuras --tap
 ```
 
 ## Conceptos Técnicos
@@ -290,3 +178,22 @@ if (indice >= 0) {
 - **Edades válidas**: 0-150 años
 - **Compilador**: Compatible con C99 y posteriores
 - **Plataforma**: Multiplataforma (Linux, macOS, Windows)
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/array_estructuras
+```
+
+## Pruebas de esta revisión
+
+Contratos de la API probados contra la implementación real.
+
+Código: [tests/test_contrato.c](tests/test_contrato.c). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

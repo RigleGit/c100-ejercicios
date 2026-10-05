@@ -59,53 +59,6 @@ Este ejercicio implementa una versión completa y educativa del algoritmo **Quic
 - `quicksort_visualizado()`: Muestra cada paso de la recursión
 - `demo_completa_quicksort()`: Demostración integral de todas las variantes
 
-## Estructura del Proyecto
-
-```
-071-quicksort/
-├── include/
-│   └── quicksort.h          # Declaraciones de funciones y estructuras
-├── src/
-│   └── quicksort.c          # Implementación completa
-├── tests/
-│   └── test_quicksort.c     # Tests exhaustivos con Criterion
-├── CMakeLists.txt           # Configuración de compilación
-├── README.md               # Esta documentación
-└── .gitignore              # Archivos a ignorar por git
-```
-
-## Compilación
-
-### Usando CMake (Recomendado)
-
-```bash
-# Crear directorio de compilación
-mkdir build && cd build
-
-# Configurar el proyecto
-cmake ..
-
-# Compilar
-make
-
-# Ejecutar el programa principal
-./quicksort
-
-# Ejecutar tests (requiere Criterion)
-make run_tests
-```
-
-### Compilación Manual
-
-```bash
-# Compilar el programa principal
-gcc -std=c99 -Wall -Wextra -O2 -Iinclude src/quicksort.c -o quicksort
-
-# Compilar y ejecutar tests
-gcc -std=c99 -Wall -Wextra -O2 -Iinclude src/quicksort.c tests/test_quicksort.c -lcriterion -o test_quicksort
-./test_quicksort
-```
-
 ## Uso
 
 ### Ejemplo Básico
@@ -215,32 +168,6 @@ void quicksort_iterativo(int arr[], int tamanio);
 void quicksort_tres_vias(int arr[], int bajo, int alto);
 ```
 
-## Tests
-
-El proyecto incluye una suite completa de tests usando Criterion:
-
-### Categorías de Tests
-- **Funcionalidad básica**: Arrays pequeños, casos límite
-- **Variantes de partición**: Verificación de todas las estrategias de pivot
-- **Optimizaciones**: Tests de versiones híbrida e iterativa
-- **Manejo de duplicados**: Quicksort de tres vías
-- **Rendimiento**: Tests con arrays grandes
-- **Casos límite**: Arrays vacíos, nulos, índices inválidos
-- **Utilidades**: Funciones auxiliares y de análisis
-
-### Ejecutar Tests
-
-```bash
-# Tests básicos
-make run_tests
-
-# Tests con output detallado
-make run_tests_detailed
-
-# Test específico
-./test_quicksort --filter quicksort_basico
-```
-
 ## Optimizaciones Implementadas
 
 ### 1. Selección Inteligente de Pivot
@@ -337,3 +264,21 @@ make run_tests_detailed
 - La versión recursiva puede causar stack overflow en arrays muy grandes
 - La versión iterativa es más robusta para arrays grandes
 
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/quicksort
+```
+
+## Pruebas de esta revisión
+
+Contratos de la API probados contra la implementación real.
+
+Código: [tests/test_contrato.c](tests/test_contrato.c). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

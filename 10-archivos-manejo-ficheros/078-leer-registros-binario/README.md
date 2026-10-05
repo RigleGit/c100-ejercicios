@@ -257,106 +257,6 @@ bool leer_producto_por_indice(const char* nombre_archivo, size_t indice, Product
 }
 ```
 
-## Casos de Prueba
-
-### Tests Unitarios
-1. **Lectura básica**: Array de productos válidos
-2. **Buffer pequeño**: Lectura parcial cuando el buffer es menor que el archivo
-3. **Archivo vacío**: Manejo correcto de archivos sin datos
-4. **Archivo inexistente**: Manejo de errores de apertura
-5. **Parámetros inválidos**: NULL pointers, buffers de tamaño 0
-6. **Lectura dinámica**: Asignación automática de memoria
-7. **Validación de checksum**: Verificación de integridad
-8. **Lectura con header**: Procesamiento de metadatos
-9. **Búsqueda por código**: Encontrar productos específicos
-10. **Acceso por índice**: Lectura de productos específicos
-11. **Consistencia escritura-lectura**: Verificar que los datos leídos coinciden con los escritos
-12. **Archivos corruptos**: Manejo de formatos inválidos
-13. **Archivos grandes**: Performance con muchos registros
-
-### Validación de Integridad
-```c
-Test(leer_registros_binario, consistencia_escritura_lectura) {
-    Producto productos_originales[] = {
-        {500, 99.99f},
-        {501, 149.50f},
-        {502, 299.99f}
-    };
-    
-    // Escribir productos
-    FILE* archivo = fopen("test_consistencia.dat", "wb");
-    fwrite(productos_originales, sizeof(Producto), 3, archivo);
-    fclose(archivo);
-    
-    // Leer productos
-    Producto productos_leidos[3];
-    size_t leidos = leer_productos_basico("test_consistencia.dat", productos_leidos, 3, NULL);
-    
-    // Verificar consistencia
-    for (int i = 0; i < 3; i++) {
-        cr_assert(eq(int, productos_leidos[i].codigo, productos_originales[i].codigo));
-        cr_assert(eq(flt, productos_leidos[i].precio, productos_originales[i].precio, 0.001f));
-    }
-}
-```
-
-## Compilación y Ejecución
-
-### Prerrequisitos
-- Compilador C (gcc, clang)
-- CMake 3.16+
-- Criterion (para tests): `brew install criterion` (macOS)
-- **Archivos .dat del ejercicio 077**
-
-### Preparación de Archivos
-```bash
-# Opción 1: Ejecutar ejercicio 077 primero
-cd ../077-escribir-registros-binario/build
-./escribir_registros_binario
-cp *.dat ../078-leer-registros-binario/build/
-
-# Opción 2: Usar target de CMake
-make copy_from_077
-```
-
-### Compilar
-```bash
-mkdir build && cd build
-cmake ..
-make
-```
-
-### Ejecutar
-```bash
-# Programa principal (versión avanzada)
-./leer_registros_binario
-
-# Versión básica del usuario
-./demo_basico
-```
-
-### Ejecutar Tests
-```bash
-make test
-# o directamente
-./test_leer_registros_binario
-```
-
-### Herramientas de Análisis
-```bash
-# Copiar archivos del ejercicio 077
-make copy_from_077
-
-# Analizar archivos binarios
-make analyze_files
-
-# Verificar compatibilidad
-make verify_compatibility
-
-# Limpiar archivos de prueba
-make clean_test_files
-```
-
 ## Salida Esperada
 
 ### Programa Principal
@@ -489,7 +389,10 @@ if (elementos_leidos == 0) {
 
 ### Verificación de Compatibilidad
 ```bash
-make verify_compatibility
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/leer_registros_binario
 ```
 
 ## Extensiones y Mejoras
@@ -517,27 +420,6 @@ bool convertir_formato_basico_a_header(const char* origen, const char* destino);
 bool convertir_formato_extendido_a_basico(const char* origen, const char* destino);
 ```
 
-## Troubleshooting
-
-### Problemas Comunes
-1. **Archivo no encontrado**: Verificar que se ejecutó el ejercicio 077
-2. **Datos corruptos**: Validar integridad con checksums
-3. **Tamaño incorrecto**: Verificar que el tamaño sea múltiplo de `sizeof(Producto)`
-4. **Memoria insuficiente**: En lectura dinámica con archivos grandes
-
-### Herramientas de Debug
-```bash
-# Verificar archivos binarios
-hexdump -C productos.dat
-
-# Información de archivos
-stat productos.dat
-
-# Debug con GDB
-gdb ./leer_registros_binario
-(gdb) break leer_productos_basico
-```
-
 ## Aplicaciones Prácticas
 
 1. **Lectura de configuraciones**: Cargar datos de configuración binarios
@@ -553,3 +435,22 @@ gdb ./leer_registros_binario
 - Estándar C99: ISO/IEC 9899:1999
 - "The C Programming Language" - Kernighan & Ritchie
 - "Expert C Programming" - Peter van der Linden
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/leer_registros_binario
+```
+
+## Pruebas de esta revisión
+
+Contratos de la API probados contra la implementación real.
+
+Código: [tests/test_contrato.c](tests/test_contrato.c). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

@@ -44,21 +44,6 @@ Este ejercicio implementa un **array dinámico** completo en C, enseñando los c
 - `mostrarEstadisticas()`: Información completa del array
 - `validarArray()`: Verificar integridad de la estructura
 
-## 🏗️ Estructura del Proyecto
-
-```
-052-array-dinamico/
-├── include/
-│   └── array_dinamico.h      # Declaraciones y estructura ArrayDinamico
-├── src/
-│   ├── array_dinamico.c      # Implementación de todas las funciones
-│   └── main.c               # Programa principal con demostraciones
-├── test/
-│   └── test_array_dinamico.c # Tests exhaustivos con Criterion
-├── CMakeLists.txt           # Configuración de compilación
-└── README.md               # Esta documentación
-```
-
 ## 🔧 Estructura de Datos
 
 ```c
@@ -109,55 +94,6 @@ int main() {
     
     return 0;
 }
-```
-
-## ⚡ Compilación y Ejecución
-
-```bash
-# Crear directorio de compilación
-mkdir build && cd build
-
-# Configurar proyecto
-cmake ..
-
-# Compilar
-make
-
-# Ejecutar programa principal
-./array_dinamico
-
-# Ejecutar tests (si Criterion está instalado)
-./test_array_dinamico
-```
-
-### Instalación de Criterion (para tests)
-
-```bash
-# macOS
-brew install criterion
-
-# Ubuntu/Debian
-sudo apt-get install libcriterion-dev
-
-# Arch Linux
-sudo pacman -S criterion
-```
-
-## 🧪 Tests Incluidos
-
-Los tests cubren exhaustivamente:
-
-- ✅ **Creación y liberación**: Arrays válidos e inválidos
-- ✅ **Operaciones básicas**: Agregar, insertar, eliminar elementos
-- ✅ **Redimensionamiento**: Crecimiento y reducción automática
-- ✅ **Búsqueda y estadísticas**: Máximo, mínimo, promedio, conteo
-- ✅ **Operaciones avanzadas**: Invertir, ordenar, copiar, concatenar
-- ✅ **Casos límite**: Arrays vacíos, elementos únicos, memoria insuficiente
-- ✅ **Validación**: Parámetros inválidos y manejo de errores
-
-```bash
-# Ejecutar tests con salida detallada
-make test_verbose
 ```
 
 ## 🔍 Conceptos Técnicos
@@ -248,3 +184,22 @@ for (size_t i = indice; i < array->tamaño - 1; i++) {
 - [Dynamic Arrays in C](https://en.wikipedia.org/wiki/Dynamic_array)
 - [Memory Management in C](https://www.cprogramming.com/tutorial/c/lesson6.html)
 - [C Dynamic Data Structures](https://www.geeksforgeeks.org/dynamic-data-structures/)
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/array_dinamico
+```
+
+## Pruebas de esta revisión
+
+Contratos de la API probados contra la implementación real.
+
+Código: [tests/test_contrato.c](tests/test_contrato.c). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

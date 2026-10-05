@@ -31,43 +31,6 @@ Este ejercicio implementa un sistema completo para leer archivos de texto en C, 
 - **Gestión eficiente de memoria** para archivos grandes
 - **Interfaz interactiva** con menú de opciones
 
-## Compilación
-
-### Usando CMake (Recomendado)
-
-```bash
-# Crear directorio de build
-mkdir build && cd build
-
-# Configurar el proyecto
-cmake ..
-
-# Compilar
-make
-
-# Crear archivos de ejemplo
-make create_examples
-
-# Ejecutar el programa principal
-make run
-
-# Ejecutar tests (requiere Criterion)
-make test_run
-```
-
-### Compilación Manual
-
-```bash
-# Compilar biblioteca
-gcc -Wall -Wextra -std=c99 -c src/leer_archivo.c -I include -o leer_archivo.o
-
-# Compilar programa principal
-gcc -Wall -Wextra -std=c99 leer_archivo.o -o leer_archivo
-
-# Compilar tests (requiere Criterion)
-gcc -Wall -Wextra -std=c99 tests/test_leer_archivo.c leer_archivo.o -I include -lcriterion -o test_leer_archivo
-```
-
 ## Uso
 
 ### Ejemplo Básico (del Enunciado)
@@ -183,40 +146,6 @@ typedef struct {
     int max_lineas_mostrar;       // Máximo de líneas a mostrar (-1 = todas)
 } ConfiguracionLectura;
 ```
-
-## Tests
-
-El proyecto incluye una suite completa de tests usando Criterion:
-
-```bash
-# Ejecutar todos los tests
-./test_leer_archivo
-
-# Ejecutar con salida detallada
-./test_leer_archivo --verbose
-
-# Ejecutar tests específicos
-make test_basicos    # Tests de lectura básica
-make test_avanzados  # Tests de funciones avanzadas
-```
-
-### Casos de Prueba
-
-- ✅ Lectura básica de archivo
-- ✅ Lectura de archivo inexistente
-- ✅ Manejo de parámetros NULL
-- ✅ Lectura de archivo vacío
-- ✅ Lectura con números de línea
-- ✅ Lectura con configuración personalizada
-- ✅ Carga de archivo en memoria
-- ✅ Obtención de estadísticas
-- ✅ Búsqueda de palabras (sensible/insensible)
-- ✅ Conteo de frecuencia de palabras
-- ✅ Filtrado de líneas por patrón
-- ✅ Lectura de rangos de líneas
-- ✅ Comparación de archivos
-- ✅ Manejo de memoria y liberación
-- ✅ Configuraciones especiales (ignorar vacías, mayúsculas)
 
 ## Conceptos Educativos
 
@@ -346,3 +275,22 @@ El ejercicio incluye un menú interactivo completo:
 - [Funciones de E/O estándar](https://en.cppreference.com/w/c/io)
 - [Manejo de archivos POSIX](https://pubs.opengroup.org/onlinepubs/9699919799/functions/fopen.html)
 - [Análisis de texto en C](https://www.geeksforgeeks.org/c-program-count-words-text-file/)
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/leer_archivo_texto
+```
+
+## Pruebas de esta revisión
+
+Contratos de la API probados contra la implementación real.
+
+Código: [tests/test_contrato.c](tests/test_contrato.c). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

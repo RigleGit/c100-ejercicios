@@ -92,112 +92,6 @@ Resultado: 15
 
 20. **`demo_declaraciones()`** - Muestra diferentes formas de declarar punteros a funciones
 
-## 🏗️ Estructura del Proyecto
-
-```
-047-puntero-a-funcion/
-├── src/
-│   └── main.c              # Implementación principal
-├── test/
-│   └── test_main.c         # Suite de tests con Criterion
-├── include/
-│   └── .gitkeep           # Directorio para headers
-├── CMakeLists.txt         # Configuración de build
-├── README.md              # Este archivo
-└── .gitignore            # Archivos a ignorar por git
-```
-
-## 🧪 Casos de Prueba
-
-### Tests de Funciones Básicas
-- ✅ Todas las operaciones matemáticas básicas
-- ✅ Casos especiales (división por cero, potencias)
-- ✅ Valores extremos y límites
-- ✅ Números negativos y cero
-
-### Tests de Punteros a Funciones
-- ✅ Declaración y asignación
-- ✅ Llamadas a través de punteros
-- ✅ Arrays de punteros a funciones
-- ✅ Punteros nulos
-- ✅ Asignación múltiple
-
-### Tests de Calculadora
-- ✅ Calculadora con punteros a funciones
-- ✅ Calculadora dinámica con operadores
-- ✅ Operadores válidos e inválidos
-- ✅ Múltiples operaciones
-
-### Tests de Ordenamiento
-- ✅ Función de comparación
-- ✅ Ordenamiento con función personalizada
-- ✅ Arrays ordenados, desordenados y reversos
-
-### Tests de Callbacks
-- ✅ Procesamiento con diferentes callbacks
-- ✅ Búsqueda con condiciones
-- ✅ Aplicación a arrays
-
-### Tests de Integración
-- ✅ Flujo completo de calculadora
-- ✅ Operaciones en arrays
-- ✅ Sistema de callbacks completo
-
-## 🚀 Compilación y Ejecución
-
-### Prerrequisitos
-- CMake 3.15 o superior
-- Compilador GCC o Clang
-- Criterion (para tests)
-
-### Instalación de Dependencias
-
-**macOS:**
-```bash
-brew install cmake criterion
-```
-
-**Ubuntu/Debian:**
-```bash
-sudo apt-get update
-sudo apt-get install cmake libcriterion-dev
-```
-
-### Compilación
-
-```bash
-# Crear directorio build
-mkdir build && cd build
-
-# Configurar proyecto
-cmake ..
-
-# Compilar
-make
-```
-
-### Ejecución
-
-```bash
-# Ejecutar programa principal
-./main
-
-# Ejecutar tests
-make test_all
-# o directamente
-./test_runner
-```
-
-### Targets Disponibles
-
-```bash
-make main          # Compilar solo el ejecutable principal
-make test_runner    # Compilar solo los tests
-make run           # Compilar y ejecutar el programa principal
-make test_all      # Ejecutar todos los tests
-make clean_all     # Limpieza completa
-```
-
 ## 📊 Ejemplo de Salida
 
 ```
@@ -404,4 +298,22 @@ int (*plugin_init)(void) = dlsym(handle, "init");
 - **Kernighan & Ritchie**: "The C Programming Language", Capítulo 5.11
 - **C11 Standard**: ISO/IEC 9899:2011, Sección 6.3.2.1
 - **Expert C Programming**: Peter van der Linden
-- **Criterion Documentation**: Testing framework
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/puntero_a_funcion
+```
+
+## Pruebas de esta revisión
+
+Contratos de la API probados contra la implementación real.
+
+Código: [tests/test_contrato.c](tests/test_contrato.c). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

@@ -71,54 +71,6 @@ int array2[TAMANIO_CONST];    // ✗ Error en C89/C90
 #endif
 ```
 
-## 🏗️ Estructura del Proyecto
-
-```
-079-constantes-preprocesador/
-├── include/
-│   └── constantes_preprocesador.h
-├── src/
-│   └── constantes_preprocesador.c
-├── tests/
-│   └── test_constantes_preprocesador.c
-├── CMakeLists.txt
-└── README.md
-```
-
-## 🛠️ Compilación
-
-### Usando CMake (Recomendado)
-
-```bash
-# Crear directorio de build
-mkdir build && cd build
-
-# Configurar proyecto
-cmake ..
-
-# Compilar
-make
-
-# Ejecutar tests
-make test
-
-# O ejecutar tests con salida detallada
-make test_verbose
-```
-
-### Usando GCC directamente
-
-```bash
-# Compilar biblioteca
-gcc -Wall -Wextra -std=c99 -c src/constantes_preprocesador.c -Iinclude
-
-# Compilar ejecutable principal
-gcc -Wall -Wextra -std=c99 -o main_basico src/constantes_preprocesador.c -Iinclude -DCOMPILAR_MAIN_BASICO
-
-# Compilar tests (requiere Criterion)
-gcc -Wall -Wextra -std=c99 -o test tests/test_constantes_preprocesador.c src/constantes_preprocesador.c -Iinclude -lcriterion
-```
-
 ## ▶️ Ejecución
 
 ### Ejecutables Disponibles
@@ -140,54 +92,19 @@ gcc -Wall -Wextra -std=c99 -o test tests/test_constantes_preprocesador.c src/con
 
 ### Tests
 ```bash
-# Ejecutar todos los tests
-./test_constantes_preprocesador
-
-# Ejecutar tests específicos
-make test_basicos      # Solo tests básicos
-make test_matematicas  # Solo tests matemáticos
-make test_educativos   # Solo tests educativos
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/main_basico
 ```
 
 ### Targets Especiales
 ```bash
-# Mostrar diferencias de compilación
-make demo_compilacion
-
-# Mostrar expansión del preprocesador
-make mostrar_expansion
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/main_basico
 ```
-
-## 🧪 Casos de Prueba
-
-### Tests Implementados
-
-1. **Constantes Básicas:**
-   - Verificación de valores de `TAMANIO`
-   - Constantes de tamaños de arrays
-   - Límites de edad válidos
-
-2. **Constantes Matemáticas:**
-   - Precisión de `PI`, `E`, `GOLDEN_RATIO`
-   - Verificación de `SQRT_2`
-
-3. **Constantes de Cadenas:**
-   - Mensajes predefinidos
-   - Formatos de salida
-   - Separadores y delimitadores
-
-4. **Máscaras de Bits:**
-   - Bits individuales (`BIT_0` a `BIT_7`)
-   - Máscaras combinadas
-
-5. **Pseudo-funciones:**
-   - Macros `ABS`, `MAX`, `MIN`
-   - Macro `ARRAY_SIZE`
-
-6. **Tests Educativos:**
-   - Demostración de sustitución textual
-   - Precauciones con macros
-   - Diferencias entre `const` y `#define`
 
 ## 📋 Ejemplo de Uso
 
@@ -285,12 +202,18 @@ int resultado = SQUARE(++valor);  // valor se incrementa dos veces
 
 ### Ver Expansión del Preprocesador
 ```bash
-gcc -E archivo.c -Iinclude
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/main_basico
 ```
 
 ### Compilar con Información de Debug
 ```bash
-gcc -DDEBUG=1 -g archivo.c
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/main_basico
 ```
 
 ## 📚 Referencias
@@ -304,3 +227,22 @@ gcc -DDEBUG=1 -g archivo.c
 ## 🤝 Contribución
 
 Si encuentras errores o tienes sugerencias de mejora, por favor crea un issue o envía un pull request.
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/main_basico
+```
+
+## Pruebas de esta revisión
+
+Contratos de la API probados contra la implementación real.
+
+Código: [tests/test_contrato.c](tests/test_contrato.c). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

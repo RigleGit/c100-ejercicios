@@ -18,40 +18,6 @@ Escribir un programa que:
 - **Bucles anidados**: Recorrido eficiente de estructuras 2D
 - **Salida formateada**: Presentación tabular de resultados
 
-## Compilación y Ejecución
-
-### Requisitos
-- Compilador C (gcc, clang)
-- CMake 3.10 o superior
-- Criterion (para tests, opcional)
-
-### Compilación con CMake
-```bash
-mkdir build
-cd build
-cmake ..
-make
-```
-
-### Ejecución
-```bash
-# Desde el directorio build
-./bin/suma_matrices
-
-# O directamente con gcc
-gcc -o suma_matrices src/main.c
-./suma_matrices
-```
-
-### Ejecutar Tests
-```bash
-# Desde el directorio build
-make run_tests
-
-# O ejecutar directamente
-./test_036-suma-matrices
-```
-
 ## Ejemplo de Uso
 ```
 Introduce los elementos de la primera matriz (3x3):
@@ -90,19 +56,6 @@ Matriz resultante de la suma:
 - **Constantes simbólicas**: Uso de `#define` para dimensiones
 - **Formato de salida**: Presentación tabular con tabulaciones
 
-## Estructura del Proyecto
-```
-036-suma-matrices/
-├── src/
-│   └── main.c          # Código principal
-├── test/
-│   └── test_main.c     # Tests unitarios
-├── include/            # Archivos de cabecera (si los hay)
-├── CMakeLists.txt      # Configuración de CMake
-├── .gitignore         # Archivos a ignorar por git
-└── README.md          # Este archivo
-```
-
 ## Análisis del Algoritmo
 
 ### Estructura de Datos
@@ -128,17 +81,6 @@ for (int i = 0; i < FILAS; i++) {
 ### Complejidad
 - **Temporal**: O(n×m) donde n=filas, m=columnas → O(9) = O(1) para 3x3
 - **Espacial**: O(n×m) para almacenar las tres matrices
-
-## Casos de Prueba
-Los tests incluyen verificaciones para:
-- **Suma básica**: Matrices con valores simples
-- **Elemento neutro**: Suma con matriz de ceros
-- **Matrices iguales**: Verificar duplicación de valores
-- **Números negativos**: Manejo de valores negativos y anulación
-- **Matriz identidad**: Casos especiales con patrones conocidos
-- **Valores grandes**: Verificar que no hay overflow
-- **Casos mixtos**: Combinaciones de positivos y negativos
-- **Matrices especiales**: Diagonal, simétricas, etc.
 
 ## Conceptos Matemáticos
 
@@ -241,3 +183,22 @@ Este ejercicio prepara para:
 - **Bucles anidados**: Patrón fundamental en programación
 - **Indexación múltiple**: Concepto clave para estructuras complejas
 - **Operaciones matemáticas**: Conexión entre programación y matemáticas
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/suma_matrices
+```
+
+## Pruebas de esta revisión
+
+Entradas y salidas observables del programa.
+
+Código: [pruebas CLI](../../tools/tests/test_cli_exercises.py). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

@@ -26,20 +26,6 @@ Esta clasificación es fundamental en matemáticas y programación.
 - **Exclusividad**: Solo una rama se ejecuta
 - **Casos mutuamente excluyentes**: Un número no puede ser positivo y negativo a la vez
 
-## Estructura del Proyecto
-
-```
-013-clasificacion-numerica/
-├── CMakeLists.txt          # Configuración de compilación
-├── README.md               # Este archivo
-├── .gitignore             # Archivos a ignorar en git
-├── include/               # Archivos de cabecera (vacío en este ejercicio)
-├── src/
-│   └── main.c             # Código fuente principal
-└── test/
-    └── test_main.c        # Tests del programa
-```
-
 ## Explicación del Algoritmo
 
 1. **Entrada**: Leer número entero del usuario
@@ -106,38 +92,6 @@ número < 0  → NEGATIVO
 resto       → CERO
 ```
 
-## Compilación y Ejecución
-
-```bash
-# Usando CMake (recomendado)
-mkdir build && cd build
-cmake ..
-make
-./clasificacion_numerica
-
-# Compilación directa
-gcc -o clasificacion_numerica src/main.c
-./clasificacion_numerica
-```
-
-## Pruebas
-
-```bash
-# Ejecutar tests automáticos
-cd build
-make test
-# o
-ctest -V
-```
-
-Los tests verifican:
-- Números positivos (grandes y pequeños)
-- Números negativos (grandes y pequeños)
-- El número cero
-- Casos límite (números muy grandes/pequeños)
-- Formato correcto de entrada y salida
-- Estructura correcta del código
-
 ## Errores Comunes
 
 1. **Orden incorrecto**: Poner condiciones menos específicas primero
@@ -145,18 +99,6 @@ Los tests verifican:
 3. **Operadores incorrectos**: Confundir `>` con `>=` o `<` con `<=`
 4. **Falta de else**: No manejar todos los casos posibles
 5. **Estructura incorrecta**: Usar `if` múltiples en lugar de `else if`
-
-## Casos de Prueba Importantes
-
-| Entrada | Clasificación | Razón |
-|---------|---------------|-------|
-| 1 | Positivo | Mínimo positivo |
-| -1 | Negativo | Mínimo negativo |
-| 0 | Cero | Caso especial |
-| 1000000 | Positivo | Número grande |
-| -999999 | Negativo | Número grande negativo |
-| 2147483647 | Positivo | Límite superior int |
-| -2147483647 | Negativo | Límite inferior int |
 
 ## Extensiones Posibles
 
@@ -189,3 +131,22 @@ Los tests verifican:
 - **Teoría de conjuntos**: Números positivos, negativos, cero
 - **Flujo de control**: Cómo el programa toma decisiones
 - **Algoritmos de clasificación**: Categorizar datos según criterios
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/clasificacion_numerica
+```
+
+## Pruebas de esta revisión
+
+Entradas y salidas observables del programa.
+
+Código: [pruebas CLI](../../tools/tests/test_cli_exercises.py). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

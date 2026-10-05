@@ -32,55 +32,6 @@ d = √[(x₂ - x₁)² + (y₂ - y₁)²]
 - **Geometría analítica**: Aplicación práctica de matemáticas
 - **Enlazado `-lm`**: Requerido para funciones matemáticas
 
-## Estructura del Proyecto
-
-```
-007-distancia-euclidiana/
-├── CMakeLists.txt          # Configuración de compilación
-├── README.md               # Este archivo
-├── src/
-│   └── main.c             # Código fuente principal
-└── test/
-    └── test_main.c        # Tests del programa
-```
-
-## Compilación y Ejecución
-
-### Usando CMake (Recomendado)
-
-```bash
-# Crear directorio de build
-mkdir build && cd build
-
-# Configurar el proyecto
-cmake ..
-
-# Compilar
-make
-
-# Ejecutar el programa
-./distancia_euclidiana
-
-# Ejecutar tests
-make test
-# o directamente:
-./test_distancia_euclidiana
-```
-
-### Compilación Manual
-
-```bash
-# Compilar el programa principal (nota el -lm para la librería matemática)
-gcc -o distancia_euclidiana src/main.c -lm
-
-# Ejecutar
-./distancia_euclidiana
-
-# Compilar y ejecutar tests
-gcc -o test_distancia_euclidiana test/test_main.c -lm
-./test_distancia_euclidiana
-```
-
 ## Ejemplos de Ejecución
 
 ### Ejemplo 1: Triángulo 3-4-5
@@ -103,17 +54,6 @@ Introduce las coordenadas del primer punto (x1 y1): -2 -1
 Introduce las coordenadas del segundo punto (x2 y2): 1 3
 La distancia entre los dos puntos es: 5.00
 ```
-
-## Casos de Prueba
-
-Los tests verifican diferentes escenarios geométricos:
-- ✅ **Puntos idénticos**: (2,3) a (2,3) → 0.00
-- ✅ **Distancia horizontal**: (1,2) a (6,2) → 5.00
-- ✅ **Distancia vertical**: (3,1) a (3,8) → 7.00
-- ✅ **Triángulo clásico**: (0,0) a (3,4) → 5.00
-- ✅ **Números decimales**: (1.5,2.5) a (4.5,6.5) → 5.00
-- ✅ **Coordenadas negativas**: (-2,-1) a (1,3) → 5.00
-- ✅ **Estructura correcta**: Variables `double`, funciones `sqrt()` y `pow()`
 
 ## Notas de Aprendizaje
 
@@ -211,3 +151,21 @@ double distancia_cuadrada = dx * dx + dy * dy;
 - Crear calculadora de perímetros y áreas
 - Implementar diferentes métricas de distancia
 
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/distancia_euclidiana
+```
+
+## Pruebas de esta revisión
+
+Entradas y salidas observables del programa.
+
+Código: [pruebas CLI](../../tools/tests/test_cli_exercises.py). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

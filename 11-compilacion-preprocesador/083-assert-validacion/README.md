@@ -40,73 +40,6 @@ assert(condicion && "Mensaje opcional de error");
 - Condiciones que pueden fallar en producción
 - Efectos secundarios importantes
 
-## Estructura del Proyecto
-```
-083-assert-validacion/
-├── include/
-│   ├── assert_validacion.h      # Declaraciones con documentación
-│   └── .gitkeep
-├── src/
-│   ├── assert_validacion.c      # Implementación con assert
-│   └── main.c                   # Programa interactivo
-├── tests/
-│   └── test_assert_validacion.c # Tests para ambas configuraciones
-├── CMakeLists.txt               # Build con múltiples configuraciones
-├── README.md                    # Esta documentación
-└── .gitignore                   # Exclusiones
-```
-
-## Compilación y Ejecución
-
-### Método 1: CMake con Configuraciones
-```bash
-# Crear directorio de build
-mkdir build && cd build
-
-# Assert ACTIVO (Debug)
-cmake -DCMAKE_BUILD_TYPE=Debug ..
-make
-./demo_assert
-
-# Assert DESACTIVADO (Release)
-cmake -DCMAKE_BUILD_TYPE=Release ..
-make
-./demo_assert
-```
-
-### Método 2: Forzar Estado de Assert
-```bash
-# Forzar assert activo
-cmake -DFORCE_ASSERT_ON=ON ..
-make
-
-# Forzar assert desactivado
-cmake -DFORCE_ASSERT_OFF=ON ..
-make
-```
-
-### Método 3: Compilación Manual
-```bash
-# Con assert activo
-gcc -I include src/assert_validacion.c src/main.c -lm -o programa_debug
-
-# Con assert desactivado
-gcc -DNDEBUG -I include src/assert_validacion.c src/main.c -lm -o programa_release
-```
-
-### Demostraciones Específicas
-```bash
-# Generar ambas versiones para comparar
-make comparar_assert
-
-# Verificar estado actual de assert
-make verificar_assert
-
-# Ejecutar ejemplo simple del enunciado
-make ejemplo_simple
-./ejemplo_simple
-```
-
 ## Funcionalidades Implementadas
 
 ### Funciones Matemáticas con Assert
@@ -200,42 +133,6 @@ Raíz cuadrada de 0.0: 0.00
 ✅ Todos los casos válidos ejecutados sin problemas
 ```
 
-## Tests Comprehensivos
-
-### Tests para Casos Válidos
-- Funciones matemáticas con parámetros correctos
-- Operaciones con arrays válidos
-- Funciones de cadenas con punteros no nulos
-- Verificación de resultados correctos
-
-### Tests Condicionales
-```c
-Test(assert_validacion, test_comportamiento_con_ndebug) {
-    if (es_assert_activo()) {
-        // Si assert está activo, no probar casos inválidos
-        cr_assert(true, "Assert activo - casos inválidos omitidos");
-    } else {
-        // Si assert está desactivado, probar casos inválidos
-        cr_assert_float_eq(raiz_cuadrada(-5.0), sqrt(-5.0), 0.0001);
-    }
-}
-```
-
-### Ejecutar Tests
-```bash
-# Tests estándar
-make check
-
-# Tests con ambas configuraciones
-make check_todos
-
-# Solo tests con assert activo
-make test_assert_activo
-
-# Solo tests con assert desactivado  
-make test_assert_desactivado
-```
-
 ## Mejores Prácticas
 
 ### 1. Mensajes Descriptivos
@@ -293,7 +190,10 @@ bool raiz_cuadrada_usuario(double x, double *resultado) {
 - Para detectar bugs
 
 ```bash
-cmake -DCMAKE_BUILD_TYPE=Debug ..
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/assert_validacion_main
 ```
 
 ### Release (Producción)
@@ -303,24 +203,10 @@ cmake -DCMAKE_BUILD_TYPE=Debug ..
 - Para rendimiento máximo
 
 ```bash
-cmake -DCMAKE_BUILD_TYPE=Release ..
-```
-
-## Herramientas Adicionales
-
-### Verificación de Estado
-```bash
-make verificar_assert  # Mostrar si assert está activo
-```
-
-### Comparación de Versiones
-```bash
-make comparar_assert   # Generar versiones Debug y Release
-```
-
-### Análisis Estático
-```bash
-make cppcheck          # Análisis con cppcheck
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/assert_validacion_main
 ```
 
 ## Casos de Uso Reales
@@ -411,3 +297,22 @@ if (condicion_invalida) {
 - [C Assert Macro](https://en.cppreference.com/w/c/error/assert)
 - [Defensive Programming](https://en.wikipedia.org/wiki/Defensive_programming)
 - [Design by Contract](https://en.wikipedia.org/wiki/Design_by_contract)
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/assert_validacion_main
+```
+
+## Pruebas de esta revisión
+
+Contratos de la API probados contra la implementación real.
+
+Código: [tests/test_contrato.c](tests/test_contrato.c). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

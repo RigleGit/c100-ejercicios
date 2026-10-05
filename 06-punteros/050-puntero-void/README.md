@@ -185,32 +185,6 @@ void escribir_binario(FILE *archivo, void *datos, size_t size) {
 }
 ```
 
-## Compilación y Ejecución
-
-### Requisitos
-- Compilador C (gcc, clang)
-- CMake 3.16+
-- Criterion (para tests)
-
-### Instrucciones
-
-```bash
-# Crear directorio de construcción
-mkdir build && cd build
-
-# Configurar proyecto
-cmake ..
-
-# Compilar
-make
-
-# Ejecutar programa principal
-./puntero_void
-
-# Ejecutar tests
-./test_puntero_void
-```
-
 ## Ejemplo de Salida
 
 ```
@@ -243,36 +217,6 @@ Conceptos clave demostrados:
 3. El programador debe recordar el tipo correcto
 4. Base para funciones genéricas como malloc()
 ```
-
-## Tests Incluidos
-
-### Tests de Funcionalidad Básica
-- ✅ **Casting básico**: Conversión de `void*` a tipos básicos (`int`, `float`, `char`)
-- ✅ **Ejecución del ejemplo**: Implementación del enunciado sin errores
-- ✅ Manejo de punteros nulos
-- ✅ Inspección de diferentes tipos
-- ✅ Copia de datos simples y arrays
-- ✅ Comparación de memoria
-
-### Tests de Manipulación
-- ✅ Intercambio de valores
-- ✅ Llenado de memoria con patrones
-- ✅ Validación de integridad de datos
-
-### Tests de Búsqueda
-- ✅ Búsqueda de patrones encontrados
-- ✅ Búsqueda de patrones no encontrados
-- ✅ Múltiples ocurrencias
-- ✅ Manejo de parámetros inválidos
-
-### Tests de Callbacks
-- ✅ Procesamiento con callbacks
-- ✅ Diferentes tipos de datos
-- ✅ Arrays genéricos
-
-### Tests de Integración
-- ✅ Flujo completo de operaciones
-- ✅ Combinación de múltiples funciones
 
 ## Patrones de Diseño
 
@@ -360,3 +304,21 @@ struct cache_entry {
 };
 ```
 
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/puntero_void
+```
+
+## Pruebas de esta revisión
+
+Contratos de la API probados contra la implementación real.
+
+Código: [tests/test_contrato.c](tests/test_contrato.c). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

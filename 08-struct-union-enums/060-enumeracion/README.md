@@ -49,22 +49,6 @@ const char* nombreDia(enum DiaSemana dia);
 - Códigos de error descriptivos
 - Comparación y validación de estados
 
-## Estructura del Proyecto
-
-```
-060-enumeracion/
-├── src/
-│   ├── enumeracion.c           # Implementación principal
-│   └── main.c                  # Programa demostración
-├── include/
-│   └── enumeracion.h           # Definiciones de enumeraciones
-├── tests/
-│   └── test_enumeracion.c      # Tests unitarios
-├── CMakeLists.txt              # Configuración de build
-├── README.md                   # Este archivo
-└── .gitignore                  # Exclusiones de Git
-```
-
 ## Enumeraciones Definidas
 
 ### DiaSemana (Principal)
@@ -117,30 +101,6 @@ enum Prioridad {
     ALTA = 10,
     CRITICA = 20
 };
-```
-
-## Compilación
-
-### Usando CMake (Recomendado)
-```bash
-mkdir build && cd build
-cmake ..
-make
-
-# Ejecutar programa básico
-./enumeracion
-
-# Ejecutar tests (requiere Criterion)
-make run_tests
-```
-
-### Compilación Manual
-```bash
-# Compilar programa principal
-gcc -std=c99 -Wall -Wextra -Iinclude -o enumeracion src/*.c
-
-# Compilar tests (requiere Criterion)
-gcc -std=c99 -Wall -Wextra -Iinclude -o test_enumeracion src/enumeracion.c tests/test_enumeracion.c -lcriterion
 ```
 
 ## Uso del Programa
@@ -238,34 +198,6 @@ for (int i = 0; i < num_tareas - 1; i++) {
         }
     }
 }
-```
-
-## Tests
-
-El proyecto incluye tests exhaustivos con **Criterion**:
-
-### Categorías de Tests
-- ✅ **Enum básico**: Valores, nombres, conversiones
-- ✅ **Operaciones con días**: Siguiente, anterior, clasificaciones
-- ✅ **Nombres y conversiones**: Multilenguaje, abreviaciones, parsing
-- ✅ **Meses**: Nombres, días, estaciones
-- ✅ **Estaciones**: Nombres, transiciones
-- ✅ **Estados de máquina**: Descripciones, transiciones, validaciones
-- ✅ **Prioridades y errores**: Comparaciones, validaciones
-- ✅ **Funciones auxiliares**: Conteo, búsquedas
-- ✅ **Casos límite**: Valores inválidos, consistencia circular
-
-### Ejecutar Tests
-```bash
-# Con CMake
-make run_tests
-
-# Directamente
-./test_enumeracion
-
-# Tests específicos
-./test_enumeracion --filter test_enum_basico
-./test_enumeracion --filter test_operaciones_dias
 ```
 
 ## Conceptos Técnicos Demostrados
@@ -398,3 +330,22 @@ enum Direccion {
 - **Ámbito**: Los nombres están en el mismo ámbito que la declaración
 - **Compilación**: Compatible con C90 y posteriores
 - **Portabilidad**: Funciona en todas las plataformas
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/enumeracion
+```
+
+## Pruebas de esta revisión
+
+Contratos de la API probados contra la implementación real.
+
+Código: [tests/test_contrato.c](tests/test_contrato.c). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

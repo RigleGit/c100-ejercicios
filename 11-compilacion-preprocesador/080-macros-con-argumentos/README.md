@@ -69,126 +69,49 @@ CUADRADO(++i);  // ++i se evalúa DOS veces
 | **Depuración** | Difícil | Fácil |
 | **Sustitución** | Tiempo de compilación | Tiempo de ejecución |
 
-## 🏗️ Estructura del Proyecto
-
-```
-080-macros-con-argumentos/
-├── include/
-│   └── macros_con_argumentos.h    # Definiciones de macros
-├── src/
-│   └── macros_con_argumentos.c    # Implementación y demos
-├── tests/
-│   └── test_macros_con_argumentos.c # Tests exhaustivos
-├── CMakeLists.txt                 # Configuración de build
-└── README.md                      # Este archivo
-```
-
-## 🛠️ Compilación
-
-### Usando CMake (Recomendado)
-
-```bash
-# Crear directorio de build
-mkdir build && cd build
-
-# Configurar proyecto
-cmake ..
-
-# Compilar
-make
-
-# Ejecutar tests
-make test
-```
-
-### Usando GCC directamente
-
-```bash
-# Compilar el ejemplo básico del enunciado
-gcc -Wall -Wextra -std=c99 -o main_basico src/macros_con_argumentos.c -Iinclude -DCOMPILAR_MAIN_BASICO -lm
-
-# Compilar tests (requiere Criterion)
-gcc -Wall -Wextra -std=c99 -o test tests/test_macros_con_argumentos.c src/macros_con_argumentos.c -Iinclude -lcriterion -lm
-```
-
 ## ▶️ Ejecución
 
 ### Demos Disponibles
 
 1. **Ejemplo básico del enunciado:**
    ```bash
-   make demo_enunciado
-   # o directamente:
-   ./main_basico
-   ```
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/main_basico
+```
 
 2. **Demostración completa:**
    ```bash
-   make demo_completo
-   # o directamente:
-   ./demo_completo
-   ```
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/main_basico
+```
 
 3. **Demostrar problemas comunes:**
    ```bash
-   make demo_problemas
-   ```
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/main_basico
+```
 
 ### Tests Específicos
 ```bash
-# Ejecutar tests con detalles
-make test_verbose
-
-# Tests específicos
-make test_basicos      # Macros básicas
-make test_efectos      # Efectos secundarios
-make test_problematicas # Macros problemáticas
-make test_educativos   # Tests educativos
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/main_basico
 ```
 
 ### Análisis Avanzado
 ```bash
-# Ver expansión del preprocesador
-make mostrar_expansion
-
-# Generar código ensamblador comparativo
-make demo_optimizacion
-
-# Análisis detallado de macros
-make analizar_macros
-
-# Informe educativo
-make informe_educativo
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/main_basico
 ```
-
-## 🧪 Casos de Prueba
-
-### Tests Implementados
-
-1. **Macros Básicas:**
-   - Verificación de `CUADRADO`, `CUBO`, `CUARTA_POTENCIA`
-   - Pruebas con expresiones aritméticas
-   - Valores extremos y casos límite
-
-2. **Macros Problemáticas:**
-   - Demostración de macros sin paréntesis
-   - Problemas de precedencia de operadores
-   - Comparación con versiones correctas
-
-3. **Efectos Secundarios:**
-   - Evaluación múltiple de funciones
-   - Problemas con incremento/decremento
-   - Funciones con efectos laterales
-
-4. **Macros de Utilidad:**
-   - Tamaño de arrays (`LONGITUD_ARRAY`)
-   - Intercambio de variables (`INTERCAMBIAR`)
-   - Macros condicionales (`ES_PAR`, `ES_IMPAR`)
-
-5. **Tests Educativos:**
-   - Diferencias entre macros y funciones
-   - Demostración de expansión textual
-   - Verificación de tipos genéricos
 
 ## 📋 Ejemplos Prácticos
 
@@ -341,11 +264,10 @@ Al completar este ejercicio, habrás aprendido:
 Para entender mejor cómo funcionan las macros:
 
 ```bash
-# Ver la expansión del preprocesador
-gcc -E archivo.c -I include
-
-# Ver solo las expansiones de CUADRADO
-gcc -E archivo.c -I include | grep -A 2 -B 2 "CUADRADO"
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/main_basico
 ```
 
 **Ejemplo de expansión:**
@@ -403,3 +325,22 @@ Las macros con argumentos son una herramienta poderosa pero peligrosa:
 ## 🤝 Contribución
 
 Si encuentras errores o tienes sugerencias de mejora, por favor crea un issue o envía un pull request.
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/main_basico
+```
+
+## Pruebas de esta revisión
+
+Contratos de la API probados contra la implementación real.
+
+Código: [tests/test_contrato.c](tests/test_contrato.c). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

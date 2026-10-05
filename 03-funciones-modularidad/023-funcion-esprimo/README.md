@@ -288,40 +288,6 @@ bool esPrimo_6k(int n) {
 }
 ```
 
-## Compilación y ejecución
-
-```bash
-# Compilar el programa
-mkdir build && cd build
-cmake ..
-make
-
-# Ejecutar el programa
-./funcion_esprimo
-
-# Ejecutar las pruebas (si están disponibles)
-make test
-```
-
-## Pruebas incluidas
-
-El programa incluye pruebas automáticas que verifican:
-
-- ✅ Primos pequeños conocidos (2, 3, 5, 7, 11, 13, 17, 19, 23)
-- ✅ Números no primos pequeños (1, 4, 6, 8, 9, 10, 12, 14, 15)
-- ✅ Casos especiales y límites (0, -1, -5, 1, 2)
-- ✅ Primos más grandes (29, 31, 37, 41, 43, 47, 53, 59, 61, 67)
-- ✅ Compuestos grandes con factores conocidos
-- ✅ Comparación entre diferentes implementaciones
-- ✅ Conteo de primos en rangos específicos
-- ✅ Secuencias de primos verificadas
-- ✅ Primos gemelos
-- ✅ Cuadrados de primos (que no son primos)
-- ✅ Optimización de números pares
-- ✅ Números con factores pequeños
-- ✅ Primos grandes conocidos (97, 101, 103, 107, 109, 113)
-- ✅ Consistencia y rendimiento
-
 ## Posibles extensiones
 
 1. **Interfaz mejorada**: Mostrar tiempo de ejecución y estadísticas
@@ -364,3 +330,22 @@ factorizar_numero(60);  // Salida: Factorización de 60: 2 2 3 5
 - Las pruebas cubren casos matemáticos importantes
 - Base sólida para algoritmos de teoría de números más avanzados
 - Enseña a separar lógica compleja en funciones reutilizables
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/funcion_esprimo
+```
+
+## Pruebas de esta revisión
+
+Entradas y salidas observables del programa.
+
+Código: [pruebas CLI](../../tools/tests/test_cli_exercises.py). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

@@ -50,22 +50,6 @@ union Datos {
 - Visualización de casos especiales
 - Comparación de representaciones
 
-## Estructura del Proyecto
-
-```
-059-union-reinterpretar-datos/
-├── src/
-│   ├── union_reinterpretar.c   # Implementación principal
-│   └── main.c                  # Programa demostración
-├── include/
-│   └── union_reinterpretar.h   # Definiciones y prototipos
-├── tests/
-│   └── test_union_reinterpretar.c # Tests unitarios
-├── CMakeLists.txt              # Configuración de build
-├── README.md                   # Este archivo
-└── .gitignore                  # Exclusiones de Git
-```
-
 ## Uniones Definidas
 
 ### Union Datos (Principal)
@@ -99,33 +83,6 @@ union FloatBits {
         uint32_t signo : 1;      // Bit de signo (1 bit)
     } ieee754;              // Estructura de campos de bits
 };
-```
-
-## Compilación
-
-### Usando CMake (Recomendado)
-```bash
-mkdir build && cd build
-cmake ..
-make
-
-# Ejecutar programa básico
-./union_reinterpretar
-
-# Ejecutar demostración completa
-make demo_completa
-
-# Ejecutar tests (requiere Criterion)
-make run_tests
-```
-
-### Compilación Manual
-```bash
-# Compilar programa principal
-gcc -std=c99 -Wall -Wextra -Iinclude -o union_reinterpretar src/*.c
-
-# Compilar tests (requiere Criterion)
-gcc -std=c99 -Wall -Wextra -Iinclude -o test_union_reinterpretar src/union_reinterpretar.c tests/test_union_reinterpretar.c -lcriterion
 ```
 
 ## Uso del Programa
@@ -236,32 +193,6 @@ void ejemplo_manipulacion() {
 }
 ```
 
-## Tests
-
-El proyecto incluye tests exhaustivos con **Criterion**:
-
-### Categorías de Tests
-- ✅ **Unión básica**: Creación, acceso, modificación
-- ✅ **Endianness**: Detección e intercambio
-- ✅ **Análisis**: Funciones de visualización y conversión
-- ✅ **Uniones extendidas**: Múltiples tipos de datos
-- ✅ **IEEE 754**: Análisis de números flotantes
-- ✅ **Utilidades**: Validación y funciones auxiliares
-- ✅ **Casos límite**: Valores extremos y patrones especiales
-
-### Ejecutar Tests
-```bash
-# Con CMake
-make run_tests
-
-# Directamente
-./test_union_reinterpretar
-
-# Tests específicos
-./test_union_reinterpretar --filter test_union_basica
-./test_union_reinterpretar --filter test_endianness
-```
-
 ## Aplicaciones Prácticas
 
 ### 1. Protocolos de Red
@@ -325,3 +256,22 @@ union {
 - **Inicialización**: Solo el primer miembro puede inicializarse en C99
 - **Acceso concurrente**: No definido si se lee un miembro diferente al último escrito
 - **Compiladores**: Compatible con GCC, Clang, MSVC
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/union_reinterpretar
+```
+
+## Pruebas de esta revisión
+
+Contratos de la API probados contra la implementación real.
+
+Código: [tests/test_contrato.c](tests/test_contrato.c). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

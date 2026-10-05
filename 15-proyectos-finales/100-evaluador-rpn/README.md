@@ -47,29 +47,6 @@ Entrada: pi 2 /
 Resultado: 1.570796
 ```
 
-## Compilación
-
-### Usando CMake (Recomendado)
-
-```bash
-mkdir build
-cd build
-cmake ..
-make
-```
-
-### Usando Make Directo
-
-```bash
-make
-```
-
-### Compilación Manual
-
-```bash
-gcc -std=c99 -Wall -Wextra -Iinclude src/*.c -o evaluador_rpn -lm
-```
-
 ## Uso
 
 ### Modo Interactivo
@@ -87,35 +64,10 @@ gcc -std=c99 -Wall -Wextra -Iinclude src/*.c -o evaluador_rpn -lm
 ### Ejecutar Tests
 
 ```bash
-make test
-# o
-./test_evaluador_rpn
-```
-
-## Estructura del Proyecto
-
-```
-100-evaluador-rpn/
-├── include/
-│   └── evaluador_rpn.h      # Definiciones y prototipos
-├── src/
-│   ├── evaluador_rpn.c      # Implementación del evaluador
-│   ├── funciones_adicionales.c  # Funciones matemáticas adicionales
-│   └── main.c               # Programa principal
-├── tests/
-│   ├── test_evaluador_rpn.c # Tests unitarios
-│   └── test_data/           # Datos de prueba
-├── ejemplos/
-│   ├── expresiones_basicas.txt
-│   ├── expresiones_avanzadas.txt
-│   └── casos_error.txt
-├── tools/
-│   ├── generador_tests.c    # Generador de casos de prueba
-│   └── benchmark.c          # Pruebas de rendimiento
-├── CMakeLists.txt           # Configuración CMake
-├── Makefile                 # Makefile alternativo
-├── README.md                # Este archivo
-└── .gitignore              # Archivos a ignorar
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/evaluador_rpn
 ```
 
 ## Algoritmo de Evaluación
@@ -159,23 +111,6 @@ typedef enum {
     RPN_ERROR_DOMINIO = -7
 } rpn_resultado_t;
 ```
-
-## Tests Incluidos
-
-### Tests Unitarios
-- ✅ Operaciones básicas (+, -, *, /)
-- ✅ Potencias y módulo
-- ✅ Funciones matemáticas
-- ✅ Manejo de constantes
-- ✅ Casos de error
-- ✅ Expresiones complejas
-- ✅ Validación de memoria
-
-### Tests de Integración
-- ✅ Procesamiento de archivos
-- ✅ Modo interactivo simulado
-- ✅ Estadísticas y historial
-- ✅ Rendimiento con expresiones largas
 
 ## Archivos de Ejemplo
 
@@ -243,3 +178,22 @@ echo "9 sqrt 3 /" | ./evaluador_rpn
 - [Notación Polaca Reversa - Wikipedia](https://es.wikipedia.org/wiki/Notaci%C3%B3n_polaca_inversa)
 - [Algoritmos de Evaluación de Expresiones](https://en.wikipedia.org/wiki/Shunting-yard_algorithm)
 - [Estructuras de Datos: Pilas](https://es.wikipedia.org/wiki/Pila_(inform%C3%A1tica))
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/evaluador_rpn
+```
+
+## Pruebas de esta revisión
+
+Contratos de la API probados contra la implementación real.
+
+Código: [tests/test_contrato.c](tests/test_contrato.c). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

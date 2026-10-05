@@ -86,30 +86,6 @@ void liberar_array_cadenas(ArrayCadenas* array) {
 - ✅ Búsqueda insensible a mayúsculas/minúsculas
 - ✅ Interfaz interactiva completa
 
-## Compilación
-
-### Usando CMake (Recomendado)
-```bash
-mkdir build && cd build
-cmake ..
-make
-
-# Ejecutar programa principal
-./array_dinamico_cadenas
-
-# Ejecutar tests
-make run_tests
-
-# Tests específicos de memoria
-make run_tests_memory
-```
-
-### Usando GCC directamente
-```bash
-gcc -std=c99 -Wall -Wextra -Iinclude src/*.c -o array_dinamico_cadenas
-./array_dinamico_cadenas
-```
-
 ## Uso del Programa
 
 ### Programa Principal
@@ -183,32 +159,6 @@ Nombres filtrados (4-6 caracteres):
  2. Carlos
  3. Miguel
 ```
-
-## Tests
-
-El proyecto incluye una suite exhaustiva de tests con Criterion:
-
-```bash
-# Ejecutar todos los tests
-make run_tests
-
-# Tests con salida detallada
-make run_tests_verbose
-
-# Solo tests de gestión de memoria
-make run_tests_memory
-```
-
-### Tests Implementados
-- ✅ Creación y liberación de arrays
-- ✅ Agregar nombres con validación
-- ✅ Redimensionamiento automático
-- ✅ Búsqueda y eliminación
-- ✅ Ordenamiento alfabético
-- ✅ Copia de arrays
-- ✅ Filtrado por criterios
-- ✅ Tests parametrizados para diferentes capacidades
-- ✅ Tests de integración completos
 
 ## Análisis de Complejidad
 
@@ -417,3 +367,22 @@ char* allocar_desde_pool(MemoryPool *pool, size_t tamaño) {
 - [String Handling in C](https://en.cppreference.com/w/c/string)
 - [Memory Management Best Practices](https://stackoverflow.com/questions/6441218/can-a-local-variables-memory-be-accessed-outside-its-scope)
 - [Understanding malloc and free](https://www.geeksforgeeks.org/dynamic-memory-allocation-in-c-using-malloc-calloc-free-and-realloc/)
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/array_dinamico_cadenas
+```
+
+## Pruebas de esta revisión
+
+Contratos de la API probados contra la implementación real.
+
+Código: [tests/test_contrato.c](tests/test_contrato.c). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

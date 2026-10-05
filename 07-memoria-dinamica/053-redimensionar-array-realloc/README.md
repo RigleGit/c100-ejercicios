@@ -33,21 +33,6 @@ if (cantidad == capacidad) {
 - **Análisis de memoria**: Estadísticas detalladas de uso
 - **Operaciones completas**: Inserción, eliminación, copia
 
-## 🏗️ Estructura del Proyecto
-
-```
-053-redimensionar-array-realloc/
-├── include/
-│   └── redimensionar_array.h    # Declaraciones y ArrayRedimensionable
-├── src/
-│   ├── redimensionar_array.c    # Implementación completa
-│   └── main.c                  # Demostraciones y casos de uso
-├── test/
-│   └── test_redimensionar_array.c # Tests exhaustivos
-├── CMakeLists.txt              # Configuración de compilación
-└── README.md                   # Esta documentación
-```
-
 ## 🔧 Estructura de Datos
 
 ```c
@@ -133,43 +118,6 @@ int main() {
     liberarArrayRedimensionable(array);
     return 0;
 }
-```
-
-## ⚡ Compilación y Ejecución
-
-```bash
-# Crear directorio de compilación
-mkdir build && cd build
-
-# Configurar proyecto
-cmake ..
-
-# Compilar
-make
-
-# Ejecutar programa principal
-./redimensionar_array
-
-# Ejecutar tests
-./test_redimensionar_array
-```
-
-## 🧪 Tests Incluidos
-
-Los tests cubren exhaustivamente:
-
-- ✅ **Creación y liberación**: Arrays válidos e inválidos
-- ✅ **Redimensionamiento automático**: Crecimiento por bloques
-- ✅ **Redimensionamiento manual**: Control directo de capacidad
-- ✅ **Estrategias de crecimiento**: Fijo, porcentaje, adaptativo
-- ✅ **Operaciones avanzadas**: Inserción, eliminación, copia
-- ✅ **Análisis de memoria**: Estadísticas y factores de uso
-- ✅ **Casos límite**: Arrays vacíos, bloques unitarios
-- ✅ **Manejo de errores**: Parámetros inválidos, fallos de memoria
-
-```bash
-# Ejecutar tests con salida detallada
-make test_verbose
 ```
 
 ## 🔍 Análisis de Rendimiento
@@ -326,3 +274,22 @@ void preasignarCapacidad(ArrayRedimensionable *array, size_t elementos_estimados
 - [realloc() Documentation](https://man7.org/linux/man-pages/man3/realloc.3.html)
 - [Dynamic Arrays - Wikipedia](https://en.wikipedia.org/wiki/Dynamic_array)
 - [Amortized Analysis](https://en.wikipedia.org/wiki/Amortized_analysis)
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/redimensionar_array_realloc
+```
+
+## Pruebas de esta revisión
+
+Contratos de la API probados contra la implementación real.
+
+Código: [tests/test_contrato.c](tests/test_contrato.c). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

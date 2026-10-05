@@ -58,58 +58,6 @@ Este ejercicio implementa una versión completa y educativa del algoritmo de **B
 - `busqueda_en_rango()`: Encuentra elementos en un rango específico
 - Análisis comparativo con búsqueda lineal
 
-## Estructura del Proyecto
-
-```
-072-busqueda-binaria/
-├── include/
-│   └── busqueda_binaria.h    # Declaraciones y estructuras
-├── src/
-│   └── busqueda_binaria.c    # Implementación completa
-├── tests/
-│   └── test_busqueda_binaria.c # Tests exhaustivos con Criterion
-├── CMakeLists.txt            # Configuración de compilación
-├── README.md                # Esta documentación
-└── .gitignore               # Archivos a ignorar por git
-```
-
-## Compilación
-
-### Usando CMake (Recomendado)
-
-```bash
-# Crear directorio de compilación
-mkdir build && cd build
-
-# Configurar el proyecto
-cmake ..
-
-# Compilar
-make
-
-# Ejecutar el programa principal
-./busqueda_binaria
-
-# Ejecutar tests
-make run_tests
-
-# Ejecutar tests por categoría
-make run_tests_basicos
-make run_tests_variantes
-make run_tests_rendimiento
-```
-
-### Compilación Manual
-
-```bash
-# Compilar el programa principal
-gcc -std=c99 -Wall -Wextra -O2 -Iinclude src/busqueda_binaria.c -lm -o busqueda_binaria
-
-# Compilar y ejecutar tests
-gcc -std=c99 -Wall -Wextra -O2 -Iinclude src/busqueda_binaria.c tests/test_busqueda_binaria.c -lcriterion -lm -o test_busqueda_binaria
-./test_busqueda_binaria
-```
-
 ## Uso
 
 ### Ejemplo Básico
@@ -258,37 +206,6 @@ int raiz_cuadrada_binaria(int numero);
 int raiz_k_binaria(int numero, int k);
 ```
 
-## Tests
-
-El proyecto incluye una suite completa de tests usando Criterion:
-
-### Categorías de Tests
-- **Funciones simples**: Versión básica del ejercicio
-- **Búsqueda básica**: Funcionalidad fundamental avanzada
-- **Variantes**: Primera/última ocurrencia, ceiling/floor
-- **Arrays especiales**: Rotados, matrices, tamaño desconocido
-- **Elementos especiales**: Picos, elementos únicos, raíces
-- **Utilidades**: Funciones auxiliares
-- **Comparación**: Búsqueda binaria vs lineal
-- **Aplicaciones**: Casos de uso prácticos
-- **Rendimiento**: Tests con arrays grandes
-- **Casos límite**: Arrays vacíos, nulos, índices inválidos
-
-### Ejecutar Tests
-
-```bash
-# Todos los tests
-make run_tests
-
-# Tests por categoría
-make run_tests_basicos
-make run_tests_variantes
-make run_tests_rendimiento
-
-# Test específico
-./test_busqueda_binaria --filter busqueda_basica
-```
-
 ## Análisis de Complejidad
 
 ### Complejidad Temporal
@@ -393,3 +310,21 @@ int medio = izquierda + (derecha - izquierda) / 2;  // En lugar de (izquierda + 
 - Manejo de casos límite (arrays vacíos, nulos)
 - Prevención de overflow en cálculos
 
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/busqueda_binaria
+```
+
+## Pruebas de esta revisión
+
+Contratos de la API probados contra la implementación real.
+
+Código: [tests/test_contrato.c](tests/test_contrato.c). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

@@ -18,40 +18,6 @@ Escribir un programa que:
 - **Cálculo de promedio**: Conversión a double para precisión decimal
 - **Salida formateada**: Muestra suma como entero y promedio con 2 decimales
 
-## Compilación y Ejecución
-
-### Requisitos
-- Compilador C (gcc, clang)
-- CMake 3.10 o superior
-- Criterion (para tests, opcional)
-
-### Compilación con CMake
-```bash
-mkdir build
-cd build
-cmake ..
-make
-```
-
-### Ejecución
-```bash
-# Desde el directorio build
-./bin/suma_promedio_array
-
-# O directamente con gcc
-gcc -o suma_promedio_array src/main.c
-./suma_promedio_array
-```
-
-### Ejecutar Tests
-```bash
-# Desde el directorio build
-make run_tests
-
-# O ejecutar directamente
-./test_032-suma-promedio-array
-```
-
 ## Ejemplo de Uso
 ```
 ¿Cuántos números vas a introducir (máximo 100)? 5
@@ -71,29 +37,6 @@ El promedio es: 30.00
 - **Aritmética de punto flotante**: Uso de double para promedios
 - **Bucles**: Recorrido de arrays para operaciones matemáticas
 - **Validación de entrada**: Verificación de rangos válidos
-
-## Estructura del Proyecto
-```
-032-suma-promedio-array/
-├── src/
-│   └── main.c          # Código principal
-├── test/
-│   └── test_main.c     # Tests unitarios
-├── include/            # Archivos de cabecera (si los hay)
-├── CMakeLists.txt      # Configuración de CMake
-├── .gitignore         # Archivos a ignorar por git
-└── README.md          # Este archivo
-```
-
-## Casos de Prueba
-Los tests incluyen verificaciones para:
-- Arrays con números positivos y negativos
-- Arrays de diferentes tamaños (1, 3, 5, 6 elementos)
-- Casos donde la suma es cero
-- Promedios con decimales (precisión a 2 decimales)
-- Números grandes y pequeños
-- Validación de cantidades inválidas (0, >100)
-- Secuencias mixtas de números
 
 ## Aspectos Técnicos Importantes
 
@@ -128,3 +71,22 @@ El cast a `double` es crucial para:
 - Calcular mediana y moda además del promedio
 - Implementar entrada desde archivo
 - Agregar estadísticas adicionales (desviación estándar, etc.)
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/suma_promedio_array
+```
+
+## Pruebas de esta revisión
+
+Entradas y salidas observables del programa.
+
+Código: [pruebas CLI](../../tools/tests/test_cli_exercises.py). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

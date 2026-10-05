@@ -25,71 +25,12 @@ La fórmula para convertir de Celsius a Fahrenheit es:
 - **Precedencia de operadores**: Uso de paréntesis para controlar el orden
 - **Datos con precisión**: Manejo de medidas reales que requieren decimales
 
-## Estructura del Proyecto
-
-```
-003-conversion-temperatura/
-├── CMakeLists.txt          # Configuración de compilación
-├── README.md               # Este archivo
-├── src/
-│   └── main.c             # Código fuente principal
-└── test/
-    └── test_main.c        # Tests del programa
-```
-
-## Compilación y Ejecución
-
-### Usando CMake (Recomendado)
-
-```bash
-# Crear directorio de build
-mkdir build && cd build
-
-# Configurar el proyecto
-cmake ..
-
-# Compilar
-make
-
-# Ejecutar el programa
-./conversion_temperatura
-
-# Ejecutar tests
-make test
-# o directamente:
-./test_conversion_temperatura
-```
-
-### Compilación Manual
-
-```bash
-# Compilar el programa principal
-gcc -o conversion_temperatura src/main.c -lm
-
-# Ejecutar
-./conversion_temperatura
-
-# Compilar y ejecutar tests
-gcc -o test_conversion_temperatura test/test_main.c -lm
-./test_conversion_temperatura
-```
-
 ## Ejemplo de Ejecución
 
 ```
 Introduce la temperatura en grados Celsius: 25.5
 25.5 grados Celsius equivalen a 77.9 grados Fahrenheit
 ```
-
-## Casos de Prueba
-
-Los tests verifican conversiones importantes:
-- ✅ **Punto de congelación**: 0°C = 32°F
-- ✅ **Punto de ebullición**: 100°C = 212°F
-- ✅ **Temperatura negativa**: -40°C = -40°F (punto de coincidencia)
-- ✅ **Números decimales**: 25.5°C = 77.9°F
-- ✅ **Formato de salida**: Verificación de `%.1f`
-- ✅ **Estructura del código**: Variables `float`, fórmula correcta
 
 ## Notas de Aprendizaje
 
@@ -125,3 +66,22 @@ Los tests verifican conversiones importantes:
 - Validar entrada (temperaturas por debajo del cero absoluto)
 - Mostrar tabla de conversiones para un rango de temperaturas
 - Implementar con mayor precisión usando `double`
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/conversion_temperatura
+```
+
+## Pruebas de esta revisión
+
+Entradas y salidas observables del programa.
+
+Código: [pruebas CLI](../../tools/tests/test_cli_exercises.py). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

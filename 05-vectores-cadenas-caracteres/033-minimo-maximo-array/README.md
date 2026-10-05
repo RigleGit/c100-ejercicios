@@ -17,40 +17,6 @@ Escribir un programa que:
 - **Eficiencia**: Un solo recorrido para encontrar ambos extremos
 - **Inicialización inteligente**: Usa el primer elemento como valor inicial
 
-## Compilación y Ejecución
-
-### Requisitos
-- Compilador C (gcc, clang)
-- CMake 3.10 o superior
-- Criterion (para tests, opcional)
-
-### Compilación con CMake
-```bash
-mkdir build
-cd build
-cmake ..
-make
-```
-
-### Ejecución
-```bash
-# Desde el directorio build
-./bin/minimo_maximo_array
-
-# O directamente con gcc
-gcc -o minimo_maximo_array src/main.c
-./minimo_maximo_array
-```
-
-### Ejecutar Tests
-```bash
-# Desde el directorio build
-make run_tests
-
-# O ejecutar directamente
-./test_033-minimo-maximo-array
-```
-
 ## Ejemplo de Uso
 ```
 ¿Cuántos números vas a introducir (máximo 100)? 5
@@ -70,30 +36,6 @@ Valor máximo: 23
 - **Análisis de datos**: Extracción de información estadística básica
 - **Eficiencia algorítmica**: Procesamiento en una sola pasada
 - **Validación de entrada**: Verificación de rangos válidos
-
-## Estructura del Proyecto
-```
-033-minimo-maximo-array/
-├── src/
-│   └── main.c          # Código principal
-├── test/
-│   └── test_main.c     # Tests unitarios
-├── include/            # Archivos de cabecera (si los hay)
-├── CMakeLists.txt      # Configuración de CMake
-├── .gitignore         # Archivos a ignorar por git
-└── README.md          # Este archivo
-```
-
-## Casos de Prueba
-Los tests incluyen verificaciones para:
-- **Secuencias ordenadas**: Ascendente y descendente
-- **Un solo elemento**: Min y max son el mismo valor
-- **Números negativos**: Manejo correcto de valores negativos
-- **Números mixtos**: Combinación de positivos, negativos y cero
-- **Extremos en diferentes posiciones**: Inicio, medio, final
-- **Valores iguales**: Array con todos los elementos idénticos
-- **Números grandes**: Verificación con valores extremos
-- **Validación**: Cantidades inválidas (0, >100)
 
 ## Aspectos Técnicos Importantes
 
@@ -153,3 +95,22 @@ if (i == 0) {
 - Soporte para números de punto flotante
 - Entrada desde archivo
 - Interfaz más robusta con manejo de errores avanzado
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/minimo_maximo_array
+```
+
+## Pruebas de esta revisión
+
+Entradas y salidas observables del programa.
+
+Código: [pruebas CLI](../../tools/tests/test_cli_exercises.py). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

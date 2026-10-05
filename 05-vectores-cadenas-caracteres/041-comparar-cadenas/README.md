@@ -98,54 +98,6 @@ int mi_strcmp(const char *s1, const char *s2) {
 }
 ```
 
-## Casos de Prueba
-
-### Casos Básicos
-- Cadenas iguales: `"hola"` vs `"hola"` → iguales
-- Cadenas diferentes: `"hola"` vs `"mundo"` → diferentes
-- Cadenas vacías: `""` vs `""` → iguales
-
-### Casos de Longitud
-- Misma longitud: `"test"` vs `"best"` → diferentes
-- Diferente longitud: `"hola"` vs `"holanda"` → diferentes
-- Una vacía: `""` vs `"hola"` → diferentes
-
-### Casos de Mayúsculas
-- Mismo caso: `"HOLA"` vs `"HOLA"` → iguales
-- Diferente caso: `"Hola"` vs `"hola"` → diferentes (exacta), iguales (sin caso)
-- Mixto: `"HoLa"` vs `"hOlA"` → diferentes (exacta), iguales (sin caso)
-
-### Casos Especiales
-- Con espacios: `"hola mundo"` vs `"hola mundo"` → iguales
-- Caracteres especiales: `"!@#$"` vs `"!@#$"` → iguales
-- Solo números: `"123"` vs `"123"` → iguales
-
-## Compilación y Ejecución
-
-### Usando CMake (Recomendado)
-```bash
-mkdir build && cd build
-cmake ..
-make
-./comparar_cadenas
-```
-
-### Compilación Manual
-```bash
-gcc -Wall -Wextra -std=c99 src/main.c -o comparar_cadenas
-./comparar_cadenas
-```
-
-### Ejecutar Tests
-```bash
-# Instalar Criterion primero (macOS)
-brew install criterion
-
-# Compilar y ejecutar tests
-cd build
-make run_tests
-```
-
 ## Ejemplo de Uso
 
 ### Entrada
@@ -274,3 +226,22 @@ double similitud_cadenas(const char *s1, const char *s2);
 - Manual de C: Sección sobre string.h y funciones de comparación
 - Algoritmos de comparación de strings en "Programming Pearls"
 - Optimizaciones de rendimiento en sistemas de bajo nivel
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/comparar_cadenas
+```
+
+## Pruebas de esta revisión
+
+Entradas y salidas observables del programa.
+
+Código: [pruebas CLI](../../tools/tests/test_cli_exercises.py). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

@@ -156,33 +156,6 @@ int es_primo_optimizado(int n) {
 
 **Teorema de los números primos**: La densidad de primos cerca de n es aproximadamente 1/ln(n).
 
-## Compilación y ejecución
-
-```bash
-# Compilar el programa
-mkdir build && cd build
-cmake ..
-make
-
-# Ejecutar el programa
-./numeros_primos_N
-
-# Ejecutar las pruebas (si están disponibles)
-make test
-```
-
-## Pruebas incluidas
-
-El programa incluye pruebas automáticas que verifican:
-
-- ✅ Verificación individual de primalidad (números pequeños y grandes)
-- ✅ Identificación correcta de números no primos
-- ✅ Conteo de primos en diferentes rangos
-- ✅ Secuencias específicas de primos (hasta 10, 20, etc.)
-- ✅ Los primeros n números primos
-- ✅ Casos extremos y optimizaciones
-- ✅ Cuadrados perfectos (que nunca son primos excepto 4)
-
 ## Posibles extensiones
 
 1. **Criba de Eratóstenes**: Implementar algoritmo más eficiente para rangos grandes
@@ -216,3 +189,22 @@ Salida para N=30: `(3, 5) (5, 7) (11, 13) (17, 19) (29, 31)`
 - El algoritmo es didáctico y fácil de entender
 - Excelente base para estudiar teoría de números
 - Las extensiones permiten explorar conceptos avanzados
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/numeros_primos_N
+```
+
+## Pruebas de esta revisión
+
+Entradas y salidas observables del programa.
+
+Código: [pruebas CLI](../../tools/tests/test_cli_exercises.py). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

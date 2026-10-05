@@ -80,62 +80,6 @@ void contar_vocales_detallado(const char *cadena, int *a, int *e, int *i, int *o
 - **Frases completas**: "El gato come" → 5 vocales
 - **Con números/símbolos**: "a1e2i3" → 3 vocales (a, e, i)
 
-## Compilación y Ejecución
-
-### Requisitos
-- Compilador GCC o Clang
-- CMake 3.10 o superior
-- Criterion (para tests)
-
-### Compilar el Programa Principal
-```bash
-mkdir build
-cd build
-cmake ..
-make main
-./main
-```
-
-### Ejecutar Tests
-```bash
-# Instalar Criterion (si no está instalado)
-# macOS:
-brew install criterion
-
-# Ubuntu/Debian:
-sudo apt-get install libcriterion-dev
-
-# Compilar y ejecutar tests
-make test_main
-make run_tests
-
-# Tests con salida detallada
-make run_tests_detailed
-```
-
-### Targets Disponibles
-- `main` - Programa principal
-- `test_main` - Compilar tests
-- `run_tests` - Ejecutar todos los tests
-- `run_tests_detailed` - Tests con salida detallada
-- `clean` - Limpiar archivos compilados
-- `help_targets` - Mostrar ayuda
-
-## Estructura del Proyecto
-
-```
-039-contar-vocales/
-├── src/
-│   └── main.c           # Implementación principal
-├── test/
-│   └── test_main.c      # Tests unitarios
-├── include/
-│   └── .gitkeep         # Directorio para headers
-├── CMakeLists.txt       # Configuración de build
-├── README.md           # Este archivo
-└── .gitignore          # Archivos a ignorar
-```
-
 ## Algoritmos Implementados
 
 ### 1. Conversión de Mayúsculas a Minúsculas
@@ -163,43 +107,6 @@ switch (c) {
     case 'o': (*o)++; break;
     case 'u': (*u)++; break;
 }
-```
-
-## Casos de Prueba
-
-### Tests Unitarios Incluidos
-
-1. **Función `es_vocal`**:
-   - Vocales minúsculas (a, e, i, o, u)
-   - Vocales mayúsculas (A, E, I, O, U)
-   - Consonantes (b, z, M, X)
-   - Caracteres especiales (números, símbolos)
-
-2. **Función `contar_vocales`**:
-   - Cadenas vacías y NULL
-   - Solo vocales/consonantes
-   - Frases completas
-   - Casos extremos
-
-3. **Función `contar_vocales_detallado`**:
-   - Conteos individuales
-   - Manejo de punteros NULL
-   - Consistencia con conteo simple
-
-### Ejemplos de Entrada y Salida
-
-```
-Entrada: "Hola Mundo"
-Salida: 4 vocales (o, a, u, o)
-
-Entrada: "PROGRAMACIÓN"  
-Salida: 5 vocales (o, a, a, i, o)
-
-Entrada: "aeiou"
-Salida: 5 vocales (a, e, i, o, u)
-
-Entrada: "12345"
-Salida: 0 vocales
 ```
 
 ## Complejidades
@@ -230,3 +137,22 @@ Ejercicio 039 del proyecto "100 Ejercicios de Programación en C"
 ---
 
 Este ejercicio demuestra técnicas fundamentales de procesamiento de cadenas y análisis de texto en C, proporcionando una base sólida para aplicaciones más complejas de manipulación de texto.
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/contar_vocales
+```
+
+## Pruebas de esta revisión
+
+Entradas y salidas observables del programa.
+
+Código: [pruebas CLI](../../tools/tests/test_cli_exercises.py). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

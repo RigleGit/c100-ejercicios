@@ -23,40 +23,6 @@ Este ejercicio implementa un sistema completo para escribir archivos de texto en
 - **Operaciones de archivos** seguras y eficientes
 - **Soporte para texto multilínea** y caracteres especiales
 
-## Compilación
-
-### Usando CMake (Recomendado)
-
-```bash
-# Crear directorio de build
-mkdir build && cd build
-
-# Configurar el proyecto
-cmake ..
-
-# Compilar
-make
-
-# Ejecutar el programa principal
-make run
-
-# Ejecutar tests (requiere Criterion)
-make test_run
-```
-
-### Compilación Manual
-
-```bash
-# Compilar biblioteca
-gcc -Wall -Wextra -std=c99 -c src/escribir_archivo.c -I include -o escribir_archivo.o
-
-# Compilar programa principal
-gcc -Wall -Wextra -std=c99 escribir_archivo.o -o escribir_archivo
-
-# Compilar tests (requiere Criterion)
-gcc -Wall -Wextra -std=c99 tests/test_escribir_archivo.c escribir_archivo.o -I include -lcriterion -o test_escribir_archivo
-```
-
 ## Uso
 
 ### Ejemplo Básico
@@ -122,35 +88,6 @@ typedef struct {
     time_t fecha_modificacion; // Fecha de última modificación
 } InfoArchivo;
 ```
-
-## Tests
-
-El proyecto incluye una suite completa de tests usando Criterion:
-
-```bash
-# Ejecutar todos los tests
-./test_escribir_archivo
-
-# Ejecutar con salida detallada
-./test_escribir_archivo --verbose
-
-# Ejecutar tests específicos
-./test_escribir_archivo --pattern="escribir_basico"
-```
-
-### Casos de Prueba
-
-- ✅ Escritura básica de texto
-- ✅ Escritura de cadena vacía
-- ✅ Manejo de parámetros NULL
-- ✅ Escritura en rutas inexistentes
-- ✅ Caracteres especiales y acentos
-- ✅ Texto multilínea
-- ✅ Concatenación de archivos
-- ✅ Escritura con formato
-- ✅ Información de archivos
-- ✅ Copia de archivos
-- ✅ Rendimiento con archivos grandes
 
 ## Conceptos Educativos
 
@@ -239,3 +176,22 @@ if (stat("archivo.txt", &info) == 0) {
 - [Manejo de archivos en C - Tutorial](https://www.cprogramming.com/tutorial/cfileio.html)
 - [Funciones de E/O estándar](https://en.cppreference.com/w/c/io)
 - [Manejo de errores en C](https://www.gnu.org/software/libc/manual/html_node/Error-Reporting.html)
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/escribir_archivo_texto
+```
+
+## Pruebas de esta revisión
+
+Contratos de la API probados contra la implementación real.
+
+Código: [tests/test_contrato.c](tests/test_contrato.c). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

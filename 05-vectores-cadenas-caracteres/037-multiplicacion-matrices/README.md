@@ -18,40 +18,6 @@ Escribir un programa que:
 - **Triple bucle anidado**: Estructura algorítmica O(n³)
 - **Inicialización de resultado**: Manejo correcto de acumuladores
 
-## Compilación y Ejecución
-
-### Requisitos
-- Compilador C (gcc, clang)
-- CMake 3.10 o superior
-- Criterion (para tests, opcional)
-
-### Compilación con CMake
-```bash
-mkdir build
-cd build
-cmake ..
-make
-```
-
-### Ejecución
-```bash
-# Desde el directorio build
-./bin/multiplicacion_matrices
-
-# O directamente con gcc
-gcc -o multiplicacion_matrices src/main.c
-./multiplicacion_matrices
-```
-
-### Ejecutar Tests
-```bash
-# Desde el directorio build
-make run_tests
-
-# O ejecutar directamente
-./test_037-multiplicacion-matrices
-```
-
 ## Ejemplo de Ejecución
 ```
 Resultado de la multiplicación:
@@ -80,19 +46,6 @@ C[1][1] = 4×8 + 5×10 + 6×12 = 32 + 50 + 72 = 154
 - **Compatibilidad dimensional**: Requisito columnas_A = filas_B
 - **Acumulación**: Suma progresiva en cada posición del resultado
 - **Inicialización**: Importancia de inicializar en cero
-
-## Estructura del Proyecto
-```
-037-multiplicacion-matrices/
-├── src/
-│   └── main.c          # Código principal
-├── test/
-│   └── test_main.c     # Tests unitarios
-├── include/            # Archivos de cabecera (si los hay)
-├── CMakeLists.txt      # Configuración de CMake
-├── .gitignore         # Archivos a ignorar por git
-└── README.md          # Este archivo
-```
 
 ## Análisis del Algoritmo
 
@@ -130,16 +83,6 @@ Para multiplicar A × B:
 - **Espacial**: O(p×r) para almacenar el resultado
 - **En nuestro caso**: O(2×3×2) = O(12) operaciones
 
-## Casos de Prueba
-Los tests incluyen verificaciones para:
-- **Multiplicación básica**: Caso ejemplo del enunciado
-- **Matriz identidad**: Elementos neutros de multiplicación
-- **Matriz de ceros**: Elemento absorvente
-- **Números negativos**: Manejo de signos en productos
-- **Casos especiales**: Filas/columnas con patrones específicos
-- **Productos escalares**: Verificación de cálculos internos
-- **Valores grandes**: Pruebas con números mayores
-
 ## Aspectos Matemáticos Importantes
 
 ### Propiedades de la Multiplicación Matricial
@@ -160,29 +103,6 @@ Los tests incluyen verificaciones para:
 - **Redes neuronales**: Propagación hacia adelante
 - **Procesamiento de imágenes**: Convoluciones y filtros
 - **Análisis de datos**: PCA, SVD
-
-## Casos de Prueba Educativos
-
-### Test 1: Multiplicación Básica
-```c
-A = [1 2 3]    B = [7  8 ]    Resultado = [58  64 ]
-    [4 5 6]        [9  10]                [139 154]
-                   [11 12]
-```
-
-### Test 2: Matriz Identidad Parcial
-```c
-A = [1 0 0]    B = [5 6]    Resultado = [5 6]
-    [0 1 0]        [7 8]                [7 8]
-                   [9 10]
-```
-
-### Test 3: Elemento Absorvente
-```c
-A = [1 2 3]    B = [0 0]    Resultado = [0 0]
-    [4 5 6]        [0 0]                [0 0]
-                   [0 0]
-```
 
 ## Optimizaciones Posibles
 
@@ -243,3 +163,22 @@ C[1][1] = A[1][0]×B[0][1] + A[1][1]×B[1][1] + A[1][2]×B[2][1]
 - **Fundamento para**: Sistemas lineales, eigenvalores
 - **Conecta con**: Transformaciones geométricas, ML
 - **Prepara para**: Algoritmos de álgebra lineal avanzada
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/multiplicacion_matrices
+```
+
+## Pruebas de esta revisión
+
+Entradas y salidas observables del programa.
+
+Código: [pruebas CLI](../../tools/tests/test_cli_exercises.py). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

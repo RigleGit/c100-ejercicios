@@ -6,25 +6,6 @@ Este ejercicio implementa un cliente TCP en C que se conecta a un servidor en lo
 
 Este ejercicio introduce los fundamentos de la programación de sockets TCP en C, mostrando cómo establecer una conexión cliente-servidor, enviar datos y recibir una respuesta a través de la red local.
 
-## Estructura del Proyecto
-
-```
-089-cliente-tcp/
-├── CMakeLists.txt          # Configuración de compilación
-├── README.md               # Este archivo
-├── .gitignore             # Archivos a ignorar en Git
-├── include/
-│   ├── .gitkeep
-│   └── cliente_tcp.h       # API del cliente TCP
-├── src/
-│   ├── cliente_tcp.c       # Implementación del cliente
-│   └── main.c              # Programa principal interactivo
-├── tests/
-│   └── test_cliente_tcp.c  # Tests unitarios (Criterion)
-└── tools/
-    └── servidor_prueba.c   # Servidor simple para pruebas
-```
-
 ## Funcionalidades
 
 ### Cliente TCP Básico
@@ -42,50 +23,8 @@ Este ejercicio introduce los fundamentos de la programación de sockets TCP en C
 
 ### Herramientas Incluidas
 - **Servidor de prueba**: Para testing local sin dependencias externas
-- **Tests exhaustivos**: Cobertura completa con Criterion
 - **Demos educativos**: Ejemplos paso a paso
 - **Benchmarks**: Medición de rendimiento
-
-## Compilación
-
-### Requisitos
-- CMake 3.10+
-- GCC o Clang con soporte C99
-- Criterion (para tests)
-- Bibliotecas de red POSIX
-
-### Compilación Básica
-```bash
-mkdir build && cd build
-cmake ..
-make
-```
-
-### Opciones de Compilación
-```bash
-# Compilación con debug
-cmake -DCMAKE_BUILD_TYPE=Debug ..
-
-# Compilación con sanitizers
-cmake -DENABLE_SANITIZERS=ON ..
-
-# Compilación con documentación
-cmake -DBUILD_DOCS=ON ..
-
-# Solo tests
-cmake -DBUILD_TESTS_ONLY=ON ..
-```
-
-### Targets Disponibles
-```bash
-make cliente_tcp        # Cliente principal
-make servidor_prueba    # Servidor de prueba
-make tests             # Tests unitarios
-make run_tests         # Ejecutar tests
-make docs              # Generar documentación
-make install           # Instalar
-make info              # Información del sistema
-```
 
 ## Uso
 
@@ -137,7 +76,10 @@ El programa principal ofrece un menú interactivo:
 
 ### 5. Ejecutar Tests
 ```bash
-make run_tests
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/cliente_tcp_main
 ```
 
 ## API Principal
@@ -244,83 +186,6 @@ cliente_tcp_t* cliente = crear_cliente(&config);
 // El cliente reintentará automáticamente en caso de fallo
 ```
 
-## Troubleshooting
-
-### Problemas Comunes
-
-#### "Connection refused"
-```bash
-# Verificar que el servidor esté ejecutándose
-netstat -ln | grep 8080
-# o usar nuestro servidor de prueba
-./servidor_prueba
-```
-
-#### "Address already in use"
-```bash
-# Esperar o cambiar puerto
-./servidor_prueba -p 9090
-```
-
-#### Timeout de conexión
-- Verificar firewall local
-- Confirmar que el servidor acepta conexiones
-- Aumentar timeout en configuración
-
-#### Tests fallan
-```bash
-# Verificar Criterion instalado
-pkg-config --modversion criterion
-
-# Instalar en macOS
-brew install criterion
-
-# Instalar en Ubuntu/Debian
-sudo apt-get install libcriterion-dev
-```
-
-### Debug
-```bash
-# Compilar con símbolos de debug
-cmake -DCMAKE_BUILD_TYPE=Debug ..
-make
-
-# Ejecutar con valgrind (Linux)
-valgrind --leak-check=full ./cliente_tcp
-
-# Ejecutar con lldb (macOS)
-lldb ./cliente_tcp
-```
-
-### Logs de Red
-```bash
-# Monitorear tráfico de red (macOS)
-sudo tcpdump -i lo0 port 8080
-
-# Monitorear tráfico de red (Linux)
-sudo tcpdump -i lo port 8080
-```
-
-## Testing
-
-### Tests Unitarios
-- ✅ Creación y destrucción de clientes
-- ✅ Configuración de parámetros
-- ✅ Conexión y desconexión
-- ✅ Envío y recepción de mensajes
-- ✅ Manejo de errores de red
-- ✅ Timeouts y reconexión
-- ✅ Estadísticas y métricas
-- ✅ Gestión de memoria
-- ✅ Tests parametrizados
-- ✅ Tests concurrentes
-
-### Tests de Integración
-- ✅ Cliente-servidor completo
-- ✅ Múltiples conexiones simultáneas
-- ✅ Reconexión automática
-- ✅ Stress testing
-
 ## Extensiones Sugeridas
 
 1. **Soporte IPv6**: Usar `AF_INET6`
@@ -349,3 +214,22 @@ sudo tcpdump -i lo port 8080
 - `tcpdump`/`wireshark`: Análisis de tráfico
 - `nc` (netcat): Testing de sockets
 - `telnet`: Cliente TCP simple
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/cliente_tcp_main
+```
+
+## Pruebas de esta revisión
+
+Contratos de la API probados contra la implementación real.
+
+Código: [tests/test_contrato.c](tests/test_contrato.c). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

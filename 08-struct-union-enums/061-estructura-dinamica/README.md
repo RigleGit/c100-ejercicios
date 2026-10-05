@@ -132,122 +132,6 @@ typedef struct {
 | Ordenar | O(n²) | Algoritmo burbuja |
 | Filtrar | O(n) | Una pasada por elemento |
 
-## 📁 Estructura del Proyecto
-
-```
-061-estructura-dinamica/
-├── include/
-│   └── estructura_dinamica.h      # Declaraciones y definiciones
-├── src/
-│   ├── estructura_dinamica.c      # Implementación principal
-│   ├── csv_utils.c               # Utilidades CSV
-│   └── main.c                    # Programa principal y demos
-├── tests/
-│   └── test_estructura_dinamica.c # Suite de tests completa
-├── CMakeLists.txt                # Configuración de compilación
-├── README.md                     # Esta documentación
-└── .gitignore                    # Exclusiones de Git
-```
-
-## 🚀 Compilación y Ejecución
-
-### Prerrequisitos
-```bash
-# Ubuntu/Debian
-sudo apt-get install build-essential cmake libcriterion-dev
-
-# macOS
-brew install cmake criterion
-
-# Arch Linux
-sudo pacman -S base-devel cmake criterion
-```
-
-### Compilación
-```bash
-# Crear directorio de compilación
-mkdir build && cd build
-
-# Configurar proyecto
-cmake ..
-
-# Compilar
-make
-
-# Ejecutar programa principal
-./estructura_dinamica
-
-# Ejecutar tests
-make test
-./test_estructura_dinamica --verbose
-```
-
-### Targets Disponibles
-```bash
-make run              # Ejecutar programa principal
-make test             # Ejecutar todos los tests
-make test-verbose     # Tests con salida detallada
-make test-tap         # Tests en formato TAP
-make clean-all        # Limpieza completa
-```
-
-## 🧪 Tests y Validación
-
-### Cobertura de Tests
-
-#### Tests de Persona Individual (8 tests)
-- ✅ Creación válida e inválida
-- ✅ Validación de integridad
-- ✅ Copia independiente
-- ✅ Actualización de campos dinámicos
-
-#### Tests de Array Dinámico (6 tests)
-- ✅ Creación y inicialización
-- ✅ Inserción con redimensionamiento
-- ✅ Búsqueda y eliminación
-- ✅ Manejo de parámetros inválidos
-
-#### Tests de Filtrado (3 tests)
-- ✅ Filtrado por edad y salario
-- ✅ Validación de parámetros
-- ✅ Preservación de datos originales
-
-#### Tests de Estadísticas (3 tests)
-- ✅ Cálculo correcto de métricas
-- ✅ Manejo de arrays vacíos
-- ✅ Validación de entrada NULL
-
-#### Tests de Ordenamiento (3 tests)
-- ✅ Ordenamiento por nombre, edad y salario
-- ✅ Preservación de datos
-- ✅ Casos límite (arrays vacíos/unitarios)
-
-#### Tests de Robustez (6 tests)
-- ✅ Manejo de punteros NULL
-- ✅ Strings extremadamente largos
-- ✅ Operaciones masivas (100+ elementos)
-- ✅ Casos límite diversos
-
-#### Test de Integración (1 test)
-- ✅ Flujo completo de operaciones
-- ✅ Validación de estado consistente
-
-**Total: 30 tests con cobertura completa**
-
-### Ejecución de Tests
-```bash
-# Tests básicos
-make test
-
-# Tests con detalles
-./test_estructura_dinamica --verbose
-
-# Tests específicos
-./test_estructura_dinamica --filter=persona
-./test_estructura_dinamica --filter=array_personas
-./test_estructura_dinamica --filter=robustez
-```
-
 ## 📊 Ejemplos de Uso
 
 ### Ejemplo Básico
@@ -374,3 +258,22 @@ Este ejercicio enseña conceptos fundamentales de:
 5. **Validación básica**: Email/nombre sin formato estricto
 
 Estas limitaciones son intencionadas para mantener el foco pedagógico en gestión de memoria dinámica.
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/estructura_dinamica
+```
+
+## Pruebas de esta revisión
+
+Contratos de la API probados contra la implementación real.
+
+Código: [tests/test_contrato.c](tests/test_contrato.c). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

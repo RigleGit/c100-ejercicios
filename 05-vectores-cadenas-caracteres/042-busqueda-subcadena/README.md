@@ -171,55 +171,6 @@ int buscar_kmp(const char *texto, const char *patron) {
 }
 ```
 
-## Casos de Prueba
-
-### Casos Básicos
-- Al inicio: `"hola mundo"` + `"hola"` → posición 0
-- Al final: `"hola mundo"` + `"mundo"` → posición 5
-- En medio: `"hola mundo feliz"` + `"mundo"` → posición 5
-- No encontrada: `"hola mundo"` + `"adiós"` → -1
-
-### Casos Especiales
-- Subcadena vacía: `"texto"` + `""` → posición 0
-- Cadena vacía: `""` + `"texto"` → -1
-- Iguales: `"test"` + `"test"` → posición 0
-- Subcadena más larga: `"hi"` + `"hello"` → -1
-
-### Casos Complejos
-- Solapamiento: `"aaaa"` + `"aa"` → múltiples posiciones
-- Repetición: `"abababab"` + `"abab"` → múltiples ocurrencias
-- Mayúsculas: `"Hola"` + `"hola"` → -1 (exacta), 0 (sin caso)
-
-### Casos de Rendimiento
-- Peor caso: `"aaaaaaaaab"` + `"aaab"` → muchas comparaciones
-- Mejor caso: `"abcdefgh"` + `"xyz"` → pocas comparaciones
-
-## Compilación y Ejecución
-
-### Usando CMake (Recomendado)
-```bash
-mkdir build && cd build
-cmake ..
-make
-./busqueda_subcadena
-```
-
-### Compilación Manual
-```bash
-gcc -Wall -Wextra -std=c99 src/main.c -o busqueda_subcadena
-./busqueda_subcadena
-```
-
-### Ejecutar Tests
-```bash
-# Instalar Criterion primero (macOS)
-brew install criterion
-
-# Compilar y ejecutar tests
-cd build
-make run_tests
-```
-
 ## Ejemplo de Uso
 
 ### Entrada
@@ -327,3 +278,22 @@ int buscar_aproximada(const char *texto, const char *patron, int max_errores);
 - "Programming Pearls" - Algoritmos de búsqueda eficientes
 - Documentación de `strstr()` y funciones relacionadas en C
 - Análisis de algoritmos de búsqueda en bioinformática
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/busqueda_subcadena
+```
+
+## Pruebas de esta revisión
+
+Entradas y salidas observables del programa.
+
+Código: [pruebas CLI](../../tools/tests/test_cli_exercises.py). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

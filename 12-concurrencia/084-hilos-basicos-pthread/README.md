@@ -18,98 +18,47 @@ Introducción práctica al uso de hilos POSIX (`pthread`). El ejercicio cubre la
 - Condición de carrera (race condition) y ejemplos simples.
 - Sincronización mínima (join) y consideraciones sobre mutex/semaforos (introducción).
 
-## Estructura del proyecto
-
-```
-084-hilos-basicos-pthread/
-├── include/
-│   └── hilos_basicos.h         # API pública del ejercicio
-├── src/
-│   ├── hilos_basicos.c         # Implementación de utilidades con pthread
-│   └── main.c                  # Programa demostrativo / menú
-├── tests/
-│   └── test_hilos_basicos.c    # Tests (Criterion o CTest)
-├── CMakeLists.txt
-└── README.md
-```
-
-## Compilación
-
-Requisitos mínimos: compilador C (gcc o clang) con soporte pthread.
-
-### Usando CMake (recomendado)
-
-```bash
-mkdir -p build && cd build
-cmake ..
-make -j
-```
-
-### Compilación manual
-
-```bash
-gcc -std=c11 -Wall -Wextra -O2 -pthread src/hilos_basicos.c src/main.c -I include -o hilos_basicos_main
-```
-
 ## Ejecución
 
 Ejecutables disponibles tras build:
 
 ```bash
-# Ejecutable principal (desde la raíz si usaste build/)
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
 ./build/hilos_basicos_main
-
-# Ejecutable compilado manualmente
-./hilos_basicos_main
 ```
 
 El programa principal incluye un menú con demostraciones (crear hilos, sumar con varios hilos, ejemplos de race condition, etc.).
-
-## Tests
-
-Los tests están en `tests/` y pueden ser ejecutados mediante CTest o ejecutables generados por CMake.
-
-```bash
-cd build
-ctest --output-on-failure
-# o
-make test
-```
-
-Si prefieres ejecutar el test directamente (Criterion):
-
-```bash
-gcc -std=c11 -Wall -Wextra -pthread src/hilos_basicos.c tests/test_hilos_basicos.c -I include -lcriterion -o test_hilos_basicos
-./test_hilos_basicos
-```
 
 ## Ejemplos de uso
 
 1. Ejecutar demostración básica de creación de hilos:
 
 ```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
 ./build/hilos_basicos_main
-# Seleccionar la opción "Ejemplo básico" en el menú
 ```
 
 2. Ejecutar varios hilos que incrementan un contador (ejemplo de race condition):
 
 ```bash
-./build/hilos_basicos_main --demo race
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/hilos_basicos_main
 ```
 
 3. Ejecutar pruebas unitarias:
 
 ```bash
-cd build && ctest --output-on-failure
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/hilos_basicos_main
 ```
-
-## Casos de prueba importantes
-
-- Inicialización y terminación correcta de hilos.
-- Comportamiento determinista con `pthread_join`.
-- Demostración de race condition cuando múltiples hilos modifican un contador sin sincronización.
-- Verificación de que los recursos se liberan (no leaks básicos).
 
 ## Buenas prácticas y notas
 
@@ -193,3 +142,22 @@ Se recomienda usar estas funciones desde un programa de demostración o tests: l
 ---
 
 Para comprobaciones rápidas usa `./tools/quick_test.sh 12 084` desde la raíz del repositorio.
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/hilos_basicos_main
+```
+
+## Pruebas de esta revisión
+
+Contratos de la API probados contra la implementación real.
+
+Código: [tests/test_contrato.c](tests/test_contrato.c). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

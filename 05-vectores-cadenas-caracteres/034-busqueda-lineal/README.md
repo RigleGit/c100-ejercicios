@@ -19,40 +19,6 @@ Escribir un programa que:
 - **Información detallada**: Muestra posición e índice
 - **Manejo de casos**: Valor encontrado vs. no encontrado
 
-## Compilación y Ejecución
-
-### Requisitos
-- Compilador C (gcc, clang)
-- CMake 3.10 o superior
-- Criterion (para tests, opcional)
-
-### Compilación con CMake
-```bash
-mkdir build
-cd build
-cmake ..
-make
-```
-
-### Ejecución
-```bash
-# Desde el directorio build
-./bin/busqueda_lineal
-
-# O directamente con gcc
-gcc -o busqueda_lineal src/main.c
-./busqueda_lineal
-```
-
-### Ejecutar Tests
-```bash
-# Desde el directorio build
-make run_tests
-
-# O ejecutar directamente
-./test_034-busqueda-lineal
-```
-
 ## Ejemplo de Uso
 
 ### Caso: Valor Encontrado
@@ -84,28 +50,6 @@ Valor no encontrado en el array.
 - **Variables de estado**: Flag `encontrado` para control lógico
 - **Indexación**: Diferencia entre posición (1-based) e índice (0-based)
 - **Manejo de casos**: Lógica para encontrado/no encontrado
-
-## Estructura del Proyecto
-```
-034-busqueda-lineal/
-├── src/
-│   └── main.c          # Código principal
-├── test/
-│   └── test_main.c     # Tests unitarios
-├── include/            # Archivos de cabecera (si los hay)
-├── CMakeLists.txt      # Configuración de CMake
-├── .gitignore         # Archivos a ignorar por git
-└── README.md          # Este archivo
-```
-
-## Casos de Prueba
-Los tests incluyen verificaciones para:
-- **Posiciones específicas**: Primer elemento, último, elemento medio
-- **Casos especiales**: Array de un elemento, todos elementos iguales
-- **Valores no encontrados**: Búsqueda de valores ausentes
-- **Números especiales**: Negativos, cero, números grandes
-- **Valores repetidos**: Primera ocurrencia de elementos duplicados
-- **Validación**: Cantidades inválidas (0, >100)
 
 ## Análisis del Algoritmo
 
@@ -178,3 +122,22 @@ Sin el `break`, el programa seguiría buscando innecesariamente:
 - **Predecesor de**: Búsqueda binaria, hash tables
 - **Fundamento para**: Algoritmos de ordenamiento que incluyen búsqueda
 - **Complementa a**: Algoritmos de inserción y eliminación en arrays
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/busqueda_lineal
+```
+
+## Pruebas de esta revisión
+
+Entradas y salidas observables del programa.
+
+Código: [pruebas CLI](../../tools/tests/test_cli_exercises.py). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

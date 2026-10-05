@@ -121,60 +121,6 @@ typedef struct {
 - Distinción entre caracteres válidos y bytes
 - Validación de caracteres imprimibles
 
-## Casos de Prueba
-
-### Tests Unitarios
-1. **Archivos vacíos**: Verificar manejo correcto
-2. **Una línea sin salto**: Conteo de palabras sin `\n` final
-3. **Múltiples líneas**: Verificar conteo de líneas
-4. **Espacios y tabs**: Manejo de diferentes separadores
-5. **Caracteres especiales**: Símbolos y acentos
-6. **Archivos grandes**: Pruebas de rendimiento
-7. **Solo espacios**: Casos límite
-
-### Archivos de Prueba
-```bash
-# Archivo vacío
-echo -n > test_vacio.txt
-
-# Una línea
-echo -n "Hola mundo" > test_una_linea.txt
-
-# Múltiples líneas
-echo -e "Primera línea\nSegunda línea\nTercera línea" > test_multiple.txt
-```
-
-## Compilación y Ejecución
-
-### Prerrequisitos
-- Compilador C (gcc, clang)
-- CMake 3.16+
-- Criterion (para tests): `brew install criterion` (macOS)
-
-### Compilar
-```bash
-mkdir build && cd build
-cmake ..
-make
-```
-
-### Ejecutar
-```bash
-# Programa principal
-./contar_lineas_palabras
-
-# Crear archivo de prueba personalizado
-echo -e "Línea uno\nLínea dos\nLínea tres" > entrada.txt
-./contar_lineas_palabras
-```
-
-### Ejecutar Tests
-```bash
-make test
-# o directamente
-./test_contar_lineas_palabras
-```
-
 ## Salida Esperada
 
 ### Formato Estándar
@@ -252,25 +198,28 @@ isprint(c);  // Imprimible
 3. **Procesamiento de logs**: Análisis de archivos de registro
 4. **Validación de entrada**: Verificar límites de texto
 
-## Debugging y Troubleshooting
-
-### Problemas Comunes
-1. **Archivo no encontrado**: Verificar permisos y ruta
-2. **Conteo incorrecto de palabras**: Revisar lógica de estados
-3. **Diferencias con wc**: Considerar diferentes definiciones de "palabra"
-
-### Herramientas de Debug
-```bash
-# Con Valgrind
-valgrind --leak-check=full ./contar_lineas_palabras
-
-# Con GDB
-gdb ./contar_lineas_palabras
-```
-
 ## Referencias
 
 - Manual de `wc`: `man wc`
 - Estándar C99: ISO/IEC 9899:1999
 - "The C Programming Language" - Kernighan & Ritchie
 - POSIX.1-2008: Definiciones de archivos de texto
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/contar_lineas_palabras
+```
+
+## Pruebas de esta revisión
+
+Contratos de la API probados contra la implementación real.
+
+Código: [test/test_contador.c](test/test_contador.c). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

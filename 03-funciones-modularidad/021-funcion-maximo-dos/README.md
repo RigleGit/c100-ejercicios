@@ -225,35 +225,6 @@ int max(int a, int b) {
 | **Idempotente** | max(a, a) = a | max(7, 7) = 7 |
 | **Identidad** | max(a, -∞) = a | max(a, INT_MIN) ≈ a |
 
-## Compilación y ejecución
-
-```bash
-# Compilar el programa
-mkdir build && cd build
-cmake ..
-make
-
-# Ejecutar el programa
-./funcion_maximo_dos
-
-# Ejecutar las pruebas (si están disponibles)
-make test
-```
-
-## Pruebas incluidas
-
-El programa incluye pruebas automáticas que verifican:
-
-- ✅ Casos básicos (números positivos, iguales)
-- ✅ Números negativos
-- ✅ Mezcla de positivos y negativos
-- ✅ Números grandes y valores extremos
-- ✅ Propiedades matemáticas (conmutativa, idempotente)
-- ✅ Combinaciones con función min
-- ✅ Extensión a tres números
-- ✅ Secuencias de números
-- ✅ Coherencia en diferentes órdenes
-
 ## Posibles extensiones
 
 1. **Máximo de N números**: Función que acepte un array
@@ -301,3 +272,22 @@ int resultado = max_array(numeros, size);  // resultado = 9
 - Demuestra separación de responsabilidades
 - Las pruebas cubren propiedades matemáticas importantes
 - Excelente ejercicio para entender parámetros y valores de retorno
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/funcion_maximo_dos
+```
+
+## Pruebas de esta revisión
+
+Entradas y salidas observables del programa.
+
+Código: [pruebas CLI](../../tools/tests/test_cli_exercises.py). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

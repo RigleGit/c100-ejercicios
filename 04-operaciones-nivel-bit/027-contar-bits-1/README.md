@@ -244,44 +244,6 @@ unsigned int siguiente_potencia_2(unsigned int n) {
 // popcount(NOT a) = 32 - popcount(a)  // Para enteros de 32 bits
 ```
 
-## Casos de Prueba
-
-### Casos Básicos
-```c
-assert(contar_bits(0) == 0);      // Sin bits
-assert(contar_bits(1) == 1);      // Un bit
-assert(contar_bits(3) == 2);      // 11₂
-assert(contar_bits(7) == 3);      // 111₂
-assert(contar_bits(255) == 8);    // 11111111₂
-```
-
-### Potencias de 2
-```c
-for (int i = 0; i < 32; i++) {
-    unsigned int potencia = 1U << i;
-    assert(contar_bits(potencia) == 1);
-}
-```
-
-### Números de Mersenne
-```c
-for (int i = 1; i <= 16; i++) {
-    unsigned int mersenne = (1U << i) - 1;
-    assert(contar_bits(mersenne) == i);
-}
-```
-
-### Consistencia entre Métodos
-```c
-unsigned int test_cases[] = {42, 255, 1023, 65535, 1234567, UINT_MAX};
-for (int i = 0; i < num_cases; i++) {
-    unsigned int n = test_cases[i];
-    assert(contar_bits_basico(n) == contar_bits_kernighan(n));
-    assert(contar_bits_basico(n) == contar_bits_tabla(n));
-    assert(contar_bits_basico(n) == contar_bits_paralelo(n));
-}
-```
-
 ## Extensiones Sugeridas
 
 ### 1. **Análisis de Patrones**
@@ -384,30 +346,6 @@ void comparar_con_builtin(unsigned int numero) {
 }
 ```
 
-## Compilación y Ejecución
-
-```bash
-# Compilar el programa principal
-gcc -o contar_bits src/main.c -std=c99 -Wall -Wextra -O3
-
-# Ejecutar
-./contar_bits
-
-# Compilar con optimizaciones específicas
-gcc -o contar_bits_opt src/main.c -mpopcnt -O3
-
-# Compilar y ejecutar tests
-gcc -o test_bits test/test_main.c -lcriterion
-./test_bits
-
-# Con CMake
-mkdir build && cd build
-cmake ..
-make
-./contar_bits_1
-make test  # Ejecutar pruebas automáticas
-```
-
 ## Referencias
 
 - **Hacker's Delight**: Henry S. Warren Jr. - Cap. 5 "Counting Bits"
@@ -415,3 +353,22 @@ make test  # Ejecutar pruebas automáticas
 - **Intel Manual**: Instrucción POPCNT - Population count
 - **Wikipedia**: Hamming weight y algoritmos de bit counting
 - **Warren**: "Hacker's Delight" - Bit manipulation techniques
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/contar_bits_1
+```
+
+## Pruebas de esta revisión
+
+Entradas y salidas observables del programa.
+
+Código: [pruebas CLI](../../tools/tests/test_cli_exercises.py). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

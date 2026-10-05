@@ -47,7 +47,6 @@ struct {
 ├── include/
 │   └── bitfields_estado.h      # Declaraciones y definiciones
 ├── tests/
-│   └── test_bitfields_estado.c # Suite de tests con Criterion
 ├── CMakeLists.txt              # Configuración de compilación
 └── README.md                   # Este archivo
 ```
@@ -120,46 +119,6 @@ configurar_con_mascara(&estado, mascara);
 - `copiar_estado()`: Copia todos los campos
 - `comparar_estados()`: Compara dos estructuras
 - `estado_a_string()`: Representación textual del estado
-
-## Compilación y Ejecución
-
-### Requisitos
-- CMake 3.15 o superior
-- Compilador C (gcc, clang, msvc)
-- Criterion (para tests) - opcional
-
-### Compilar
-
-```bash
-mkdir build && cd build
-cmake ..
-make
-```
-
-### Ejecutar
-
-```bash
-# Programa principal
-./bitfields_estado
-
-# Tests (si Criterion está instalado)
-make test
-# o para salida detallada:
-make test_verbose
-```
-
-### Instalar Criterion (para tests)
-
-```bash
-# Ubuntu/Debian
-sudo apt-get install libcriterion-dev
-
-# macOS
-brew install criterion
-
-# Arch Linux
-sudo pacman -S criterion
-```
 
 ## Ejemplos de Uso
 
@@ -287,28 +246,6 @@ void demostrar_limites(void) {
 }
 ```
 
-## Tests Implementados
-
-La suite de tests cubre:
-
-### Tests Básicos
-- ✅ Inicialización correcta
-- ✅ Asignación individual de campos
-- ✅ Límites y truncamiento
-- ✅ Tamaño de estructura
-
-### Tests de Funcionalidad
-- ✅ Todas las funciones de configuración
-- ✅ Todas las funciones de consulta
-- ✅ Manipulación con máscaras
-- ✅ Funciones de utilidad
-
-### Tests de Casos Límite
-- ✅ Inicialización designada
-- ✅ Valores máximos
-- ✅ Overflow silencioso
-- ✅ Comportamiento de truncamiento
-
 ## Conceptos Educativos
 
 ### 1. Eficiencia de Memoria
@@ -344,3 +281,22 @@ Enseña sobre las consideraciones de portabilidad al trabajar con representacion
 - "The C Programming Language" - Kernighan & Ritchie, Chapter 6
 - GCC Manual: Bit Fields
 - "Expert C Programming" - Peter van der Linden
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/bitfields_estado
+```
+
+## Pruebas de esta revisión
+
+Contratos de la API probados contra la implementación real.
+
+Código: [tests/test_contrato.c](tests/test_contrato.c). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

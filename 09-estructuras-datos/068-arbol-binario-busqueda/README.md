@@ -14,21 +14,6 @@ Este ejercicio implementa un **Árbol Binario de Búsqueda (Binary Search Tree -
 - Calcular métricas del árbol (altura, nodos, hojas)
 - Validar la integridad del BST
 
-## 🏗️ Estructura del Proyecto
-
-```
-068-arbol-binario-busqueda/
-├── src/
-│   └── arbol_bst.c           # Implementación principal
-├── include/
-│   └── arbol_bst.h           # Declaraciones y definiciones
-├── tests/
-│   └── test_arbol_bst.c      # Tests exhaustivos
-├── CMakeLists.txt            # Configuración de build
-├── README.md                 # Este archivo
-└── .gitignore               # Archivos a ignorar
-```
-
 ## 🔧 Funcionalidades Implementadas
 
 ### Operaciones Básicas
@@ -89,20 +74,10 @@ Un **Árbol Binario de Búsqueda** es una estructura de datos jerárquica donde:
 ### Compilación
 
 ```bash
-# Crear directorio de build
-mkdir build && cd build
-
-# Configurar con CMake
-cmake ..
-
-# Compilar
-make
-
-# Ejecutar tests
-make run_tests
-
-# Ejecutar programa demo
-./arbol_bst_demo
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/arbol_bst
 ```
 
 ### Ejemplo de Uso
@@ -182,34 +157,6 @@ void bst_imprimir_estructura(BST *bst);  // Visualizar estructura
 void bst_mostrar_estadisticas(BST *bst); // Mostrar estadísticas
 ```
 
-## 🧪 Tests Incluidos
-
-### Cobertura de Tests
-- ✅ Operaciones básicas (crear, insertar, buscar, eliminar)
-- ✅ Casos límite (árbol vacío, un elemento, duplicados)
-- ✅ Eliminación (hoja, un hijo, dos hijos, raíz)
-- ✅ Recorridos (in-order, pre-order, post-order)
-- ✅ Operaciones avanzadas (altura, conteos, validación)
-- ✅ Árboles degenerados (izquierdo, derecho)
-- ✅ Manejo de errores (punteros NULL)
-- ✅ Pruebas de rendimiento (inserción/eliminación masiva)
-- ✅ Verificación de integridad y memory leaks
-
-### Ejecutar Tests
-```bash
-# Tests básicos
-make run_tests
-
-# Tests detallados con output
-make test_detailed
-
-# Verificar memory leaks (requiere Valgrind)
-make test_memory
-
-# Análisis estático (requiere Cppcheck)
-make static_analysis
-```
-
 ## 📊 Complejidad Algoritmica
 
 | Operación | Mejor Caso | Caso Promedio | Peor Caso |
@@ -273,27 +220,6 @@ bool en_rango(BST *bst, int min, int max) {
 - Persistencia en archivos
 - Operaciones de conjunto (unión, intersección)
 
-## 🔧 Herramientas de Desarrollo
-
-### Debugging
-```bash
-# Compilar con debug
-cmake -DCMAKE_BUILD_TYPE=Debug ..
-gdb ./arbol_bst_demo
-```
-
-### Profiling
-```bash
-# Analizar rendimiento
-valgrind --tool=callgrind ./test_arbol_bst
-```
-
-### Memory Check
-```bash
-# Verificar memory leaks
-valgrind --leak-check=full ./test_arbol_bst
-```
-
 ## 📚 Recursos Adicionales
 
 ### Lecturas Recomendadas
@@ -324,3 +250,22 @@ Este ejercicio es parte de una serie educativa. Las mejoras sugeridas incluyen:
 3. **Tests**: Casos adicionales
 4. **Documentación**: Ejemplos más claros
 5. **Portabilidad**: Soporte multi-plataforma
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/arbol_bst
+```
+
+## Pruebas de esta revisión
+
+Contratos de la API probados contra la implementación real.
+
+Código: [tests/test_contrato.c](tests/test_contrato.c). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

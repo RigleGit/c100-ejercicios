@@ -89,31 +89,6 @@ do {
 } while (intento != secreto);
 ```
 
-## Compilación y ejecución
-
-```bash
-# Compilar el programa
-mkdir build && cd build
-cmake ..
-make
-
-# Ejecutar el programa
-./adivina_numero
-
-# Ejecutar las pruebas (si están disponibles)
-make test
-```
-
-## Pruebas incluidas
-
-El programa incluye pruebas automáticas que verifican:
-
-- ✅ Evaluación correcta de intentos (menor, mayor, igual)
-- ✅ Generación de números en el rango correcto (1-100)
-- ✅ Casos límite (1, 100)
-- ✅ Secuencia de juego simulada
-- ✅ Rangos aleatorios personalizados
-
 ## Posibles extensiones
 
 1. **Contador de intentos**: Mostrar cuántos intentos necesitó el usuario
@@ -131,3 +106,22 @@ El programa incluye pruebas automáticas que verifican:
 - El operador módulo `%` se usa para limitar el rango
 - Las pruebas usan semillas fijas para resultados reproducibles
 - El código está optimizado para legibilidad educativa
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/adivina_numero
+```
+
+## Pruebas de esta revisión
+
+Entradas y salidas observables del programa.
+
+Código: [pruebas CLI](../../tools/tests/test_cli_exercises.py). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

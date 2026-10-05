@@ -6,25 +6,6 @@ Este ejercicio implementa un servidor TCP de eco en C que escucha conexiones en 
 
 Este ejercicio introduce los conceptos fundamentales de la programación de servidores TCP en C, usando la API de sockets BSD (`socket()`, `bind()`, `listen()`, `accept()`) y refuerza la lógica de manejo de conexiones múltiples.
 
-## Estructura del Proyecto
-
-```
-090-servidor-tcp/
-├── CMakeLists.txt              # Configuración avanzada de compilación
-├── README.md                   # Este archivo
-├── .gitignore                  # Archivos a ignorar en Git
-├── include/
-│   ├── .gitkeep               # Marcador de directorio
-│   └── servidor_tcp.h         # API completa del servidor TCP
-├── src/
-│   ├── servidor_tcp.c         # Implementación del servidor
-│   └── main.c                 # Programa principal interactivo
-├── tests/
-│   └── test_servidor_tcp.c    # Tests exhaustivos con Criterion
-└── tools/
-    └── cliente_prueba.c       # Cliente de prueba y benchmark
-```
-
 ## Funcionalidades
 
 ### Servidor TCP de Eco Básico
@@ -51,53 +32,6 @@ Este ejercicio introduce los conceptos fundamentales de la programación de serv
 - **Cliente de prueba**: Para testing manual y automatizado
 - **Stress testing**: Múltiples clientes concurrentes
 - **Benchmarks**: Medición de rendimiento y throughput
-- **Tests exhaustivos**: Cobertura completa con Criterion
-
-## Compilación
-
-### Requisitos
-- CMake 3.10+
-- GCC o Clang con soporte C99
-- POSIX threads (pthread)
-- Criterion (para tests)
-- Sockets BSD (disponible en Unix/Linux/macOS)
-
-### Compilación Básica
-```bash
-mkdir build && cd build
-cmake ..
-make
-```
-
-### Opciones de Compilación
-```bash
-# Debug con símbolos
-cmake -DCMAKE_BUILD_TYPE=Debug ..
-
-# Con sanitizers para debugging
-cmake -DENABLE_SANITIZERS=ON ..
-
-# Solo tests (para desarrollo de tests)
-cmake -DBUILD_TESTS_ONLY=ON ..
-
-# Con cobertura de código
-cmake -DENABLE_COVERAGE=ON ..
-
-# Con documentación Doxygen
-cmake -DBUILD_DOCS=ON ..
-```
-
-### Targets Disponibles
-```bash
-make servidor_tcp       # Servidor principal
-make cliente_prueba     # Cliente de prueba
-make test_servidor_tcp  # Compilar tests
-make test              # Ejecutar tests (CTest)
-make run_tests         # Ejecutar tests (verbose)
-make docs              # Generar documentación
-make info              # Información del sistema
-make install           # Instalar en el sistema
-```
 
 ## Uso
 
@@ -174,15 +108,10 @@ El servidor permite configuración detallada:
 
 ### 5. Tests y Validación
 ```bash
-# Ejecutar todos los tests
-make run_tests
-
-# Ver información del sistema
-make info
-
-# Benchmark integrado
-./servidor_tcp
-# Seleccionar opción 7 (Demo de rendimiento)
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/servidor_tcp
 ```
 
 ## API Principal
@@ -335,112 +264,6 @@ printf("Eco: %s\n", respuesta);
 close(socket_fd);
 ```
 
-## Troubleshooting
-
-### Problemas Comunes
-
-#### "Address already in use"
-```bash
-# El puerto está ocupado
-netstat -ln | grep 8080
-# Esperar o usar SO_REUSEADDR (ya incluido)
-# O cambiar puerto en la configuración
-```
-
-#### "Connection refused"
-```bash
-# Verificar que el servidor esté ejecutándose
-ps aux | grep servidor_tcp
-# Verificar que el puerto sea correcto
-netstat -ln | grep 8080
-```
-
-#### Tests fallan
-```bash
-# Verificar Criterion
-pkg-config --modversion criterion
-
-# En macOS
-brew install criterion
-
-# En Ubuntu/Debian
-sudo apt-get install libcriterion-dev
-
-# En otras distribuciones
-# Compilar desde fuente: https://github.com/Snaipe/Criterion
-```
-
-#### Problemas de rendimiento
-- Aumentar `max_clientes` en configuración
-- Usar modo `MODO_SELECT` o `MODO_THREAD`
-- Ajustar `buffer_size` según necesidades
-- Habilitar `TCP_NODELAY` para baja latencia
-- Verificar límites del sistema (`ulimit -n`)
-
-### Debug Avanzado
-```bash
-# Compilar con debug
-cmake -DCMAKE_BUILD_TYPE=Debug ..
-make
-
-# Con sanitizers
-cmake -DENABLE_SANITIZERS=ON ..
-make
-
-# Usar gdb/lldb
-gdb ./servidor_tcp
-lldb ./servidor_tcp
-
-# Monitorear tráfico de red
-# macOS
-sudo tcpdump -i lo0 port 8080
-
-# Linux
-sudo tcpdump -i lo port 8080
-
-# Analizar con Wireshark
-wireshark
-```
-
-### Logs y Métricas
-```bash
-# Habilitar modo verbose en configuración
-# Las estadísticas se muestran automáticamente al detener el servidor
-# Usar option 6 en el menú para stress testing
-```
-
-## Testing
-
-### Tests Unitarios (Criterion)
-- ✅ Creación y destrucción de servidores
-- ✅ Configuración y validación de parámetros
-- ✅ Inicialización de sockets y bind
-- ✅ Gestión de clientes y conexiones
-- ✅ Procesamiento de mensajes de eco
-- ✅ Manejo de errores de red
-- ✅ Estadísticas y métricas
-- ✅ Thread safety y concurrencia
-- ✅ Diferentes modos de servidor
-- ✅ Tests parametrizados (tamaños de mensaje)
-
-### Tests de Integración
-- ✅ Servidor completo con clientes reales
-- ✅ Múltiples clientes concurrentes
-- ✅ Diferentes arquitecturas (fork, thread, select)
-- ✅ Stress testing con carga real
-- ✅ Benchmarks de rendimiento
-
-### Cobertura
-```bash
-# Habilitar cobertura
-cmake -DENABLE_COVERAGE=ON ..
-make run_tests
-
-# Generar reporte
-gcov *.gcda
-# o usar lcov para reporte HTML
-```
-
 ## Extensiones Sugeridas
 
 1. **Protocolo personalizado**: Headers, checksums, compresión
@@ -493,3 +316,22 @@ gcov *.gcda
 - [Reactor Pattern](https://en.wikipedia.org/wiki/Reactor_pattern)
 - [Proactor Pattern](https://en.wikipedia.org/wiki/Proactor_pattern)
 - [Event-driven architecture](https://en.wikipedia.org/wiki/Event-driven_architecture)
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/servidor_tcp
+```
+
+## Pruebas de esta revisión
+
+Contratos de la API probados contra la implementación real.
+
+Código: [tests/test_contrato.c](tests/test_contrato.c). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

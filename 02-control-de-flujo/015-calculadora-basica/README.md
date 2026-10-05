@@ -26,20 +26,6 @@ La calculadora implementa las cuatro operaciones aritméticas fundamentales:
 - **Caso `default`**: Manejo de opciones no válidas
 - **Validación de entrada**: Control de errores (división por cero)
 
-## Estructura del Proyecto
-
-```
-015-calculadora-basica/
-├── CMakeLists.txt          # Configuración de compilación
-├── README.md               # Este archivo
-├── .gitignore             # Archivos a ignorar en git
-├── include/               # Archivos de cabecera (vacío en este ejercicio)
-├── src/
-│   └── main.c             # Código fuente principal
-└── test/
-    └── test_main.c        # Tests del programa
-```
-
 ## Explicación del Algoritmo
 
 ### Flujo del Programa
@@ -129,38 +115,6 @@ scanf("%lf %c %lf", &num1, &operador, &num2);
 - **char**: Un byte para el operador
 - **Formato %.2lf**: Dos decimales en la salida
 
-## Compilación y Ejecución
-
-```bash
-# Usando CMake (recomendado)
-mkdir build && cd build
-cmake ..
-make
-./calculadora_basica
-
-# Compilación directa
-gcc -o calculadora_basica src/main.c
-./calculadora_basica
-```
-
-## Pruebas
-
-```bash
-# Ejecutar tests automáticos
-cd build
-make test
-# o
-ctest -V
-```
-
-Los tests verifican:
-- Todas las operaciones básicas (+, -, *, /)
-- División por cero y manejo de errores
-- Operadores no válidos
-- Números enteros, decimales y negativos
-- Formato correcto de entrada y salida
-- Estructura correcta del código (switch, break, default)
-
 ## Tabla de Operaciones
 
 | Operación | Símbolo | Ejemplo | Resultado |
@@ -180,24 +134,6 @@ Los tests verifican:
 4. **Tipo de datos**: Usar `float` en lugar de `double`
 5. **No incluir `default`**: No manejar operadores inválidos
 6. **Comparación de punto flotante**: Usar `!= 0` en lugar de comparación exacta
-
-## Casos de Prueba Importantes
-
-### Operaciones Normales
-- **Suma**: `5.5 + 3.2 = 8.70`
-- **Resta**: `10.0 - 3.5 = 6.50`
-- **Multiplicación**: `4.0 * 2.5 = 10.00`
-- **División**: `15.0 / 3.0 = 5.00`
-
-### Casos Especiales
-- **Números enteros**: `8 + 7 = 15.00`
-- **Números negativos**: `-5.0 * 3.0 = -15.00`
-- **División decimal**: `7.0 / 2.0 = 3.50`
-- **Operaciones con cero**: `5.0 + 0.0 = 5.00`, `7.0 * 0.0 = 0.00`
-
-### Manejo de Errores
-- **División por cero**: `10.0 / 0.0` → "Error: división por cero."
-- **Operador inválido**: `5.0 % 2.0` → "Operador no válido."
 
 ## Extensiones Posibles
 
@@ -243,3 +179,22 @@ if (operador == '+') {
 - **Calculadora RPN**: Notación polaca inversa
 - **Calculadora con memoria**: Funciones de memoria (M+, M-, MR, MC)
 - **Evaluador de expresiones**: Análisis de expresiones complejas
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/calculadora_basica
+```
+
+## Pruebas de esta revisión
+
+Entradas y salidas observables del programa.
+
+Código: [pruebas CLI](../../tools/tests/test_cli_exercises.py). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

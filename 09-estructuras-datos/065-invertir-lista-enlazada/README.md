@@ -123,75 +123,6 @@ Resultado: 2 -> 1 -> 4 -> 3 -> 6 -> 5
 | Inversión por grupos | O(n) | O(1) | Múltiples inversiones locales |
 | Crear copia invertida | O(n) | O(n) | Preserva original |
 
-## Compilación y Ejecución
-
-### Compilar
-```bash
-mkdir build && cd build
-cmake ..
-make
-```
-
-### Ejecutar Programa Principal
-```bash
-./invertir_lista
-```
-
-### Ejecutar Tests
-```bash
-# Todos los tests
-make test
-
-# Tests específicos
-make test_basico          # Tests básicos
-make test_sublista        # Tests de sublistas  
-make test_recursivo       # Tests recursivos
-make test_grupos          # Tests por grupos
-make test_avanzado        # Tests avanzados
-
-# Con salida detallada
-make test_verbose
-```
-
-### Verificación de Memoria
-```bash
-make test_memory    # Tests con Valgrind
-make run_memory     # Programa con Valgrind
-```
-
-## Casos de Prueba
-
-### Tests Básicos
-- Inversión de lista normal
-- Lista vacía
-- Un solo elemento
-- Dos elementos
-- Doble inversión (restaurar original)
-
-### Tests de Sublistas
-- Inversión en el medio
-- Inversión desde inicio
-- Inversión hasta final
-- Sublista de un elemento
-- Rangos inválidos
-
-### Tests Recursivos
-- Comparación iterativo vs recursivo
-- Casos base de recursión
-- Listas de diferentes tamaños
-
-### Tests por Grupos
-- Grupos completos
-- Grupos incompletos
-- k mayor que lista
-- Grupos de tamaño 1
-
-### Tests Avanzados
-- Crear copia invertida
-- Validación de integridad
-- Comparación de listas
-- Múltiples inversiones
-
 ## Aplicaciones Prácticas
 
 ### 1. Algoritmos de Ordenamiento
@@ -292,3 +223,22 @@ make run_memory     # Programa con Valgrind
 - "Introduction to Algorithms" - CLRS
 - "Data Structures and Algorithms" - Sedgewick
 - "The Art of Computer Programming" - Knuth
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/invertir_lista
+```
+
+## Pruebas de esta revisión
+
+Contratos de la API probados contra la implementación real.
+
+Código: [tests/test_contrato.c](tests/test_contrato.c). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

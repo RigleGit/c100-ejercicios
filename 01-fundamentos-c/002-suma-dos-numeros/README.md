@@ -17,55 +17,6 @@ Este ejercicio tiene como objetivo reforzar el uso de entrada y salida estándar
 - **Operaciones aritméticas**: Suma de números enteros
 - **Interpolación en `printf()`**: Mostrar valores de variables en cadenas
 
-## Estructura del Proyecto
-
-```
-002-suma-dos-numeros/
-├── CMakeLists.txt          # Configuración de compilación
-├── README.md               # Este archivo
-├── src/
-│   └── main.c             # Código fuente principal
-└── test/
-    └── test_main.c        # Tests del programa
-```
-
-## Compilación y Ejecución
-
-### Usando CMake (Recomendado)
-
-```bash
-# Crear directorio de build
-mkdir build && cd build
-
-# Configurar el proyecto
-cmake ..
-
-# Compilar
-make
-
-# Ejecutar el programa
-./suma_dos_numeros
-
-# Ejecutar tests
-make test
-# o directamente:
-./test_suma_dos_numeros
-```
-
-### Compilación Manual
-
-```bash
-# Compilar el programa principal
-gcc -o suma_dos_numeros src/main.c
-
-# Ejecutar
-./suma_dos_numeros
-
-# Compilar y ejecutar tests
-gcc -o test_suma_dos_numeros test/test_main.c
-./test_suma_dos_numeros
-```
-
 ## Ejemplo de Ejecución
 
 ```
@@ -82,14 +33,6 @@ La suma de 15 y 25 es 40
 4. **Aritmética básica**: `suma = a + b` realiza la operación matemática
 5. **Formato de salida**: `printf("La suma de %d y %d es %d\n", a, b, suma)` muestra los valores
 
-## Casos de Prueba
-
-Los tests verifican:
-- ✅ Suma de números positivos (5 + 10 = 15)
-- ✅ Suma con números negativos (-3 + 7 = 4)
-- ✅ Suma de ceros (0 + 0 = 0)
-- ✅ Estructura correcta del código
-
 ## Posibles Errores Comunes
 
 1. **Olvidar el operador `&`** en `scanf`: `scanf("%d", a)` ❌ vs `scanf("%d", &a)` ✅
@@ -104,3 +47,22 @@ Los tests verifican:
 - Manejar números decimales usando `float` y `%f`
 - Crear una calculadora básica con menú de opciones
 - Implementar verificación de overflow en la suma
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/suma_dos_numeros
+```
+
+## Pruebas de esta revisión
+
+Entradas y salidas observables del programa.
+
+Código: [pruebas CLI](../../tools/tests/test_cli_exercises.py). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

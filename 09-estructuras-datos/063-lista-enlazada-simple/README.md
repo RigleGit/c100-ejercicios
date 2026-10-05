@@ -50,7 +50,6 @@ Una lista enlazada es una estructura de datos lineal donde:
 ├── include/
 │   └── lista_enlazada.h        # Declaraciones y definiciones
 ├── tests/
-│   └── test_lista_enlazada.c   # Suite de tests con Criterion
 ├── CMakeLists.txt              # Configuración de compilación
 └── README.md                   # Este archivo
 ```
@@ -137,53 +136,6 @@ Para mantener compatibilidad con el enunciado original, también se incluyen las
 bool insertar_final_simple(Nodo** cabeza, int valor);
 void imprimir_lista_simple(const Nodo* cabeza);
 void destruir_lista_simple(Nodo** cabeza);
-```
-
-## Compilación y Ejecución
-
-### Requisitos
-- CMake 3.15 o superior
-- Compilador C (gcc, clang, msvc)
-- Criterion (para tests) - opcional
-
-### Compilar
-
-```bash
-mkdir build && cd build
-cmake ..
-make
-```
-
-### Ejecutar
-
-```bash
-# Programa principal
-./lista_enlazada
-
-# Tests (si Criterion está instalado)
-make test
-
-# Tests específicos
-make test_basico        # Solo tests básicos
-make test_insercion     # Solo tests de inserción
-make test_busqueda      # Solo tests de búsqueda
-make test_verbose       # Tests con salida detallada
-
-# Ejecutar programa directamente
-make run
-```
-
-### Instalar Criterion (para tests)
-
-```bash
-# Ubuntu/Debian
-sudo apt-get install libcriterion-dev
-
-# macOS
-brew install criterion
-
-# Arch Linux
-sudo pacman -S criterion
 ```
 
 ## Ejemplos de Uso
@@ -361,50 +313,6 @@ destruir_lista(lista);         // free de todos los nodos + Lista
 ```
 
 **Importante**: Siempre llamar `destruir_lista()` para evitar memory leaks.
-
-## Tests Implementados
-
-La suite de tests cubre exhaustivamente:
-
-### Tests Básicos (lista_enlazada_basico)
-- ✅ Creación de lista y nodos
-- ✅ Inserción en lista vacía
-- ✅ Inserción múltiple
-- ✅ Estado de punteros cabeza/cola
-
-### Tests de Inserción (lista_enlazada_insercion)
-- ✅ Inserción al inicio
-- ✅ Inserción en posiciones específicas
-- ✅ Inserción ordenada
-- ✅ Manejo de posiciones inválidas
-
-### Tests de Búsqueda (lista_enlazada_busqueda)
-- ✅ Búsqueda de valores existentes/inexistentes
-- ✅ Obtención por posición
-- ✅ Cálculo de posiciones
-- ✅ Verificación de contenido
-
-### Tests de Consultas (lista_enlazada_consultas)
-- ✅ Obtención de primer/último elemento
-- ✅ Cálculo de longitud
-- ✅ Verificación de lista vacía
-
-### Tests de Utilidades (lista_enlazada_utilidades)
-- ✅ Copia de listas
-- ✅ Comparación de listas
-- ✅ Inversión de orden
-- ✅ Integridad de datos
-
-### Tests de Versión Simple (lista_enlazada_simple)
-- ✅ Funciones compatibles con enunciado
-- ✅ Gestión de puntero a cabeza
-- ✅ Destrucción segura
-
-### Tests de Casos Límite (lista_enlazada_edge_cases)
-- ✅ Operaciones con punteros NULL
-- ✅ Lista vacía
-- ✅ Un solo elemento
-- ✅ Posiciones inválidas
 
 ## Variantes y Extensiones
 
@@ -585,3 +493,22 @@ void destruir_lista(Lista* lista) {
 - "The C Programming Language" - Kernighan & Ritchie
 - [Wikipedia: Linked List](https://en.wikipedia.org/wiki/Linked_list)
 - [GeeksforGeeks: Linked List Data Structure](https://www.geeksforgeeks.org/data-structures/linked-list/)
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/lista_enlazada
+```
+
+## Pruebas de esta revisión
+
+Contratos de la API probados contra la implementación real.
+
+Código: [tests/test_contrato.c](tests/test_contrato.c). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

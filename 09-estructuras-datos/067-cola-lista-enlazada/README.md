@@ -69,46 +69,6 @@ dequeue_simple(&cola, &valor);
 - **Scheduler FIFO de procesos**
 - **Algoritmo BFS (Breadth-First Search)**
 
-## Estructura del Proyecto
-
-```
-067-cola-lista-enlazada/
-├── include/
-│   └── cola_lista.h          # Declaraciones y documentación
-├── src/
-│   └── cola_lista.c          # Implementación completa
-├── tests/
-│   └── test_cola_lista.c     # Tests exhaustivos con Criterion
-├── CMakeLists.txt            # Configuración de compilación
-├── README.md                 # Este archivo
-└── .gitignore               # Archivos a ignorar por git
-```
-
-## Compilación y Ejecución
-
-### Usando CMake (Recomendado)
-```bash
-mkdir build && cd build
-cmake ..
-make
-
-# Ejecutar programa principal
-./cola_lista
-
-# Ejecutar tests (si Criterion está disponible)
-./test_cola_lista
-make test
-```
-
-### Compilación Manual
-```bash
-# Programa principal
-gcc -std=c11 -Wall -Wextra -g src/cola_lista.c -o cola_lista
-
-# Tests (requiere Criterion)
-gcc -std=c11 -Wall -Wextra -g tests/test_cola_lista.c src/cola_lista.c -lcriterion -o test_cola_lista
-```
-
 ## Ejemplos de Uso
 
 ### Ejemplo Básico
@@ -224,18 +184,6 @@ FRENTE                                FINAL
 | **Casos de uso** | Atención al cliente, BFS | Call stack, DFS |
 | **Analogía** | Fila de banco | Pila de platos |
 
-## Tests Incluidos
-
-El archivo `test_cola_lista.c` incluye:
-- ✅ Tests de operaciones básicas (enqueue, dequeue, front, back)
-- ✅ Tests de cola con capacidad limitada
-- ✅ Tests de operaciones avanzadas (clonar, invertir, rotar)
-- ✅ Tests de funciones simples
-- ✅ Tests de operaciones de consulta
-- ✅ Tests de casos límite y validación
-- ✅ Tests de conversiones y utilidades
-- ✅ Tests de operaciones funcionales (filtrar, transformar)
-
 ## Simulaciones Incluidas
 
 ### 1. Atención al Cliente
@@ -303,3 +251,22 @@ dequeue(buffer, &elemento_procesado);
 - Documentación sobre estructuras de datos fundamentales
 - Algoritmos BFS y aplicaciones de colas
 - Estándares de C11 para manejo de memoria
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/cola_lista
+```
+
+## Pruebas de esta revisión
+
+Contratos de la API probados contra la implementación real.
+
+Código: [tests/test_contrato.c](tests/test_contrato.c). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

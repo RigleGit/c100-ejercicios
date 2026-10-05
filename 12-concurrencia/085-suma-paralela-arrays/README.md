@@ -130,65 +130,6 @@ int calcular_num_hilos_optimo(size_t tamano_array) {
 }
 ```
 
-## Estructura del Proyecto
-
-```
-085-suma-paralela-arrays/
-├── include/
-│   └── suma_paralela_arrays.h     # Declaraciones y estructuras
-├── src/
-│   ├── suma_paralela_arrays.c     # Implementación principal
-│   └── main.c                     # Programa interactivo
-├── tests/
-│   └── test_suma_paralela_arrays.c # Tests exhaustivos
-├── CMakeLists.txt                 # Configuración de build
-├── README.md                      # Esta documentación
-└── .gitignore                     # Exclusiones de Git
-```
-
-## Compilación
-
-### Requisitos
-- **Compilador**: GCC 7+ o Clang 6+
-- **Estándar**: C99 o superior
-- **Bibliotecas**: pthread, libm (matemáticas)
-- **Tests**: Criterion framework (opcional)
-
-### Comandos de Compilación
-
-```bash
-# Configuración y compilación
-mkdir build && cd build
-cmake ..
-make
-
-# Compilación optimizada para rendimiento
-cmake -DCMAKE_BUILD_TYPE=Release ..
-make
-
-# Solo biblioteca
-make suma_paralela_arrays_lib
-```
-
-### Ejecución de Tests
-
-```bash
-# Todos los tests
-make test
-
-# Tests con salida detallada
-make test_verbose
-
-# Solo tests de rendimiento
-make test_performance
-
-# Tests de escalabilidad
-make escalabilidad
-
-# Detección de race conditions
-make test_helgrind
-```
-
 ## Uso del Programa
 
 ### Programa Interactivo
@@ -246,38 +187,6 @@ if (ejecutar_benchmark_suma(array, 1000000, 4, &benchmark)) {
 
 free(array);
 ```
-
-## Casos de Prueba
-
-### Tests Básicos
-- ✅ Suma secuencial con diferentes tamaños
-- ✅ Suma paralela con 1, 2, 4, 8 hilos
-- ✅ Validación de parámetros y manejo de errores
-- ✅ Inicialización y limpieza de estructuras
-
-### Tests de Arrays
-- ✅ Creación de arrays secuenciales y aleatorios
-- ✅ Arrays con valores positivos, negativos y mixtos
-- ✅ Validación de overflow y underflow
-- ✅ Estadísticas de arrays (min, max, promedio)
-
-### Tests de Concurrencia
-- ✅ Corrección con múltiples hilos
-- ✅ Comparación secuencial vs paralelo
-- ✅ Arrays grandes (100,000+ elementos)
-- ✅ División correcta de trabajo entre hilos
-
-### Tests de Rendimiento
-- ✅ Medición de tiempos de ejecución
-- ✅ Cálculo de speedup y eficiencia
-- ✅ Pruebas de escalabilidad
-- ✅ Detección de degradación por overhead
-
-### Tests de Utilidades
-- ✅ División de rangos en chunks
-- ✅ Cálculo de hilos óptimo
-- ✅ Funciones de tiempo y estadísticas
-- ✅ Detección de número de CPUs
 
 ## Análisis de Rendimiento
 
@@ -408,38 +317,6 @@ double energia_total = suma_paralela_energia(particulas, n_particulas, num_hilos
 - Mismo código ejecutado en diferentes datos
 - Parametrización por rango de índices
 
-## Herramientas de Debugging y Profiling
-
-### 1. **Detección de Race Conditions**
-```bash
-# Valgrind Helgrind
-make test_helgrind
-
-# Thread Sanitizer
-make test_with_tsan
-```
-
-### 2. **Análisis de Memoria**
-```bash
-# Detección de memory leaks
-make test_memory
-
-# Profiling de memoria
-valgrind --tool=massif ./bin/suma_paralela_arrays
-```
-
-### 3. **Profiling de CPU**
-```bash
-# gprof
-gcc -pg programa.c -o programa
-./programa
-gprof programa gmon.out
-
-# perf (Linux)
-perf record ./bin/suma_paralela_arrays
-perf report
-```
-
 ## Limitaciones y Consideraciones
 
 ### 1. **Ley de Amdahl**
@@ -478,3 +355,22 @@ Con muchos hilos, el ancho de banda de memoria puede convertirse en cuello de bo
 - "Evaluating the Performance of Parallel Algorithms"
 - "Load Balancing Techniques for Parallel Applications"
 - "Cache-Efficient Parallel Algorithms"
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/suma_paralela_arrays
+```
+
+## Pruebas de esta revisión
+
+Contratos de la API probados contra la implementación real.
+
+Código: [tests/test_contrato.c](tests/test_contrato.c). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

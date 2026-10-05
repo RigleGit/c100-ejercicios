@@ -87,31 +87,6 @@ void ordenar_por_edad(Persona personas[], int cantidad) {
 - ✅ Validación de arrays completos
 - ✅ Interfaz interactiva completa
 
-## Compilación
-
-### Usando CMake (Recomendado)
-```bash
-mkdir build && cd build
-cmake ..
-make
-
-# Ejecutar programa principal
-./estructura_persona
-
-# Ejecutar tests
-make run_tests
-
-# Tests específicos
-make run_tests_basic    # Tests básicos
-make run_tests_arrays   # Tests de arrays
-```
-
-### Usando GCC directamente
-```bash
-gcc -std=c99 -Wall -Wextra -Iinclude src/*.c -o estructura_persona
-./estructura_persona
-```
-
 ## Uso del Programa
 
 ### Programa Principal
@@ -174,34 +149,6 @@ Edad promedio del grupo: 32.2 años
  3. Laura Martín (32 años)
  4. Elena Jiménez (41 años)
 ```
-
-## Tests
-
-El proyecto incluye una suite exhaustiva de tests con Criterion:
-
-```bash
-# Ejecutar todos los tests
-make run_tests
-
-# Tests con salida detallada
-make run_tests_verbose
-
-# Tests específicos
-make run_tests_basic     # Creación y validación
-make run_tests_arrays    # Operaciones con arrays
-```
-
-### Tests Implementados
-- ✅ Creación de personas con datos válidos/inválidos
-- ✅ Validación con diferentes casos límite
-- ✅ Comparaciones entre personas
-- ✅ Operaciones de copia
-- ✅ Categorización por edad
-- ✅ Búsquedas en arrays
-- ✅ Ordenamiento por edad y nombre
-- ✅ Estadísticas y conteos
-- ✅ Tests parametrizados para validación
-- ✅ Tests de integración completos
 
 ## Análisis de Complejidad
 
@@ -383,3 +330,22 @@ for (int i = 0; i < cantidad; i++) {
 - [typedef in C](https://en.cppreference.com/w/c/language/typedef)
 - [Memory Layout of Structures](https://stackoverflow.com/questions/119123/why-isnt-sizeof-for-a-struct-equal-to-the-sum-of-sizeof-of-each-member)
 - [Struct Best Practices](https://stackoverflow.com/questions/1003119/when-should-one-use-a-struct-instead-of-a-class-in-c)
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/estructura_persona
+```
+
+## Pruebas de esta revisión
+
+Contratos de la API probados contra la implementación real.
+
+Código: [tests/test_contrato.c](tests/test_contrato.c). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

@@ -31,20 +31,6 @@ Para tres números `a`, `b`, `c`:
 - **Lógica exhaustiva**: Todas las posibilidades están cubiertas
 - **Evaluación en cortocircuito**: Optimización del operador `&&`
 
-## Estructura del Proyecto
-
-```
-014-mayor-tres-numeros/
-├── CMakeLists.txt          # Configuración de compilación
-├── README.md               # Este archivo
-├── .gitignore             # Archivos a ignorar en git
-├── include/               # Archivos de cabecera (vacío en este ejercicio)
-├── src/
-│   └── main.c             # Código fuente principal
-└── test/
-    └── test_main.c        # Tests del programa
-```
-
 ## Explicación del Algoritmo
 
 ### Enfoque de Comparación Exhaustiva
@@ -121,38 +107,6 @@ scanf("%d %d %d", &a, &b, &c);
 - **Segunda condición**: `b` es el mayor (sabemos que `a` no lo es)
 - **Else**: Solo queda que `c` sea el mayor
 
-## Compilación y Ejecución
-
-```bash
-# Usando CMake (recomendado)
-mkdir build && cd build
-cmake ..
-make
-./mayor_tres_numeros
-
-# Compilación directa
-gcc -o mayor_tres_numeros src/main.c
-./mayor_tres_numeros
-```
-
-## Pruebas
-
-```bash
-# Ejecutar tests automáticos
-cd build
-make test
-# o
-ctest -V
-```
-
-Los tests verifican:
-- Cada número siendo el mayor
-- Números iguales (todos y parciales)
-- Números negativos
-- Números mixtos (positivos, negativos, cero)
-- Números grandes y casos límite
-- Formato correcto de entrada y salida
-
 ## Errores Comunes
 
 1. **Usar `>` en lugar de `>=`**: No maneja correctamente las igualdades
@@ -212,3 +166,22 @@ int mayor = max(a, max(b, c));
 - **Mediano**: Encontrar el número del medio
 - **Mayor de cuatro números**: Extender la lógica
 - **Array de números**: Generalizar para N números
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/mayor_tres_numeros
+```
+
+## Pruebas de esta revisión
+
+Entradas y salidas observables del programa.
+
+Código: [pruebas CLI](../../tools/tests/test_cli_exercises.py). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

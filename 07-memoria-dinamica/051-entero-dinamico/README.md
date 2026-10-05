@@ -249,32 +249,6 @@ void destruir_wrapper(IntWrapper **w) {
 }
 ```
 
-## Compilación y Ejecución
-
-### Requisitos
-- Compilador C (gcc, clang)
-- CMake 3.16+
-- Criterion (para tests)
-
-### Instrucciones
-
-```bash
-# Crear directorio de construcción
-mkdir build && cd build
-
-# Configurar proyecto
-cmake ..
-
-# Compilar
-make
-
-# Ejecutar programa principal
-./entero_dinamico
-
-# Ejecutar tests
-./test_entero_dinamico
-```
-
 ## Ejemplo de Salida
 
 ```
@@ -300,61 +274,6 @@ Representación en bytes: 0x2A 0x00 0x00 0x00
 ===============================
 ```
 
-## Tests Incluidos
-
-### Tests de Funcionalidad Básica
-- ✅ Ejecución sin errores de la implementación básica
-- ✅ Verificación manual del flujo malloc->uso->free->NULL
-- ✅ Creación exitosa de enteros dinámicos
-- ✅ Manejo de valores variados (positivos, negativos, extremos)
-
-### Tests de Modificación
-- ✅ Modificación exitosa de valores
-- ✅ Manejo seguro de punteros nulos
-- ✅ Verificación de valores después de modificación
-
-### Tests de Liberación
-- ✅ Liberación normal de memoria
-- ✅ Doble liberación segura (no debe crashear)
-- ✅ Liberación de punteros ya nulos
-
-### Tests de Visualización
-- ✅ Mostrar información de enteros válidos
-- ✅ Manejo de punteros nulos en visualización
-
-### Tests de Demostración
-- ✅ Ejecución de demostraciones educativas
-- ✅ Funciones de análisis de memoria
-- ✅ Gestión de múltiples enteros dinámicos
-
-### Tests de Integración
-- ✅ Flujo completo: crear->modificar->mostrar->liberar
-- ✅ Múltiples allocaciones y liberaciones (robustez)
-
-## Herramientas de Debug
-
-### Valgrind
-```bash
-# Detectar memory leaks
-valgrind --leak-check=full --show-leak-kinds=all ./entero_dinamico
-
-# Detectar errores de memoria
-valgrind --tool=memcheck ./entero_dinamico
-```
-
-### AddressSanitizer
-```bash
-# Compilar con AddressSanitizer
-gcc -fsanitize=address -g -o entero_dinamico src/main.c
-./entero_dinamico
-```
-
-### Static Analysis
-```bash
-# Análisis estático con clang
-clang --analyze src/main.c
-```
-
 ## Consideraciones de Rendimiento
 
 ### 1. Overhead de malloc
@@ -370,3 +289,22 @@ clang --analyze src/main.c
 - Para tipos específicos, la alineación puede ser más eficiente
 
 Este ejercicio proporciona una base sólida para entender la gestión de memoria dinámica en C, fundamental para estructuras de datos avanzadas y programación de sistemas.
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/entero_dinamico
+```
+
+## Pruebas de esta revisión
+
+Contratos de la API probados contra la implementación real.
+
+Código: [tests/test_contrato.c](tests/test_contrato.c). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

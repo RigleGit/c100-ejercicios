@@ -16,20 +16,6 @@ Este ejercicio es ideal para afianzar el uso de **estructuras condicionales** `i
 - **Entrada de múltiples valores**: Usar `scanf()` varias veces
 - **Lógica de comparación**: Casos mutuamente excluyentes
 
-## Estructura del Proyecto
-
-```
-012-maximo-dos/
-├── CMakeLists.txt          # Configuración de compilación
-├── README.md               # Este archivo
-├── .gitignore             # Archivos a ignorar por git
-├── include/               # Archivos de cabecera (vacío en este ejercicio)
-├── src/
-│   └── main.c             # Código fuente principal
-└── test/
-    └── test_main.c        # Tests del programa
-```
-
 ## Explicación del Algoritmo
 
 El programa utiliza una **cadena de decisiones** para comparar dos números:
@@ -66,18 +52,6 @@ Introduce el segundo número: -10
 El mayor es: -5
 ```
 
-## Casos de Prueba
-
-| Primer Número | Segundo Número | Resultado Esperado |
-|---------------|-----------------|-------------------|
-| 10            | 5              | El mayor es: 10   |
-| 3             | 8              | El mayor es: 8    |
-| 7             | 7              | Ambos números son iguales |
-| -3            | -8             | El mayor es: -3   |
-| -10           | -2             | El mayor es: -2   |
-| -5            | 3              | El mayor es: 3    |
-| 0             | 0              | Ambos números son iguales |
-
 ## Conceptos Avanzados
 
 ### Operadores de Comparación
@@ -108,30 +82,6 @@ if (a > b) {
 }
 ```
 
-## Compilación y Ejecución
-
-```bash
-# Usando CMake
-mkdir build && cd build
-cmake ..
-make
-./maximo_dos
-
-# Compilación directa
-gcc -o maximo_dos src/main.c
-./maximo_dos
-```
-
-## Pruebas
-
-```bash
-# Ejecutar tests automáticos
-cd build
-make test
-# o
-ctest -V
-```
-
 ## Errores Comunes
 
 1. **Usar `=` en lugar de `==`**: `if (a = b)` asigna en lugar de comparar
@@ -160,3 +110,22 @@ ctest -V
 - **Ordenamiento burbuja**: Extensión para múltiples elementos
 - **Búsqueda del máximo**: En arrays o listas
 - **Algoritmos de selección**: Encontrar el k-ésimo elemento mayor
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/maximo_dos
+```
+
+## Pruebas de esta revisión
+
+Entradas y salidas observables del programa.
+
+Código: [pruebas CLI](../../tools/tests/test_cli_exercises.py). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

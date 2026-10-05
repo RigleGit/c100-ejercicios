@@ -89,62 +89,6 @@ timeout.tv_sec += segundos;
 int resultado = pthread_mutex_timedlock(&mutex, &timeout);
 ```
 
-## Estructura del Proyecto
-
-```
-087-sincronizacion-mutex/
-├── include/
-│   └── sincronizacion_mutex.h     # Declaraciones y estructuras
-├── src/
-│   ├── sincronizacion_mutex.c     # Implementación principal
-│   └── main.c                     # Programa interactivo
-├── tests/
-│   └── test_sincronizacion_mutex.c # Tests exhaustivos
-├── CMakeLists.txt                 # Configuración de build
-├── README.md                      # Esta documentación
-└── .gitignore                     # Exclusiones de Git
-```
-
-## Compilación
-
-### Requisitos
-- **Compilador**: GCC 7+ o Clang 6+
-- **Estándar**: C99 o superior
-- **Bibliotecas**: pthread (POSIX Threads)
-- **Tests**: Criterion framework (opcional)
-
-### Comandos de Compilación
-
-```bash
-# Configuración y compilación
-mkdir build && cd build
-cmake ..
-make
-
-# Compilación optimizada
-cmake -DCMAKE_BUILD_TYPE=Release ..
-make
-
-# Solo biblioteca
-make sincronizacion_mutex_lib
-```
-
-### Ejecución de Tests
-
-```bash
-# Todos los tests
-make test
-
-# Tests con salida detallada
-make test_verbose
-
-# Tests específicos
-./tests/test_sincronizacion_mutex --filter="concurrencia*"
-
-# Análisis de memoria (Linux)
-make test_memory
-```
-
 ## Uso del Programa
 
 ### Programa Interactivo
@@ -181,30 +125,6 @@ printf("Valor actual: %ld\n", valor); // 150
 // Cleanup
 destruir_recurso_compartido(&recurso);
 ```
-
-## Casos de Prueba
-
-### Tests Básicos
-- ✅ Inicialización y destrucción de recursos
-- ✅ Operaciones thread-safe básicas
-- ✅ Manejo de errores y punteros nulos
-- ✅ Estadísticas de operaciones
-
-### Tests de Concurrencia
-- ✅ Múltiples hilos incrementando contador
-- ✅ Operaciones mixtas lectura/escritura
-- ✅ Verificación de consistencia de datos
-- ✅ Pruebas de rendimiento
-
-### Tests de Tipos de Mutex
-- ✅ Mutex recursivo con múltiples niveles
-- ✅ Detección de errores con errorcheck
-- ✅ Timeout en operaciones de lock
-
-### Tests de Edge Cases
-- ✅ Valores extremos (INT64_MAX, INT64_MIN)
-- ✅ Destrucción múltiple
-- ✅ Operaciones concurrentes en estadísticas
 
 ## Problemas Comunes y Soluciones
 
@@ -323,25 +243,6 @@ typedef struct {
 } bounded_buffer_t;
 ```
 
-## Herramientas de Debugging
-
-### 1. **Helgrind (Valgrind)**
-```bash
-valgrind --tool=helgrind ./programa
-```
-
-### 2. **Thread Sanitizer**
-```bash
-gcc -fsanitize=thread programa.c
-```
-
-### 3. **GDB con Threads**
-```bash
-(gdb) info threads
-(gdb) thread 2
-(gdb) bt
-```
-
 ## Referencias y Recursos
 
 ### Documentación
@@ -358,3 +259,22 @@ gcc -fsanitize=thread programa.c
 - "The Problem with Threads" - Edward A. Lee
 - "Lock-Free Data Structures" - Maurice Herlihy
 - "Scalable Synchronization" - Mellor-Crummey & Scott
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/sincronizacion_mutex
+```
+
+## Pruebas de esta revisión
+
+Contratos de la API probados contra la implementación real.
+
+Código: [tests/test_contrato.c](tests/test_contrato.c). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

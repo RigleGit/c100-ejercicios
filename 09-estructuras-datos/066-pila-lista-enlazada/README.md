@@ -63,46 +63,6 @@ pop_simple(&pila_simple, &valor);
 - **Conversión decimal a binario**
 - **Simulación de call stack**
 
-## Estructura del Proyecto
-
-```
-066-pila-lista-enlazada/
-├── include/
-│   └── pila_lista.h          # Declaraciones y documentación
-├── src/
-│   └── pila_lista.c          # Implementación completa
-├── tests/
-│   └── test_pila_lista.c     # Tests exhaustivos con Criterion
-├── CMakeLists.txt            # Configuración de compilación
-├── README.md                 # Este archivo
-└── .gitignore               # Archivos a ignorar por git
-```
-
-## Compilación y Ejecución
-
-### Usando CMake (Recomendado)
-```bash
-mkdir build && cd build
-cmake ..
-make
-
-# Ejecutar programa principal
-./pila_lista
-
-# Ejecutar tests (si Criterion está disponible)
-./test_pila_lista
-make test
-```
-
-### Compilación Manual
-```bash
-# Programa principal
-gcc -std=c11 -Wall -Wextra -g src/pila_lista.c -o pila_lista
-
-# Tests (requiere Criterion)
-gcc -std=c11 -Wall -Wextra -g tests/test_pila_lista.c src/pila_lista.c -lcriterion -o test_pila_lista
-```
-
 ## Ejemplos de Uso
 
 ### Ejemplo Básico
@@ -189,17 +149,6 @@ bool balanceados = verificar_parentesis_balanceados("((a + b) * c)"); // true
 5. **Sistemas operativos**: Call stack de funciones
 6. **Algoritmos**: Backtracking, DFS
 
-## Tests Incluidos
-
-El archivo `test_pila_lista.c` incluye:
-- ✅ Tests de operaciones básicas
-- ✅ Tests de pila con capacidad limitada
-- ✅ Tests de operaciones avanzadas
-- ✅ Tests de funciones simples
-- ✅ Tests de aplicaciones prácticas
-- ✅ Tests de casos límite y validación
-- ✅ Tests de manejo de errores
-
 ## Notas Pedagógicas
 
 ### Para Estudiantes
@@ -227,3 +176,22 @@ El archivo `test_pila_lista.c` incluye:
 - Cormen, T. et al. "Introduction to Algorithms" - Capítulo sobre Pilas
 - Documentación sobre estructuras de datos fundamentales
 - Estándares de C11 para manejo de memoria
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/pila_lista
+```
+
+## Pruebas de esta revisión
+
+Contratos de la API probados contra la implementación real.
+
+Código: [tests/test_contrato.c](tests/test_contrato.c). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

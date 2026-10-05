@@ -30,55 +30,6 @@ segundos = total_segundos % 60
 - **Formato estructurado**: Salida tipo `hh:mm:ss`
 - **Operaciones aritméticas**: Combinación de división y módulo
 
-## Estructura del Proyecto
-
-```
-005-formato-tiempo/
-├── CMakeLists.txt          # Configuración de compilación
-├── README.md               # Este archivo
-├── src/
-│   └── main.c             # Código fuente principal
-└── test/
-    └── test_main.c        # Tests del programa
-```
-
-## Compilación y Ejecución
-
-### Usando CMake (Recomendado)
-
-```bash
-# Crear directorio de build
-mkdir build && cd build
-
-# Configurar el proyecto
-cmake ..
-
-# Compilar
-make
-
-# Ejecutar el programa
-./formato_tiempo
-
-# Ejecutar tests
-make test
-# o directamente:
-./test_formato_tiempo
-```
-
-### Compilación Manual
-
-```bash
-# Compilar el programa principal
-gcc -o formato_tiempo src/main.c
-
-# Ejecutar
-./formato_tiempo
-
-# Compilar y ejecutar tests
-gcc -o test_formato_tiempo test/test_main.c
-./test_formato_tiempo
-```
-
 ## Ejemplos de Ejecución
 
 ```
@@ -95,17 +46,6 @@ Equivalente: 00:02:05
 Introduce el total de segundos: 7265
 Equivalente: 02:01:05
 ```
-
-## Casos de Prueba
-
-Los tests verifican diferentes escenarios temporales:
-- ✅ **Cero segundos**: 0 → 00:00:00
-- ✅ **Solo segundos**: 45 → 00:00:45
-- ✅ **Minutos y segundos**: 125 → 00:02:05
-- ✅ **Una hora exacta**: 3600 → 01:00:00
-- ✅ **Tiempo mixto**: 3725 → 01:02:05
-- ✅ **Múltiples horas**: 7265 → 02:01:05
-- ✅ **Formato correcto**: Verificación de `%02d`
 
 ## Notas de Aprendizaje
 
@@ -171,3 +111,22 @@ segundos = total_segundos % 60;
 - Agregar milisegundos para mayor precisión
 - Crear calculadora de tiempo con suma/resta
 - Implementar diferentes formatos de salida
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/formato_tiempo
+```
+
+## Pruebas de esta revisión
+
+Entradas y salidas observables del programa.
+
+Código: [pruebas CLI](../../tools/tests/test_cli_exercises.py). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

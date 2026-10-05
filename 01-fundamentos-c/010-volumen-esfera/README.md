@@ -39,19 +39,6 @@ La fórmula del volumen de una esfera se deriva del cálculo integral, pero conc
 - **Formato de salida**: `%.6lf` para mostrar seis decimales en volumen, `%.2lf` para radio
 - **Validación de entrada**: Verificar que el radio no sea negativo
 
-## Estructura del Proyecto
-
-```
-010-volumen-esfera/
-├── CMakeLists.txt          # Configuración de compilación
-├── README.md               # Este archivo
-├── src/
-│   └── main.c             # Código fuente principal
-└── test/
-    └── test_main.c        # Tests del programa
-```
-- Validar entrada de datos
-
 ## Explicación
 El volumen de una esfera se calcula con la fórmula matemática:
 **V = (4/3) × π × r³**
@@ -86,30 +73,6 @@ Error: El radio no puede ser negativo
 - **Validación de entrada**: Verificar que los datos sean válidos
 - **Librería math.h**: Funciones matemáticas estándar
 
-## Compilación y Ejecución
-```bash
-# Usando CMake
-mkdir build && cd build
-cmake ..
-make
-./volumen_esfera
-
-# Compilación directa (importante: enlazar con -lm)
-gcc -o volumen_esfera src/main.c -lm
-./volumen_esfera
-```
-
-**Nota importante**: Es necesario enlazar con la librería matemática usando `-lm`.
-
-## Pruebas
-```bash
-# Ejecutar tests automáticos
-cd build
-make test
-# o
-ctest -V
-```
-
 ## Errores Comunes
 1. **Olvidar enlazar con -lm**: `undefined reference to 'pow'`
 2. **No validar entrada**: Aceptar radios negativos sin validación
@@ -135,3 +98,22 @@ ctest -V
 - Volumen de un cilindro: V = πr²h
 - Volumen de un cono: V = (1/3)πr²h
 - Área de un círculo: A = πr²
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/volumen_esfera
+```
+
+## Pruebas de esta revisión
+
+Entradas y salidas observables del programa.
+
+Código: [pruebas CLI](../../tools/tests/test_cli_exercises.py). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

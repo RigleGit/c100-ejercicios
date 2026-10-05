@@ -10,12 +10,6 @@ Funciones y demostraciones para detectar potencias de 2 usando operaciones a niv
 - Implementar y comparar varias técnicas para determinar si un número es potencia de 2.
 - Aplicar concepciones prácticas (alineación de memoria, máscaras) y demostrar su uso.
 
-## Estructura del ejercicio
-
-- `src/main.c` — Implementación principal con funciones y demo interactiva.
-- `CMakeLists.txt` — Configuración para compilar el ejercicio.
-- `test/` — Tests (si existen) para validar las funciones.
-
 ## API pública (firmas importantes)
 
 ```c
@@ -39,9 +33,10 @@ void aplicacionesPracticas(void);
 Este ejercicio usa CMake. Desde la raíz del ejercicio:
 
 ```bash
-mkdir -p build && cd build
-cmake ..
-make
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/potencia_2_bits
 ```
 
 El ejecutable resultante suele llamarse `potencia_2_bits` (o como esté definido en `CMakeLists.txt`) en el directorio `build/`.
@@ -79,17 +74,32 @@ unsigned int p = siguientePotenciaDe2(1000); // 1024
 - `siguientePotenciaDe2` emplea un patrón de "llenado" de bits eficiente.
 - Cuidado con 0 y con enteros máximos (UINT_MAX). El programa maneja el caso 0 como "no potencia de 2" por definición.
 
-## Pruebas
-
-Si hay un subdirectorio `test/` con tests (por ejemplo con Criterion), compílalos junto al proyecto y ejecuta el binario de tests en `build/`.
-
 ## Try it
 
 Desde la raíz del repo puedes ejecutar sólo este ejercicio con:
 
 ```bash
-cd 04-operaciones-nivel-bit/028-potencia-2-bits
-mkdir -p build && cd build
-cmake .. && make
-./potencia_2_bits
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/potencia_2_bits
 ```
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/potencia_2_bits
+```
+
+## Pruebas de esta revisión
+
+Entradas y salidas observables del programa.
+
+Código: [pruebas CLI](../../tools/tests/test_cli_exercises.py). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

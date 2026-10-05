@@ -15,40 +15,6 @@ Escribir un programa que:
 - **Inversión**: Recorre el array desde el último elemento hasta el primero
 - **Salida formateada**: Muestra los números separados por espacios
 
-## Compilación y Ejecución
-
-### Requisitos
-- Compilador C (gcc, clang)
-- CMake 3.10 o superior
-- Criterion (para tests, opcional)
-
-### Compilación con CMake
-```bash
-mkdir build
-cd build
-cmake ..
-make
-```
-
-### Ejecución
-```bash
-# Desde el directorio build
-./bin/invertir_array
-
-# O directamente con gcc
-gcc -o invertir_array src/main.c
-./invertir_array
-```
-
-### Ejecutar Tests
-```bash
-# Desde el directorio build
-make run_tests
-
-# O ejecutar directamente
-./test_031-invertir-array
-```
-
 ## Ejemplo de Uso
 ```
 Ingrese la cantidad de números: 5
@@ -68,27 +34,6 @@ Los números en orden inverso son:
 - **Recorrido inverso**: Técnica para acceder a elementos en orden reverso
 - **Entrada/Salida**: Uso de scanf y printf para interacción con usuario
 
-## Estructura del Proyecto
-```
-031-invertir-array/
-├── src/
-│   └── main.c          # Código principal
-├── test/
-│   └── test_main.c     # Tests unitarios
-├── include/            # Archivos de cabecera (si los hay)
-├── CMakeLists.txt      # Configuración de CMake
-├── .gitignore         # Archivos a ignorar por git
-└── README.md          # Este archivo
-```
-
-## Casos de Prueba
-Los tests incluyen verificaciones para:
-- Arrays de diferentes tamaños (1, 3, 5, 6 elementos)
-- Números negativos y positivos
-- Números grandes
-- Validación de cantidades inválidas (0, >100)
-- Secuencias ordenadas y desordenadas
-
 ## Notas Técnicas
 - El programa maneja hasta 100 números como máximo
 - Utiliza un array estático para almacenar los valores
@@ -100,3 +45,22 @@ Los tests incluyen verificaciones para:
 - Agregar más validaciones de entrada
 - Implementar inversión in-place para arrays grandes
 - Soporte para números de punto flotante
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/invertir_array
+```
+
+## Pruebas de esta revisión
+
+Entradas y salidas observables del programa.
+
+Código: [pruebas CLI](../../tools/tests/test_cli_exercises.py). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

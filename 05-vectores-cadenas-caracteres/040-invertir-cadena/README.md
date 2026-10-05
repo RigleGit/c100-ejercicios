@@ -83,54 +83,6 @@ void invertir_recursivo(char *cadena, int inicio, int fin) {
 }
 ```
 
-## Casos de Prueba
-
-### Casos Básicos
-- Cadena vacía: `""` → `""`
-- Un carácter: `"a"` → `"a"`
-- Dos caracteres: `"ab"` → `"ba"`
-
-### Casos Normales
-- Cadena par: `"hola"` → `"aloh"`
-- Cadena impar: `"mundo"` → `"odnum"`
-- Con espacios: `"hola mundo"` → `"odnum aloh"`
-
-### Casos Especiales
-- Palíndromo: `"aba"` → `"aba"`
-- Solo espacios: `"   "` → `"   "`
-- Caracteres especiales: `"!@#"` → `"#@!"`
-- Números: `"12345"` → `"54321"`
-
-### Casos de Entrada
-- Con newline: `"test\n"` → `"test"` → `"tset"`
-- Sin newline: `"test"` → `"tset"`
-
-## Compilación y Ejecución
-
-### Usando CMake (Recomendado)
-```bash
-mkdir build && cd build
-cmake ..
-make
-./invertir_cadena
-```
-
-### Compilación Manual
-```bash
-gcc -Wall -Wextra -std=c99 src/main.c -o invertir_cadena
-./invertir_cadena
-```
-
-### Ejecutar Tests
-```bash
-# Instalar Criterion primero (macOS)
-brew install criterion
-
-# Compilar y ejecutar tests
-cd build
-make run_tests
-```
-
 ## Ejemplo de Uso
 
 ### Entrada
@@ -239,3 +191,22 @@ void invertir_solo_letras(char *cadena);
 - Algoritmos de reversión en "Introduction to Algorithms" (CLRS)
 - Optimizaciones de cadenas en sistemas de bajo nivel
 - Patrones de manipulación de memoria en C
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/invertir_cadena
+```
+
+## Pruebas de esta revisión
+
+Entradas y salidas observables del programa.
+
+Código: [pruebas CLI](../../tools/tests/test_cli_exercises.py). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

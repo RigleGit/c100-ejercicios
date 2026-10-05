@@ -17,40 +17,6 @@ Escribir un programa que:
 - **Optimización**: Reducción del rango en cada iteración
 - **Salida formateada**: Muestra del array ordenado
 
-## Compilación y Ejecución
-
-### Requisitos
-- Compilador C (gcc, clang)
-- CMake 3.10 o superior
-- Criterion (para tests, opcional)
-
-### Compilación con CMake
-```bash
-mkdir build
-cd build
-cmake ..
-make
-```
-
-### Ejecución
-```bash
-# Desde el directorio build
-./bin/ordenar_array_burbuja
-
-# O directamente con gcc
-gcc -o ordenar_array_burbuja src/main.c
-./ordenar_array_burbuja
-```
-
-### Ejecutar Tests
-```bash
-# Desde el directorio build
-make run_tests
-
-# O ejecutar directamente
-./test_035-ordenar-array-burbuja
-```
-
 ## Ejemplo de Uso
 ```
 ¿Cuántos números quieres ordenar (máximo 100)? 5
@@ -69,19 +35,6 @@ Array ordenado:
 - **Intercambio de variables**: Técnica de swap con variable temporal
 - **Optimización básica**: Reducción del rango de comparación
 - **Análisis algorítmico**: Comprensión de complejidad temporal
-
-## Estructura del Proyecto
-```
-035-ordenar-array-burbuja/
-├── src/
-│   └── main.c          # Código principal
-├── test/
-│   └── test_main.c     # Tests unitarios
-├── include/            # Archivos de cabecera (si los hay)
-├── CMakeLists.txt      # Configuración de CMake
-├── .gitignore         # Archivos a ignorar por git
-└── README.md          # Este archivo
-```
 
 ## Análisis del Algoritmo
 
@@ -137,14 +90,6 @@ for (int j = 0; j < n - 1 - i; j++)
 ```
 - Cada iteración externa coloca un elemento en su posición final
 - Reduce comparaciones innecesarias en elementos ya ordenados
-
-## Casos de Prueba
-Los tests incluyen verificaciones para:
-- **Arrays básicos**: Desordenado, ya ordenado, orden inverso
-- **Casos límite**: Un elemento, dos elementos, todos iguales
-- **Datos especiales**: Números negativos, ceros, duplicados
-- **Casos extremos**: Números grandes, secuencias aleatorias
-- **Validación**: Cantidades inválidas (0, >100)
 
 ## Casos Especiales Importantes
 
@@ -231,3 +176,22 @@ Aunque bubble sort no es práctico para uso real, es invaluable para:
 - Visualización paso a paso del proceso de ordenamiento
 - Soporte para ordenamiento descendente
 - Implementación genérica para diferentes tipos de datos
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/ordenar_array_burbuja
+```
+
+## Pruebas de esta revisión
+
+Entradas y salidas observables del programa.
+
+Código: [pruebas CLI](../../tools/tests/test_cli_exercises.py). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

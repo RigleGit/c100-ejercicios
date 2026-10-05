@@ -10,13 +10,6 @@ Implementación completa de una lista doblemente enlazada en C con operaciones d
 - Implementar una lista doblemente enlazada robusta y segura.
 - Proveer funciones de utilidad y demostraciones para comprobar la integridad de la lista.
 
-## Estructura del ejercicio
-
-- `include/lista_doble.h` — Definición de estructuras y API pública.
-- `src/lista_doble.c` — Implementación completa.
-- `tests/` — Tests de Criterion (si están presentes) y utilidades de prueba.
-- `CMakeLists.txt` — Configuración de compilación.
-
 ## API pública (firmas importantes)
 
 ### Estructuras
@@ -90,17 +83,10 @@ void lista_mostrar_estadisticas(ListaDoble* lista);
 Este ejercicio usa CMake. Desde la raíz del ejercicio:
 
 ```bash
-mkdir -p build && cd build
-cmake ..
-make
-```
-
-## Ejecutar tests
-
-Si el proyecto contiene tests (subdirectorio `tests/`) y Criterion está instalado, se generará un ejecutable de tests en `build/` tras ejecutar `cmake` y `make`. Usa el script central del repositorio para ejecutar los tests de todos los ejercicios:
-
-```bash
-./tools/quick_test.sh 9
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/lista_doble
 ```
 
 ## Ejemplos
@@ -113,3 +99,22 @@ Si el proyecto contiene tests (subdirectorio `tests/`) y Criterion está instala
 
 - La implementación optimiza búsquedas por posición seleccionando recorrido desde cabeza o cola según la posición.
 - Muchas funciones validan punteros y condiciones de borde para evitar accesos inválidos.
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/lista_doble
+```
+
+## Pruebas de esta revisión
+
+Contratos de la API probados contra la implementación real.
+
+Código: [tests/test_contrato.c](tests/test_contrato.c). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

@@ -148,22 +148,6 @@ snprintf(mensaje, sizeof(mensaje),
 return result_error(ERROR_FILE_OPEN, mensaje);
 ```
 
-## Compilación
-
-```bash
-mkdir build
-cd build
-cmake ..
-make
-```
-
-### Targets Disponibles
-
-- `control_errores_robusto` - Programa principal interactivo
-- `test_control_errores_robusto` - Suite de pruebas
-- `demo_comparacion` - Demostración comparativa
-- `error_simulator` - Simulador de errores
-
 ## Ejecución
 
 ### Programa Principal
@@ -194,13 +178,10 @@ El programa ofrece un menú interactivo para:
 ### Pruebas
 
 ```bash
-# Todas las pruebas
-make test
-
-# Pruebas específicas
-./test_control_errores_robusto --filter=archivo_seguro
-./test_control_errores_robusto --filter=memoria_segura
-./test_control_errores_robusto --filter=entrada_segura
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/control_errores_robusto
 ```
 
 ## Ejemplos de Uso
@@ -251,19 +232,6 @@ if (!resultado.success) {
 printf("Valor leído: %d\n", valor);
 ```
 
-## Cobertura de Pruebas
-
-Las pruebas cubren:
-
-- ✅ Funciones auxiliares de resultado
-- ✅ Manejo seguro de archivos
-- ✅ Manejo seguro de memoria
-- ✅ Lectura segura de entrada
-- ✅ Funciones inseguras vs seguras
-- ✅ Manejo de errores
-- ✅ Pruebas de integración
-- ✅ Casos límite y parámetros inválidos
-
 ## Lecciones Clave
 
 1. **Siempre verificar valores de retorno** de funciones que pueden fallar
@@ -273,12 +241,6 @@ Las pruebas cubren:
 5. **Usar códigos de error consistentes**
 6. **Implementar principio fail-fast**
 7. **Manejar casos límite y errores de sistema**
-
-## Herramientas de Desarrollo
-
-- **Análisis estático**: `make lint` (requiere cppcheck)
-- **Formateo**: `make format` (requiere clang-format)
-- **Limpieza**: `make clean-all`
 
 ## Importancia en Programación Real
 
@@ -291,3 +253,22 @@ El control robusto de errores es fundamental para:
 - **Experiencia de usuario** - Proporcionar feedback útil sobre errores
 
 Este ejercicio demuestra que el tiempo invertido en verificación de errores siempre vale la pena para crear software robusto y confiable.
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/control_errores_robusto
+```
+
+## Pruebas de esta revisión
+
+Contratos de la API probados contra la implementación real.
+
+Código: [tests/test_contrato.c](tests/test_contrato.c). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

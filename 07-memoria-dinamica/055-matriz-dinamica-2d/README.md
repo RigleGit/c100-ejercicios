@@ -63,27 +63,6 @@ void liberar_matriz_2d(int** matriz, int filas) {
 - ✅ Búsqueda de valores
 - ✅ Copia de matrices
 
-## Compilación
-
-### Usando CMake (Recomendado)
-```bash
-mkdir build && cd build
-cmake ..
-make
-
-# Ejecutar programa principal
-./matriz_dinamica_2d
-
-# Ejecutar tests
-make run_tests
-```
-
-### Usando GCC directamente
-```bash
-gcc -std=c99 -Wall -Wextra -Iinclude src/*.c -o matriz_dinamica_2d
-./matriz_dinamica_2d
-```
-
 ## Uso del Programa
 
 ### Programa Principal
@@ -132,27 +111,6 @@ Encontrado en posición [1][0]
 Encontrado en posición [2][0]
 Se encontraron 5 ocurrencias del valor 0.
 ```
-
-## Tests
-
-El proyecto incluye tests exhaustivos con Criterion:
-
-```bash
-# Ejecutar todos los tests
-make run_tests
-
-# Tests con salida detallada
-make run_tests_verbose
-```
-
-### Tests Implementados
-- ✅ Creación de matrices válidas
-- ✅ Manejo de dimensiones inválidas
-- ✅ Liberación segura de memoria
-- ✅ Acceso y modificación de elementos
-- ✅ Copia de matrices
-- ✅ Tests de estrés con operaciones múltiples
-- ✅ Tests parametrizados para diferentes tamaños
 
 ## Análisis de Complejidad
 
@@ -295,3 +253,21 @@ for (int i = 0; i < filas; i++) {
 - [Two-dimensional arrays in C](https://www.geeksforgeeks.org/dynamically-allocate-2d-array-c/)
 - [Memory Layout and Performance](https://stackoverflow.com/questions/2128728/what-is-the-difference-between-char-array-and-char-array)
 
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/matriz_dinamica_2d
+```
+
+## Pruebas de esta revisión
+
+Contratos de la API probados contra la implementación real.
+
+Código: [tests/test_contrato.c](tests/test_contrato.c). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

@@ -75,82 +75,6 @@ Si ambos hilos leen el mismo valor inicial, ambos escribirán el mismo valor inc
 - Visualización de inconsistencias
 - Recomendaciones de sincronización
 
-## Estructura del Proyecto
-
-```
-086-race-conditions/
-├── include/
-│   └── race_conditions.h          # Declaraciones y tipos
-├── src/
-│   ├── race_conditions.c          # Implementación principal
-│   └── main.c                     # Programa interactivo
-├── tests/
-│   ├── test_race_conditions.c     # Tests exhaustivos con Criterion
-│   ├── benchmark_race_conditions.c # Benchmarks de rendimiento
-│   └── stress_test.c              # Tests de estrés
-├── tools/
-│   ├── reporter.c                 # Generador de reportes
-│   └── analyzer.c                 # Analizador automatizado
-├── demo/
-│   └── demo_simple.c              # Demostración simple
-├── docs/
-│   └── Doxyfile.in               # Configuración de documentación
-├── CMakeLists.txt                # Configuración de compilación
-├── README.md                     # Este archivo
-└── .gitignore                    # Exclusiones de git
-```
-
-## Compilación
-
-### Requisitos
-
-- Compilador C99 compatible (GCC, Clang)
-- CMake 3.10 o superior
-- Biblioteca pthread
-- Criterion (opcional, para tests)
-
-### Compilación Básica
-
-```bash
-mkdir build
-cd build
-cmake ..
-make
-```
-
-### Opciones de Compilación
-
-```bash
-# Con tests (requiere Criterion)
-cmake -DBUILD_TESTS=ON ..
-
-# Con ThreadSanitizer (recomendado para detectar race conditions)
-cmake -DENABLE_TSAN=ON ..
-
-# Con AddressSanitizer
-cmake -DENABLE_ASAN=ON ..
-
-# Build de Debug con información detallada
-cmake -DCMAKE_BUILD_TYPE=Debug ..
-
-# Build optimizado para rendimiento
-cmake -DCMAKE_BUILD_TYPE=Release ..
-```
-
-### Compilación con Sanitizers
-
-Para detectar race conditions automáticamente:
-
-```bash
-# ThreadSanitizer (detección de race conditions)
-cmake -DENABLE_TSAN=ON -DCMAKE_BUILD_TYPE=Debug ..
-make
-./bin/race_conditions
-
-# AddressSanitizer (detección de memory errors)
-cmake -DENABLE_ASAN=ON -DCMAKE_BUILD_TYPE=Debug ..
-```
-
 ## Uso
 
 ### Programa Principal
@@ -181,12 +105,10 @@ El programa ofrece un menú interactivo con las siguientes opciones:
 
 #### Análisis con ThreadSanitizer
 ```bash
-# Compilar con ThreadSanitizer
-cmake -DENABLE_TSAN=ON ..
-make
-
-# Ejecutar (detectará race conditions automáticamente)
-./bin/race_conditions
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/race_conditions_main
 ```
 
 #### Análisis Estadístico
@@ -208,26 +130,6 @@ make
 
 # Demostración simple
 ./bin/race_conditions_demo
-```
-
-## Ejecución de Tests
-
-```bash
-# Ejecutar todos los tests
-make test
-
-# Ejecutar tests específicos
-./bin/test_race_conditions --pattern="race_conditions_basicos/*"
-./bin/test_race_conditions --pattern="race_conditions_estadistico/*"
-
-# Tests con verbose
-make test_verbose
-
-# Benchmark de rendimiento
-./bin/benchmark_race_conditions
-
-# Test de estrés
-./bin/stress_test_race_conditions
 ```
 
 ## Resultados Esperados
@@ -420,3 +322,22 @@ valor_t obtener_cache(cache_t* cache, clave_t clave) {
 ---
 
 **Nota de Seguridad**: Las race conditions son bugs extremadamente peligrosos en software de producción. Pueden causar corrupción de datos, crashes impredecibles y vulnerabilidades de seguridad. Siempre use sincronización apropiada en código real.
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/race_conditions_main
+```
+
+## Pruebas de esta revisión
+
+Contratos de la API probados contra la implementación real.
+
+Código: [tests/test_contrato.c](tests/test_contrato.c). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

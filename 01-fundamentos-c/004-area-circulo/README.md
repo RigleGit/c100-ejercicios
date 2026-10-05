@@ -31,71 +31,12 @@ Donde:
 - **Función `pow()`**: Calcular potencias de forma explícita
 - **Enlazado de librerías**: `-lm` para la librería matemática
 
-## Estructura del Proyecto
-
-```
-004-area-circulo/
-├── CMakeLists.txt          # Configuración de compilación
-├── README.md               # Este archivo
-├── src/
-│   └── main.c             # Código fuente principal
-└── test/
-    └── test_main.c        # Tests del programa
-```
-
-## Compilación y Ejecución
-
-### Usando CMake (Recomendado)
-
-```bash
-# Crear directorio de build
-mkdir build && cd build
-
-# Configurar el proyecto
-cmake ..
-
-# Compilar
-make
-
-# Ejecutar el programa
-./area_circulo
-
-# Ejecutar tests
-make test
-# o directamente:
-./test_area_circulo
-```
-
-### Compilación Manual
-
-```bash
-# Compilar el programa principal (nota el -lm para la librería matemática)
-gcc -o area_circulo src/main.c -lm
-
-# Ejecutar
-./area_circulo
-
-# Compilar y ejecutar tests
-gcc -o test_area_circulo test/test_main.c -lm
-./test_area_circulo
-```
-
 ## Ejemplo de Ejecución
 
 ```
 Introduce el radio del círculo: 2.5
 El área del círculo es 19.64
 ```
-
-## Casos de Prueba
-
-Los tests verifican cálculos matemáticos precisos:
-- ✅ **Círculo unitario**: Radio 1 → Área ≈ π (3.14)
-- ✅ **Radio entero**: Radio 2 → Área ≈ 12.57
-- ✅ **Radio decimal**: Radio 2.5 → Área ≈ 19.64
-- ✅ **Radio pequeño**: Radio 0.1 → Área ≈ 0.03
-- ✅ **Estructura del código**: Variables `double`, librería `math.h`, constante π
-- ✅ **Formato correcto**: `%.2f` y `%lf`
 
 ## Notas de Aprendizaje
 
@@ -151,3 +92,22 @@ area = PI * radio * radio;
 - Comparar precisión entre `float` y `double`
 - Agregar cálculo de sector circular
 - Implementar conversión entre unidades (cm², m², etc.)
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/area_circulo
+```
+
+## Pruebas de esta revisión
+
+Entradas y salidas observables del programa.
+
+Código: [pruebas CLI](../../tools/tests/test_cli_exercises.py). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

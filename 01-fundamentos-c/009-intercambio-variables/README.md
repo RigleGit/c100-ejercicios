@@ -29,28 +29,6 @@ Después del intercambio: a = 10, b = 5
 - **Orden de operaciones**: La secuencia importa para no perder información
 - **Entrada y salida**: `scanf()` y `printf()`
 
-## Compilación y Ejecución
-```bash
-# Usando CMake
-mkdir build && cd build
-cmake ..
-make
-./intercambio_variables
-
-# Compilación directa
-gcc -o intercambio_variables src/main.c
-./intercambio_variables
-```
-
-## Pruebas
-```bash
-# Ejecutar tests automáticos
-cd build
-make test
-# o
-ctest -V
-```
-
 ## Errores Comunes
 1. **Intercambio sin variable auxiliar**: `a = b; b = a;` → Ambas variables tendrán el mismo valor
 2. **Orden incorrecto**: Cambiar el orden de las asignaciones puede perder datos
@@ -68,3 +46,22 @@ ctest -V
 - Intercambiar caracteres
 - Intercambiar cadenas de caracteres
 - Intercambiar sin usar variable auxiliar
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/intercambio_variables
+```
+
+## Pruebas de esta revisión
+
+Entradas y salidas observables del programa.
+
+Código: [pruebas CLI](../../tools/tests/test_cli_exercises.py). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

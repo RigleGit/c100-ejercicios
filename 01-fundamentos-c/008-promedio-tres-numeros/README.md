@@ -30,55 +30,6 @@ Promedio = (num1 + num2 + num3) / 3
 - **Formato de salida**: `%.2f` para mostrar exactamente dos decimales
 - **Paréntesis en operaciones**: Garantizar orden correcto de cálculo
 
-## Estructura del Proyecto
-
-```
-008-promedio-tres-numeros/
-├── CMakeLists.txt          # Configuración de compilación
-├── README.md               # Este archivo
-├── src/
-│   └── main.c             # Código fuente principal
-└── test/
-    └── test_main.c        # Tests del programa
-```
-
-## Compilación y Ejecución
-
-### Usando CMake (Recomendado)
-
-```bash
-# Crear directorio de build
-mkdir build && cd build
-
-# Configurar el proyecto
-cmake ..
-
-# Compilar
-make
-
-# Ejecutar el programa
-./promedio_tres_numeros
-
-# Ejecutar tests
-make test
-# o directamente:
-./test_promedio_tres_numeros
-```
-
-### Compilación Manual
-
-```bash
-# Compilar el programa principal
-gcc -o promedio_tres_numeros src/main.c
-
-# Ejecutar
-./promedio_tres_numeros
-
-# Compilar y ejecutar tests
-gcc -o test_promedio_tres_numeros test/test_main.c
-./test_promedio_tres_numeros
-```
-
 ## Ejemplos de Ejecución
 
 ### Ejemplo 1: Números enteros
@@ -104,17 +55,6 @@ El promedio es: 1.00
 Introduce tres números (pueden tener decimales): 7.5 7.5 7.5
 El promedio es: 7.50
 ```
-
-## Casos de Prueba
-
-Los tests verifican diferentes escenarios estadísticos:
-- ✅ **Números enteros**: 3, 6, 9 → 6.00
-- ✅ **Números decimales**: 2.5, 3.5, 4.0 → 3.33
-- ✅ **Con negativos**: -2, 0, 5 → 1.00
-- ✅ **Números iguales**: 7.5, 7.5, 7.5 → 7.50
-- ✅ **Con ceros**: 0, 0, 6 → 2.00
-- ✅ **Precisión decimal**: 1, 2, 3 → 2.00
-- ✅ **Estructura correcta**: Variables `float`, división por 3, formato `%.2f`
 
 ## Notas de Aprendizaje
 
@@ -246,3 +186,21 @@ promedio = suma / n;
 - **Linealidad**: promedio(a*x + b) = a*promedio(x) + b
 - **Aditividad**: promedio(x + y) = promedio(x) + promedio(y)
 
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/promedio_tres_numeros
+```
+
+## Pruebas de esta revisión
+
+Entradas y salidas observables del programa.
+
+Código: [pruebas CLI](../../tools/tests/test_cli_exercises.py). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

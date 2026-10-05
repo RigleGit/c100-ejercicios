@@ -32,21 +32,6 @@ strcat(resultado, cadena2);
 - **Cadenas dinámicas**: Estructura que crece automáticamente
 - **Manipulación de cadenas**: Invertir, cambiar caso, eliminar espacios
 
-## 🏗️ Estructura del Proyecto
-
-```
-054-concatenar-cadenas-dinamico/
-├── include/
-│   └── concatenar_cadenas.h     # Declaraciones y CadenaDinamica
-├── src/
-│   ├── concatenar_cadenas.c     # Implementación completa
-│   └── main.c                  # Demostraciones y casos de uso
-├── test/
-│   └── test_concatenar_cadenas.c # Tests exhaustivos
-├── CMakeLists.txt              # Configuración de compilación
-└── README.md                   # Esta documentación
-```
-
 ## 🔧 Estructura de Datos
 
 ```c
@@ -135,44 +120,6 @@ int main() {
     
     return 0;
 }
-```
-
-## ⚡ Compilación y Ejecución
-
-```bash
-# Crear directorio de compilación
-mkdir build && cd build
-
-# Configurar proyecto
-cmake ..
-
-# Compilar
-make
-
-# Ejecutar programa principal
-./concatenar_cadenas
-
-# Ejecutar tests
-./test_concatenar_cadenas
-```
-
-## 🧪 Tests Incluidos
-
-Los tests cubren exhaustivamente:
-
-- ✅ **Concatenación básica**: Dos cadenas normales
-- ✅ **Casos límite**: Cadenas vacías, NULL, muy largas
-- ✅ **Cálculo de memoria**: Verificación de tamaños
-- ✅ **Concatenación múltiple**: Arrays de cadenas
-- ✅ **Concatenación con separador**: Delimitadores personalizados
-- ✅ **Manipulación de cadenas**: Invertir, cambiar caso, eliminar espacios
-- ✅ **Cadenas dinámicas**: Crecimiento automático
-- ✅ **Búsqueda y análisis**: Subcadenas, conteo, prefijos/sufijos
-- ✅ **Gestión de memoria**: Liberación correcta y sin leaks
-
-```bash
-# Ejecutar tests con salida detallada
-make test_verbose
 ```
 
 ## 🔍 Funciones Principales
@@ -356,3 +303,22 @@ bool concatenarInPlace(CadenaDinamica *cadena, const char *sufijo) {
 - [String Functions - C Reference](https://en.cppreference.com/w/c/string/byte)
 - [Dynamic Memory Allocation](https://www.cprogramming.com/tutorial/c/lesson6.html)
 - [Secure String Handling](https://wiki.sei.cmu.edu/confluence/display/c/STR)
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/concatenar_cadenas_dinamico
+```
+
+## Pruebas de esta revisión
+
+Contratos de la API probados contra la implementación real.
+
+Código: [tests/test_contrato.c](tests/test_contrato.c). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

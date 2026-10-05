@@ -42,7 +42,6 @@ La eliminación de nodos en listas enlazadas presenta varios desafíos únicos:
 ├── include/
 │   └── eliminar_nodo.h        # Declaraciones y definiciones
 ├── tests/
-│   └── test_eliminar_nodo.c   # Suite de tests con Criterion
 ├── CMakeLists.txt             # Configuración de compilación
 └── README.md                  # Este archivo
 ```
@@ -164,48 +163,6 @@ bool eliminar_nodo_simple(Nodo** cabeza, int valor) {
     
     return false;
 }
-```
-
-## Compilación y Ejecución
-
-### Requisitos
-- CMake 3.15 o superior
-- Compilador C (gcc, clang, msvc)
-- Criterion (para tests) - opcional
-- Valgrind (para verificación de memoria) - opcional
-
-### Compilar
-
-```bash
-mkdir build && cd build
-cmake ..
-make
-```
-
-### Ejecutar
-
-```bash
-# Programa principal
-./eliminar_nodo
-
-# Tests completos
-make test
-
-# Tests específicos por categoría
-make test_basico          # Tests básicos
-make test_posicion        # Eliminación por posición
-make test_extremos        # Primero y último
-make test_multiple        # Eliminación múltiple
-make test_avanzado        # Funciones avanzadas
-make test_simple          # Versión simple
-make test_edge_cases      # Casos límite
-
-# Con salida detallada
-make test_verbose
-
-# Verificación de memoria (requiere Valgrind)
-make test_memory
-make run_memory
 ```
 
 ## Ejemplos de Uso
@@ -622,45 +579,6 @@ bool validar_integridad_lista(const Lista* lista) {
 }
 ```
 
-## Tests Implementados
-
-La suite de tests incluye:
-
-### Tests Básicos (eliminar_nodo_basico)
-- ✅ Eliminación de nodo en el medio
-- ✅ Eliminación de cabeza
-- ✅ Eliminación de cola
-- ✅ Eliminación de único elemento
-- ✅ Intento de eliminación de valor inexistente
-
-### Tests por Posición (eliminar_por_posicion)
-- ✅ Eliminación en posición válida
-- ✅ Eliminación en posición 0 (cabeza)
-- ✅ Eliminación en posición inválida
-
-### Tests de Extremos (eliminar_extremos)
-- ✅ Eliminación de primero y último
-- ✅ Operaciones en lista vacía
-
-### Tests Múltiples (eliminar_multiple)
-- ✅ Eliminar todas las ocurrencias
-- ✅ Eliminar todos desde cabeza
-- ✅ Vaciar lista completa
-
-### Tests Avanzados (eliminar_avanzado)
-- ✅ Eliminación de duplicados consecutivos
-- ✅ Eliminación por rango
-- ✅ Eliminación con predicados
-
-### Tests Versión Simple (eliminar_simple)
-- ✅ Compatibilidad con enunciado original
-- ✅ Eliminación de cabeza con doble puntero
-
-### Tests de Casos Límite (eliminar_edge_cases)
-- ✅ Operaciones con punteros NULL
-- ✅ Validación de integridad
-- ✅ Rangos inválidos
-
 ## Consideraciones de Rendimiento
 
 ### Análisis de Complejidad
@@ -704,58 +622,6 @@ void eliminacion_segura(Nodo* nodo) {
 5. **Eliminación con callback**: Notificar antes/después de eliminar
 6. **Garbage collection**: Sistema automático de limpieza de nodos no referenciados
 
-## Debugging y Troubleshooting
-
-### Errores Comunes
-
-1. **Double-free**: Liberar el mismo nodo múltiples veces
-```c
-// ❌ Incorrecto
-free(nodo);
-free(nodo);  // Double-free!
-
-// ✅ Correcto
-free(nodo);
-nodo = NULL;
-```
-
-2. **Dangling pointers**: Referencias a memoria liberada
-```c
-// ❌ Incorrecto
-Nodo* nodo = lista->cabeza;
-eliminar_primero(lista);
-printf("%d", nodo->valor);  // Dangling pointer!
-
-// ✅ Correcto
-int valor = lista->cabeza->valor;
-eliminar_primero(lista);
-printf("%d", valor);
-```
-
-3. **Memory leaks**: No liberar nodos eliminados
-```c
-// ❌ Incorrecto
-anterior->siguiente = actual->siguiente;
-// ¡Olvidamos liberar actual!
-
-// ✅ Correcto
-anterior->siguiente = actual->siguiente;
-free(actual);
-```
-
-### Herramientas de Debugging
-
-```bash
-# Verificar memory leaks
-valgrind --tool=memcheck --leak-check=full ./eliminar_nodo
-
-# Detectar errores de memoria
-valgrind --tool=memcheck --track-origins=yes ./test_eliminar_nodo
-
-# Profiling de rendimiento
-valgrind --tool=callgrind ./eliminar_nodo
-```
-
 ## Referencias
 
 - "Introduction to Algorithms" - Cormen et al. (Capítulo 10.2)
@@ -763,3 +629,22 @@ valgrind --tool=callgrind ./eliminar_nodo
 - "The C Programming Language" - Kernighan & Ritchie
 - [Linux Kernel Linked Lists](https://kernelnewbies.org/FAQ/LinkedLists)
 - [Memory Management Best Practices](https://www.kernel.org/doc/Documentation/memory-management/)
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/eliminar_nodo
+```
+
+## Pruebas de esta revisión
+
+Contratos de la API probados contra la implementación real.
+
+Código: [tests/test_contrato.c](tests/test_contrato.c). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

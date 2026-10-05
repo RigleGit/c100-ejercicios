@@ -29,20 +29,6 @@ El **operador módulo** (`%`) devuelve el resto de una división:
 - **Especificador `%d`**: Para enteros en scanf/printf
 - **Casos especiales**: Cero y números negativos
 
-## Estructura del Proyecto
-
-```
-011-par-impar/
-├── CMakeLists.txt          # Configuración de compilación
-├── README.md               # Este archivo
-├── .gitignore             # Archivos a ignorar en git
-├── include/               # Archivos de cabecera (vacío en este ejercicio)
-├── src/
-│   └── main.c             # Código fuente principal
-└── test/
-    └── test_main.c        # Tests del programa
-```
-
 ## Explicación del Algoritmo
 
 1. **Entrada**: Solicitar número entero al usuario
@@ -96,38 +82,6 @@ El número -3 es impar.
 - **scanf("%d", &variable)**: Lee entero desde teclado
 - **printf("formato", variable)**: Muestra resultado formateado
 
-## Compilación y Ejecución
-
-```bash
-# Usando CMake (recomendado)
-mkdir build && cd build
-cmake ..
-make
-./par_impar
-
-# Compilación directa
-gcc -o par_impar src/main.c
-./par_impar
-```
-
-## Pruebas
-
-```bash
-# Ejecutar tests automáticos
-cd build
-make test
-# o
-ctest -V
-```
-
-Los tests verifican:
-- Números pares positivos
-- Números impares positivos
-- Número cero (caso especial)
-- Números negativos (pares e impares)
-- Números grandes
-- Formato correcto de entrada y salida
-
 ## Errores Comunes
 
 1. **Confundir operadores**: Usar `=` en lugar de `==` en la condición
@@ -162,3 +116,22 @@ Los tests verifican:
 - **Número primo**: Verificar divisibilidad por varios números
 - **Clasificación numérica**: Par/impar + positivo/negativo/cero
 - **Dígitos pares/impares**: Analizar dígitos individuales
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/par_impar
+```
+
+## Pruebas de esta revisión
+
+Entradas y salidas observables del programa.
+
+Código: [pruebas CLI](../../tools/tests/test_cli_exercises.py). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

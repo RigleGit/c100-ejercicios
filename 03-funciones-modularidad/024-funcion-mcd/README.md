@@ -323,40 +323,6 @@ int encontrar_e(int phi_n) {
 }
 ```
 
-## Compilación y ejecución
-
-```bash
-# Compilar el programa
-mkdir build && cd build
-cmake ..
-make
-
-# Ejecutar el programa
-./funcion_mcd
-
-# Ejecutar las pruebas (si están disponibles)
-make test
-```
-
-## Pruebas incluidas
-
-El programa incluye pruebas automáticas que verifican:
-
-- ✅ Casos básicos (12,18), (48,18), (100,25)
-- ✅ Casos especiales (con 0, con 1, números iguales)
-- ✅ Números primos y coprimos
-- ✅ Comparación recursivo vs iterativo
-- ✅ Manejo de números negativos
-- ✅ Propiedades matemáticas (conmutativa, divisibilidad)
-- ✅ Cálculo de MCM usando MCD
-- ✅ Algoritmo extendido de Euclides
-- ✅ Conteo de pasos del algoritmo
-- ✅ Verificación de números coprimos
-- ✅ Casos con números grandes
-- ✅ Secuencia de Fibonacci (caso peor)
-- ✅ Casos límite y eficiencia
-- ✅ Consistencia del algoritmo
-
 ## Posibles extensiones
 
 1. **Calculadora de fracciones**: Simplificación automática usando MCD
@@ -406,3 +372,22 @@ Fraccion sumar_fracciones(Fraccion a, Fraccion b) {
 - Base fundamental para muchas aplicaciones en ciencias de la computación
 - Las pruebas cubren tanto aspectos teóricos como prácticos
 - Algoritmo esencial en criptografía, álgebra y teoría de números
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/funcion_mcd
+```
+
+## Pruebas de esta revisión
+
+Entradas y salidas observables del programa.
+
+Código: [pruebas CLI](../../tools/tests/test_cli_exercises.py). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

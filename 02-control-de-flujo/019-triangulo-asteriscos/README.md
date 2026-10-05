@@ -140,33 +140,6 @@ Para un triángulo de n filas: **Total = n × (n + 1) ÷ 2**
 | 5 | 1,2,3,4,5 | 15 | 5×6÷2 = 15 |
 | 10 | 1,2,...,10 | 55 | 10×11÷2 = 55 |
 
-## Compilación y ejecución
-
-```bash
-# Compilar el programa
-mkdir build && cd build
-cmake ..
-make
-
-# Ejecutar el programa
-./triangulo_asteriscos
-
-# Ejecutar las pruebas (si están disponibles)
-make test
-```
-
-## Pruebas incluidas
-
-El programa incluye pruebas automáticas que verifican:
-
-- ✅ Conteo correcto de asteriscos por fila
-- ✅ Cálculo del total de asteriscos usando la fórmula
-- ✅ Generación correcta de filas individuales
-- ✅ Validación del patrón del triángulo
-- ✅ Casos extremos (triángulos grandes)
-- ✅ Progresión aritmética entre filas
-- ✅ Verificación de la fórmula matemática
-
 ## Posibles extensiones
 
 1. **Triángulos con diferentes caracteres**: Usar números, letras o símbolos
@@ -209,3 +182,22 @@ Salida (n=5):
 - El patrón se puede extender a formas más complejas
 - Excelente ejercicio para visualizar algoritmos
 - Las pruebas verifican tanto la lógica como las matemáticas subyacentes
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/triangulo_asteriscos
+```
+
+## Pruebas de esta revisión
+
+Entradas y salidas observables del programa.
+
+Código: [pruebas CLI](../../tools/tests/test_cli_exercises.py). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

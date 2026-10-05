@@ -10,12 +10,6 @@ Colección de funciones para buscar caracteres en cadenas usando punteros en C. 
 - Aprender a retornar punteros válidos desde funciones.
 - Comparar implementaciones propias con funciones estándar (`strchr`).
 
-## Estructura del ejercicio
-
-- `src/main.c` — Implementación principal y demo interactiva.
-- `test/` — Tests (si existen).
-- `CMakeLists.txt` — Configuración de compilación.
-
 ## API pública (firmas importantes)
 
 ```c
@@ -43,9 +37,10 @@ void demoBusquedasAvanzadas(char *str);
 Desde el directorio del ejercicio:
 
 ```bash
-mkdir -p build && cd build
-cmake ..
-make
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/buscar_caracter_punteros
 ```
 
 ## Cómo ejecutar
@@ -68,3 +63,22 @@ El programa muestra varias demostraciones automáticas y ejemplos interactivos.
 
 - Las funciones devuelven `NULL` cuando no se encuentra el carácter o cuando los argumentos son inválidos.
 - Algunas funciones (p. ej. `buscarCaracter_debug`) imprimen información de depuración detallada y deben usarse sólo para análisis.
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/buscar_caracter_punteros
+```
+
+## Pruebas de esta revisión
+
+Contratos de la API probados contra la implementación real.
+
+Código: [tests/test_contrato.c](tests/test_contrato.c). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

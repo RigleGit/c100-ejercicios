@@ -40,55 +40,6 @@ Este ejercicio te permite practicar la lectura de caracteres con `%c` y entender
 - **Codificación ASCII**: Estándar de representación de caracteres
 - **Representación interna**: Los caracteres son números enteros pequeños
 
-## Estructura del Proyecto
-
-```
-006-codigo-ascii/
-├── CMakeLists.txt          # Configuración de compilación
-├── README.md               # Este archivo
-├── src/
-│   └── main.c             # Código fuente principal
-└── test/
-    └── test_main.c        # Tests del programa
-```
-
-## Compilación y Ejecución
-
-### Usando CMake (Recomendado)
-
-```bash
-# Crear directorio de build
-mkdir build && cd build
-
-# Configurar el proyecto
-cmake ..
-
-# Compilar
-make
-
-# Ejecutar el programa
-./codigo_ascii
-
-# Ejecutar tests
-make test
-# o directamente:
-./test_codigo_ascii
-```
-
-### Compilación Manual
-
-```bash
-# Compilar el programa principal
-gcc -o codigo_ascii src/main.c
-
-# Ejecutar
-./codigo_ascii
-
-# Compilar y ejecutar tests
-gcc -o test_codigo_ascii test/test_main.c
-./test_codigo_ascii
-```
-
 ## Ejemplos de Ejecución
 
 ```
@@ -110,16 +61,6 @@ El código ASCII de '0' es: 48
 Introduce un carácter: @
 El código ASCII de '@' es: 64
 ```
-
-## Casos de Prueba
-
-Los tests verifican caracteres importantes del ASCII:
-- ✅ **Letra mayúscula**: 'A' → 65
-- ✅ **Letra minúscula**: 'a' → 97
-- ✅ **Dígito**: '0' → 48, '9' → 57
-- ✅ **Espacio**: ' ' → 32
-- ✅ **Símbolo**: '@' → 64
-- ✅ **Estructura correcta**: Variables `char`, casting `(int)`, formato ` %c`
 
 ## Notas de Aprendizaje
 
@@ -192,3 +133,22 @@ Ejemplo: '5' - '0' = 57 - 48 = 9
 - Implementar cifrado César simple
 - Validar rangos específicos de caracteres
 - Analizar frecuencia de caracteres en texto
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/codigo_ascii
+```
+
+## Pruebas de esta revisión
+
+Entradas y salidas observables del programa.
+
+Código: [pruebas CLI](../../tools/tests/test_cli_exercises.py). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

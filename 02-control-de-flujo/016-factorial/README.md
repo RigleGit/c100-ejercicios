@@ -35,20 +35,6 @@ n! = n × (n-1) × (n-2) × ... × 2 × 1
 - **Límites del bucle**: De 1 hasta n (inclusive)
 - **Especificador `%llu`**: Para números de tipo unsigned long long
 
-## Estructura del Proyecto
-
-```
-016-factorial/
-├── CMakeLists.txt          # Configuración de compilación
-├── README.md               # Este archivo
-├── .gitignore             # Archivos a ignorar en git
-├── include/               # Archivos de cabecera (vacío en este ejercicio)
-├── src/
-│   └── main.c             # Código fuente principal
-└── test/
-    └── test_main.c        # Tests del programa
-```
-
 ## Explicación del Algoritmo
 
 ### Pasos del Algoritmo
@@ -134,39 +120,6 @@ for (int i = 1; i <= n; ++i) {
 - **Matemáticamente**: 0! = 1 por definición
 - **En el código**: El bucle no se ejecuta cuando n=0, factorial permanece como 1
 
-## Compilación y Ejecución
-
-```bash
-# Usando CMake (recomendado)
-mkdir build && cd build
-cmake ..
-make
-./factorial
-
-# Compilación directa
-gcc -o factorial src/main.c
-./factorial
-```
-
-## Pruebas
-
-```bash
-# Ejecutar tests automáticos
-cd build
-make test
-# o
-ctest -V
-```
-
-Los tests verifican:
-- Factorial de 0 (caso especial)
-- Factoriales pequeños (1, 2, 3, 4, 5)
-- Factoriales medianos (6, 7, 8, 9, 10)
-- Factoriales grandes (12, 20)
-- Números negativos (manejo de errores)
-- Formato correcto de entrada y salida
-- Estructura correcta del código (for, unsigned long long, etc.)
-
 ## Crecimiento Exponencial
 
 Los factoriales crecen extremadamente rápido:
@@ -225,3 +178,22 @@ Los factoriales crecen extremadamente rápido:
 - **Matemáticas**: Series de Taylor, análisis matemático
 - **Ciencias de la computación**: Análisis de algoritmos
 - **Criptografía**: Algunos algoritmos criptográficos
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/factorial
+```
+
+## Pruebas de esta revisión
+
+Entradas y salidas observables del programa.
+
+Código: [pruebas CLI](../../tools/tests/test_cli_exercises.py). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

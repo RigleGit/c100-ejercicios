@@ -15,55 +15,6 @@ Este ejercicio es un punto de partida clásico y esencial para iniciarse en cual
 - **Directiva `#include`**: Para incluir bibliotecas estándar
 - **Valor de retorno**: `return 0` indica ejecución exitosa
 
-## Estructura del Proyecto
-
-```
-001-hola-mundo/
-├── CMakeLists.txt          # Configuración de compilación
-├── README.md               # Este archivo
-├── src/
-│   └── main.c             # Código fuente principal
-└── test/
-    └── test_main.c        # Tests del programa
-```
-
-## Compilación y Ejecución
-
-### Usando CMake (Recomendado)
-
-```bash
-# Crear directorio de build
-mkdir build && cd build
-
-# Configurar el proyecto
-cmake ..
-
-# Compilar
-make
-
-# Ejecutar el programa
-./hola_mundo
-
-# Ejecutar tests
-make test
-# o directamente:
-./test_hola_mundo
-```
-
-### Compilación Manual
-
-```bash
-# Compilar el programa principal
-gcc -o hola_mundo src/main.c
-
-# Ejecutar
-./hola_mundo
-
-# Compilar y ejecutar tests
-gcc -o test_hola_mundo test/test_main.c
-./test_hola_mundo
-```
-
 ## Salida Esperada
 
 ```
@@ -83,3 +34,22 @@ Hola Mundo
 - Agregar más líneas de salida
 - Experimentar con diferentes caracteres de escape (`\n`, `\t`, etc.)
 - Usar variables para almacenar el mensaje antes de imprimirlo
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/hola_mundo
+```
+
+## Pruebas de esta revisión
+
+Entradas y salidas observables del programa.
+
+Código: [pruebas CLI](../../tools/tests/test_cli_exercises.py). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).

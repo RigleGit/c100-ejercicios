@@ -75,19 +75,6 @@ El programa:
 5. Verifica la integridad con desempaquetado
 6. Presenta ejemplos adicionales
 
-## Casos de Prueba
-
-### Casos Básicos
-- `empaquetar_bytes(0x12, 0x34)` → `0x3412` = 13330
-- `empaquetar_bytes(255, 0)` → `0x00FF` = 255  
-- `empaquetar_bytes(0, 255)` → `0xFF00` = 65280
-- `empaquetar_bytes(255, 255)` → `0xFFFF` = 65535
-
-### Casos Límite
-- Valores mínimos: `(0, 0)` → `0x0000`
-- Valores máximos: `(255, 255)` → `0xFFFF`
-- Un byte máximo: `(255, 0)` y `(0, 255)`
-
 ## Aplicaciones Prácticas
 
 ### Protocolos de Red
@@ -116,28 +103,6 @@ El programa:
 - **Endianness**: El orden de bytes puede variar entre arquitecturas
 - **Alineación**: Los shorts pueden requerir alineación específica
 - **Portabilidad**: Verificar el tamaño de tipos en diferentes sistemas
-
-## Compilación y Ejecución
-
-### Compilar el programa principal
-```bash
-gcc -o main src/main.c -Wall -Wextra -std=c99
-```
-
-### Compilar y ejecutar tests
-```bash
-gcc -o test_main test/test_main.c -Wall -Wextra -std=c99
-./test_main
-```
-
-### Usando CMake
-```bash
-mkdir build && cd build
-cmake ..
-make
-./ejercicio_030
-./test_ejercicio_030
-```
 
 ## Salida Esperada
 
@@ -199,3 +164,22 @@ Ejemplo 4: empaquetar(255, 255) = 0xFFFF = 65535
 - Operaciones de bits de costo constante O(1)
 - Sin asignaciones dinámicas de memoria
 - Código optimizable por el compilador
+
+## Compilar y ejecutar
+
+Desde esta carpeta:
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+ctest --test-dir build --output-on-failure
+./build/ejercicio_030
+```
+
+## Pruebas de esta revisión
+
+Entradas y salidas observables del programa.
+
+Código: [pruebas CLI](../../tools/tests/test_cli_exercises.py). CTest ejecuta las pruebas registradas; el lanzador considera un fallo su ausencia.
+
+Los ejemplos de ampliación son propuestas educativas; esta revisión compila el programa y las pruebas de [CMakeLists.txt](CMakeLists.txt).
