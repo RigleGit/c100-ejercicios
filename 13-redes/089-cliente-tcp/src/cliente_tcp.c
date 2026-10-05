@@ -1136,7 +1136,7 @@ pid_t crear_servidor_prueba(int puerto, const char *mensaje_respuesta) {
                 // Enviar respuesta (eco del mensaje recibido + respuesta)
                 char respuesta_completa[BUFFER_MAXIMO];
                 snprintf(respuesta_completa, sizeof(respuesta_completa), 
-                        "%s: %s", mensaje_respuesta, buffer);
+                        "%.1024s: %.3068s", mensaje_respuesta, buffer);
                 send(cliente_fd, respuesta_completa, strlen(respuesta_completa), 0);
             }
             

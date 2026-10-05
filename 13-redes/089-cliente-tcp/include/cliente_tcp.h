@@ -344,22 +344,26 @@ cliente_estado_t detener_servidor_prueba(pid_t pid);
 /**
  * @brief Macro para logging con timestamp
  */
-#define CLIENTE_LOG(cliente, formato, ...) \
+#define CLIENTE_LOG(cliente, ...) \
     do { \
         if ((cliente) && (cliente)->config.modo_verbose) { \
             time_t now = time(NULL); \
             char *timestr = ctime(&now); \
             timestr[strlen(timestr) - 1] = '\0'; \
-            printf("[%s] CLIENTE: " formato "\n", timestr, ##__VA_ARGS__); \
+            printf("[%s] CLIENTE: ", timestr); \
+            printf(__VA_ARGS__); \
+            putchar('\n'); \
         } \
     } while(0)
 
 /**
  * @brief Macro para logging de errores
  */
-#define CLIENTE_ERROR_LOG(formato, ...) \
+#define CLIENTE_ERROR_LOG(...) \
     do { \
-        fprintf(stderr, "ERROR CLIENTE: %s\n", formato); \
+        fputs("ERROR CLIENTE: ", stderr); \
+        fprintf(stderr, __VA_ARGS__); \
+        fputc('\n', stderr); \
     } while(0)
 
 /**
