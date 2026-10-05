@@ -8,11 +8,25 @@
 
 #include "../include/entrada_segura.h"
 #include <stdlib.h>
+#include <errno.h>
+#include <limits.h>
 
 /**
  * @brief Muestra el menú principal de opciones
  */
 static void imprimir_separador(int n) { for (int i = 0; i < n; i++) putchar('='); putchar('\n'); }
+
+static int leer_opcion_segura(int *opcion) {
+    char linea[64], *fin;
+    if (!fgets(linea, sizeof linea, stdin)) return 0;
+    errno = 0;
+    long valor = strtol(linea, &fin, 10);
+    while (*fin == ' ' || *fin == '\t') ++fin;
+    if (fin == linea || errno == ERANGE || valor < INT_MIN || valor > INT_MAX ||
+        (*fin != '\n' && *fin != '\0')) return -1;
+    *opcion = (int)valor;
+    return 1;
+}
 
 void mostrar_menu(void) {
     putchar('\n');
@@ -56,15 +70,15 @@ void mostrar_teoria(void) {
     
     printf("\n✅ ¿POR QUÉ fgets() ES SEGURO?\n");
     printf("La función fgets() requiere especificar el tamaño máximo:\n");
-    printf("   ✅ Siempre respeta el límite especificado\n");
+    printf("   ✅ Respeta el límite especificado, si es el tamaño real\n");
     printf("   ✅ Lee máximo (n-1) caracteres + '\\0'\n");
-    printf("   ✅ Imposible que cause buffer overflow\n");
+    printf("   ✅ Respeta el tamaño indicado; debe coincidir con el buffer real\n");
     printf("   ✅ Preserva la nueva línea si cabe en el buffer\n");
     
     printf("\n🛡️  OTRAS FUNCIONES INSEGURAS A EVITAR:\n");
     printf("   • scanf(\"%%s\", buffer)     → Usar scanf(\"%%49s\", buffer)\n");
-    printf("   • strcpy(dest, src)       → Usar strncpy() o strlcpy()\n");
-    printf("   • strcat(dest, src)       → Usar strncat() o strlcat()\n");
+    printf("   • strcpy(dest, src)       → Usar copia con capacidad y comprobar truncamiento\n");
+    printf("   • strcat(dest, src)       → Calcular capacidad restante y comprobar truncamiento\n");
     printf("   • sprintf(buffer, ...)    → Usar snprintf()\n");
     
     printf("\n📜 HISTORIA:\n");
@@ -81,9 +95,9 @@ void mostrar_teoria(void) {
  * @brief Ejecuta pruebas interactivas de las funciones
  */
 void pruebas_interactivas(void) {
-    char buffer[100];
+    char buffer[100] = {0};
     estadisticas_entrada_t stats;
-    int opcion;
+    int opcion = -1;
     
     putchar('\n');
     imprimir_separador(60);
@@ -99,8 +113,10 @@ void pruebas_interactivas(void) {
         printf("   0. Volver al menú principal\n");
         printf("\nSeleccione: ");
         
-        scanf("%d", &opcion);
-        getchar(); // Limpiar buffer
+        if (leer_opcion_segura(&opcion) != 1) {
+            if (feof(stdin) || ferror(stdin)) return;
+            continue;
+        }
         
         switch (opcion) {
             case 1:
@@ -154,7 +170,7 @@ void pruebas_interactivas(void) {
  */
 #ifndef UNIT_TESTING
 int main(void) {
-    int opcion;
+    int opcion = -1;
     
     printf("Bienvenido al ejercicio de Entrada Segura de Datos!\n");
     printf("Este programa demuestra por qué gets() es peligroso y cómo usar fgets() de forma segura.\n");
@@ -162,12 +178,12 @@ int main(void) {
     do {
         mostrar_menu();
         
-        if (scanf("%d", &opcion) != 1) {
+        if (leer_opcion_segura(&opcion) != 1) {
+            if (feof(stdin) || ferror(stdin)) return EXIT_SUCCESS;
             printf("❌ Entrada inválida. Ingrese un número.\n");
-            limpiar_buffer_entrada();
             continue;
         }
-        getchar(); // Limpiar buffer después de scanf
+
         
         switch (opcion) {
             case 1:

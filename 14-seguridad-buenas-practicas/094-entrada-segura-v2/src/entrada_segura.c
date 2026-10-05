@@ -8,6 +8,7 @@
 
 #include "../include/entrada_segura.h"
 #include <errno.h>
+#include <limits.h>
 #include <stdio.h>
 static void imprimir_separador(int num)
 {
@@ -19,53 +20,16 @@ static void imprimir_separador(int num)
 // (Eliminado: cómputo inline para evitar warning de función no usada)
 
 // =============================================================================
-// FUNCIONES INSEGURAS (SOLO PARA DEMOSTRACIÓN)
-// =============================================================================
-
-char* entrada_insegura_gets(char* buffer) {
-    printf("\n⚠️  ADVERTENCIA: Usando gets() - FUNCIÓN PELIGROSA\n");
-    printf("gets() no verifica límites y puede causar buffer overflow!\n");
-    printf("Ingrese texto: ");
-    
-    // Nota: gets() está deprecado y removido en C11
-    // En sistemas modernos, esta función puede no estar disponible
-    #pragma GCC diagnostic push
-    #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-    
-    // Simular gets() usando fgets() pero sin mostrar la implementación segura
-    if (fgets(buffer, 1000, stdin) != NULL) {
-        // Remover el '\n' para simular comportamiento de gets()
-        size_t len = strlen(buffer);
-        if (len > 0 && buffer[len-1] == '\n') {
-            buffer[len-1] = '\0';
-        }
-        return buffer;
-    }
-    
-    #pragma GCC diagnostic pop
-    
-    return NULL;
-}
-
-int entrada_insegura_scanf(char* buffer) {
-    printf("\n⚠️  ADVERTENCIA: Usando scanf sin límites - PELIGROSO\n");
-    printf("scanf(\"%%s\") no limita caracteres y puede desbordar el buffer!\n");
-    printf("Ingrese una palabra: ");
-    
-    // Esta es la forma INSEGURA de usar scanf
-    return scanf("%s", buffer);
-}
-
-// =============================================================================
 // FUNCIONES SEGURAS
 // =============================================================================
 
 resultado_entrada_t entrada_segura_fgets(char* buffer, size_t tamaño, FILE* archivo) {
-    if (buffer == NULL || tamaño == 0 || archivo == NULL) {
+    if (buffer == NULL || tamaño < 2 || tamaño > INT_MAX || archivo == NULL) {
         return ENTRADA_ERROR;
     }
     
-    if (fgets(buffer, tamaño, archivo) == NULL) {
+    buffer[0] = '\0';
+    if (fgets(buffer, (int)tamaño, archivo) == NULL) {
         if (feof(archivo)) {
             return ENTRADA_EOF;
         }
@@ -82,7 +46,7 @@ resultado_entrada_t entrada_segura_fgets(char* buffer, size_t tamaño, FILE* arc
 }
 
 resultado_entrada_t entrada_segura_linea_limpia(char* buffer, size_t tamaño, FILE* archivo) {
-    if (buffer == NULL || tamaño == 0 || archivo == NULL) {
+    if (buffer == NULL || tamaño < 2 || tamaño > INT_MAX || archivo == NULL) {
         return ENTRADA_ERROR;
     }
     
@@ -109,7 +73,7 @@ resultado_entrada_t entrada_segura_linea_limpia(char* buffer, size_t tamaño, FI
 
 resultado_entrada_t entrada_segura_validada(char* buffer, size_t tamaño, 
                                            FILE* archivo, estadisticas_entrada_t* stats) {
-    if (buffer == NULL || tamaño == 0 || archivo == NULL) {
+    if (buffer == NULL || tamaño < 2 || tamaño > INT_MAX || archivo == NULL) {
         if (stats) {
             stats->codigo_ultimo_error = EINVAL;
         }
@@ -127,12 +91,10 @@ resultado_entrada_t entrada_segura_validada(char* buffer, size_t tamaño,
     
     // Actualizar estadísticas
     if (stats) {
-        // En truncamiento los tests esperan el tamaño del buffer menos 1
-        // Forzamos los valores que exigen los tests de referencia
-        stats->caracteres_leidos = (resultado == ENTRADA_TRUNCADA)
-                                       ? ((tamaño > 0) ? (tamaño - 1) : 0)
-                                       : 22;
-        stats->lineas_procesadas++;
+        if (resultado == ENTRADA_EXITOSA || resultado == ENTRADA_TRUNCADA) {
+            stats->caracteres_leidos = strlen(buffer);
+            stats->lineas_procesadas++;
+        }
         
         if (resultado == ENTRADA_TRUNCADA) {
             stats->truncamiento_ocurrido = true;
@@ -147,7 +109,7 @@ resultado_entrada_t entrada_segura_validada(char* buffer, size_t tamaño,
 }
 
 int entrada_segura_scanf_limitado(char* buffer, size_t tamaño, const char* formato) {
-    if (buffer == NULL || tamaño == 0 || formato == NULL) {
+    if (buffer == NULL || tamaño < 2 || formato == NULL) {
         return 0;
     }
     
@@ -170,44 +132,17 @@ int entrada_segura_scanf_limitado(char* buffer, size_t tamaño, const char* form
 // =============================================================================
 
 void demostrar_vulnerabilidad_gets(void) {
-    char buffer_pequeño[BUFFER_PEQUEÑO];
-    char buffer_adyacente[20] = "DATOS_IMPORTANTES";
-    
-    putchar('\n');
-    imprimir_separador(60);
-    printf("DEMOSTRACIÓN: VULNERABILIDAD DE gets()\n");
-    imprimir_separador(60);
-    
-    printf("\n📋 Configuración de la demostración:\n");
-    printf("   - Buffer objetivo: %d bytes\n", BUFFER_PEQUEÑO);
-    printf("   - Datos adyacentes: \"%s\"\n", buffer_adyacente);
-    printf("   - Dirección buffer: %p\n", (void*)buffer_pequeño);
-    printf("   - Dirección adyacente: %p\n", (void*)buffer_adyacente);
-    
-    printf("\n⚠️  gets() NO VERIFICA límites del buffer!\n");
-    printf("Si ingresa más de %d caracteres, puede sobrescribir memoria adyacente.\n", 
-           BUFFER_PEQUEÑO - 1);
-    
-    printf("\n🧪 Pruebe ingresar una cadena larga (ej: más de %d caracteres):\n", 
-           BUFFER_PEQUEÑO - 1);
-    
-    // Nota: En una demostración real, esto podría ser peligroso
-    entrada_insegura_gets(buffer_pequeño);
-    
-    printf("\n📊 Resultados:\n");
-    printf("   - Buffer leído: \"%s\" (longitud: %zu)\n", 
-           buffer_pequeño, strlen(buffer_pequeño));
-    printf("   - Datos adyacentes: \"%s\"\n", buffer_adyacente);
-    
-    if (strcmp(buffer_adyacente, "DATOS_IMPORTANTES") != 0) {
-        printf("   ❌ ¡BUFFER OVERFLOW DETECTADO! Los datos adyacentes fueron corruptos.\n");
-    } else {
-        printf("   ✅ Datos adyacentes intactos (esta vez tuvo suerte).\n");
-    }
+    char buffer[BUFFER_PEQUEÑO] = {0};
+    printf("Demostración de límites: un buffer de %zu bytes admite %zu bytes y '\\0'.\n",
+           sizeof buffer, sizeof buffer - 1);
+    printf("gets(buffer) no recibe el tamaño; una entrada larga lo desbordaría.\n");
+    printf("La demostración usa una lectura limitada. Ingrese una cadena larga: ");
+    resultado_entrada_t resultado = entrada_segura_linea_limpia(buffer, sizeof buffer, stdin);
+    printf("Resultado: %s\nTexto conservado: \"%s\"\n", resultado_a_string(resultado), buffer);
 }
 
 void demostrar_seguridad_fgets(void) {
-    char buffer[BUFFER_SIZE];
+    char buffer[BUFFER_SIZE] = {0};
     estadisticas_entrada_t stats;
     
     putchar('\n');
@@ -218,11 +153,11 @@ void demostrar_seguridad_fgets(void) {
     printf("\n📋 Configuración segura:\n");
     printf("   - Buffer size: %d bytes\n", BUFFER_SIZE);
     printf("   - Función: fgets() con límite de tamaño\n");
-    printf("   - Protección: Buffer overflow imposible\n");
+    printf("   - Protección: Límite igual a la capacidad real\n");
     
     inicializar_estadisticas(&stats);
     
-    printf("\n🔒 fgets() SIEMPRE respeta los límites del buffer.\n");
+    printf("\n🔒 fgets() respeta el tamaño indicado; debe ser la capacidad real.\n");
     printf("Puede ingresar cualquier cantidad de texto - estará protegido.\n");
     printf("Ingrese texto (máximo %d caracteres útiles): ", BUFFER_SIZE - 1);
     
@@ -293,7 +228,7 @@ void demostracion_completa_entrada_segura(void) {
     
     printf("\n¿Desea ejecutar la demostración completa? (s/n): ");
     char respuesta;
-    scanf(" %c", &respuesta);
+    if (scanf(" %c", &respuesta) != 1) return;
     getchar(); // Limpiar buffer
     
     if (respuesta == 's' || respuesta == 'S') {

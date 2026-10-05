@@ -7,7 +7,7 @@
  * 
  * VULNERABILIDAD PRINCIPAL:
  * - gets() NO VERIFICA LÍMITES y puede causar buffer overflow
- * - fgets() VERIFICA LÍMITES y previene desbordamientos
+ * - fgets() respeta la capacidad indicada; el llamador debe pasar el tamaño real
  * 
  * @author Curso C - Ejercicio 094
  * @date 2024
@@ -51,42 +51,11 @@ typedef enum {
  * @brief Estructura para almacenar estadísticas de entrada
  */
 typedef struct {
-    size_t caracteres_leidos;   ///< Número de caracteres leídos
+    size_t caracteres_leidos;   ///< Bytes conservados en la última lectura, sin LF
     size_t lineas_procesadas;   ///< Número de líneas procesadas
     bool truncamiento_ocurrido; ///< Si ocurrió truncamiento
     int codigo_ultimo_error;    ///< Código del último error
 } estadisticas_entrada_t;
-
-// =============================================================================
-// FUNCIONES INSEGURAS (SOLO PARA DEMOSTRACIÓN - ¡NO USAR EN PRODUCCIÓN!)
-// =============================================================================
-
-/**
- * @brief FUNCIÓN INSEGURA: Demuestra el uso peligroso de gets()
- * @warning ¡NUNCA USAR ESTA FUNCIÓN EN CÓDIGO REAL!
- * @details Esta función muestra por qué gets() es peligroso:
- *          - No verifica límites del buffer
- *          - Puede causar buffer overflow
- *          - Puede sobrescribir memoria adyacente
- * 
- * @param buffer Buffer donde almacenar la entrada
- * @note Esta función se mantiene solo con propósitos educativos
- * @deprecated gets() está deprecado desde C99 y removido en C11
- * @return Puntero al buffer si exitoso, NULL si error
- */
-char* entrada_insegura_gets(char* buffer);
-
-/**
- * @brief FUNCIÓN INSEGURA: Demuestra scanf sin límites
- * @warning ¡PELIGROSO! No usar en código de producción
- * @details Muestra por qué scanf("%s") es inseguro:
- *          - No limita la cantidad de caracteres leídos
- *          - Puede desbordar el buffer fácilmente
- * 
- * @param buffer Buffer donde almacenar la entrada
- * @return Número de elementos leídos exitosamente
- */
-int entrada_insegura_scanf(char* buffer);
 
 // =============================================================================
 // FUNCIONES SEGURAS
