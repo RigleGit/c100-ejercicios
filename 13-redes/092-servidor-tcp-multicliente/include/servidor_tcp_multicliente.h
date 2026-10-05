@@ -363,7 +363,7 @@ void actualizar_estadisticas_comunicacion(EstadisticasServidor* stats,
  * @brief Muestra estadísticas del servidor
  * @param contexto Contexto del servidor
  */
-void mostrar_estadisticas_servidor(const ContextoServidor* contexto);
+void mostrar_estadisticas_servidor(ContextoServidor* contexto);
 
 /**
  * @brief Registra evento en log de forma thread-safe

@@ -713,7 +713,7 @@ void actualizar_estadisticas_comunicacion(EstadisticasServidor* stats,
     UNLOCK_STATS(stats);
 }
 
-void mostrar_estadisticas_servidor(const ContextoServidor* contexto) {
+void mostrar_estadisticas_servidor(ContextoServidor* contexto) {
     if (!contexto) return;
     
     LOCK_STATS(&contexto->stats);
