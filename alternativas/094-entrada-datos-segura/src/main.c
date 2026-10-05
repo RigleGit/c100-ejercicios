@@ -1,0 +1,315 @@
+/**
+ * @file main.c
+ * @brief Programa principal para demostración de entrada segura
+ */
+
+#include "entrada_segura.h"
+
+/**
+ * @brief Muestra el menú principal
+ */
+void mostrar_menu(void) {
+    printf("\n");
+    printf("╔══════════════════════════════════════════════════════════════╗\n");
+    printf("║                 ENTRADA SEGURA - Menú Principal              ║\n");
+    printf("╠══════════════════════════════════════════════════════════════╣\n");
+    printf("║  1. Demo básico: gets() vs fgets()                          ║\n");
+    printf("║  2. Tutorial interactivo completo                           ║\n");
+    printf("║  3. Demostración de tipos de entrada                        ║\n");
+    printf("║  4. Demostración de validación                              ║\n");
+    printf("║  5. Configuración avanzada                                  ║\n");
+    printf("║  6. Stress test de seguridad                                ║\n");
+    printf("║  7. Ver vulnerabilidades comunes                           ║\n");
+    printf("║  8. Ver buenas prácticas                                    ║\n");
+    printf("║  9. Comparar funciones seguras vs inseguras                ║\n");
+    printf("║  0. Salir                                                   ║\n");
+    printf("╚══════════════════════════════════════════════════════════════╝\n");
+    printf("Selecciona una opción: ");
+}
+
+/**
+ * @brief Demo del código original vs versión segura
+ */
+void demo_codigo_original(void) {
+    printf("\n");
+    printf("╔══════════════════════════════════════════════════════════════╗\n");
+    printf("║           DEMO: CÓDIGO ORIGINAL vs VERSIÓN SEGURA           ║\n");
+    printf("╚══════════════════════════════════════════════════════════════╝\n");
+    printf("\n");
+    
+    printf("📋 CÓDIGO ORIGINAL (INSEGURO):\n");
+    printf("─────────────────────────────────\n");
+    printf("#include <stdio.h>\n\n");
+#ifndef UNIT_TESTING
+    printf("int main(void) {\n");
+    printf("    char nombre[10];\n");
+    printf("    printf(\"Introduce tu nombre: \");\n");
+    printf("    gets(nombre);  // ⚠️ PELIGROSO: Sin límite de buffer\n");
+    printf("    printf(\"Hola, %%s\\n\", nombre);\n");
+    printf("    return 0;\n");
+    printf("}\n\n");
+    
+    printf("❌ PROBLEMAS DEL CÓDIGO ORIGINAL:\n");
+    printf("• gets() no verifica el tamaño del buffer\n");
+    printf("• Puede escribir más allá de los 10 caracteres\n");
+    printf("• Causa buffer overflow y corrupción de memoria\n");
+    printf("• Comportamiento indefinido\n");
+    printf("• Vulnerabilidad de seguridad crítica\n");
+    printf("• gets() fue eliminada del estándar C11\n\n");
+    
+    printf("📋 VERSIÓN SEGURA:\n");
+    printf("─────────────────────\n");
+    printf("#include <stdio.h>\n");
+    printf("#include <string.h>\n\n");
+    printf("int main(void) {\n");
+    printf("    char nombre[10];\n");
+    printf("    printf(\"Introduce tu nombre: \");\n");
+    printf("    if (fgets(nombre, sizeof(nombre), stdin)) {\n");
+    printf("        // Eliminar el salto de línea si existe\n");
+    printf("        nombre[strcspn(nombre, \"\\n\")] = '\\0';\n");
+    printf("        printf(\"Hola, %%s\\n\", nombre);\n");
+    printf("    } else {\n");
+    printf("        printf(\"Error al leer la entrada.\\n\");\n");
+    printf("    }\n");
+    printf("    return 0;\n");
+    printf("}\n\n");
+    
+    printf("✅ VENTAJAS DE LA VERSIÓN SEGURA:\n");
+    printf("• fgets() limita la lectura al tamaño del buffer\n");
+    printf("• Siempre null-termina la cadena\n");
+    printf("• Maneja errores de entrada\n");
+    printf("• Elimina el salto de línea correctamente\n");
+    printf("• Previene buffer overflow completamente\n");
+    printf("• Código predecible y seguro\n\n");
+    
+    printf("🧪 DEMOSTRACIÓN PRÁCTICA:\n");
+    printf("──────────────────────────\n");
+    printf("Ahora probaremos la versión segura.\n");
+    printf("Buffer disponible: 10 caracteres (incluyendo \\0)\n");
+    printf("Prueba introducir más de 9 caracteres...\n\n");
+    
+    char nombre[10];
+    printf("Introduce tu nombre: ");
+    fflush(stdout);
+    
+    resultado_entrada_t resultado = entrada_cadena_segura(nombre, sizeof(nombre), stdin);
+    
+    if (resultado == ENTRADA_OK) {
+        printf("\n✅ Entrada exitosa!\n");
+        printf("Contenido del buffer: '%s'\n", nombre);
+        printf("Longitud real: %zu caracteres\n", strlen(nombre));
+        printf("Hola, %s\n", nombre);
+    } else if (resultado == ENTRADA_ERROR_BUFFER_OVERFLOW) {
+        printf("\n⚠️  ¡Intento de overflow detectado!\n");
+        printf("La entrada fue truncada de forma segura.\n");
+        printf("Contenido del buffer: '%s'\n", nombre);
+        printf("El buffer permaneció dentro de los límites seguros.\n");
+        printf("Hola, %s (truncado)\n", nombre);
+    } else {
+        printf("\n❌ Error al leer entrada: %s\n", entrada_error_string(resultado));
+    }
+    
+    printf("\n📊 ANÁLISIS:\n");
+    printf("• El buffer nunca fue corrompido\n");
+    printf("• La memoria adyacente está protegida\n");
+    printf("• El programa no crasheó\n");
+    printf("• Se detectó y manejó el overflow\n");
+}
+
+/**
+ * @brief Demo completo de entrada segura
+ */
+void demo_entrada_completa(void) {
+    printf("\n");
+    printf("╔══════════════════════════════════════════════════════════════╗\n");
+    printf("║              DEMO COMPLETO: ENTRADA SEGURA                  ║\n");
+    printf("╚══════════════════════════════════════════════════════════════╝\n");
+    printf("\n");
+    
+    printf("Este demo recopila información personal usando entrada segura.\n");
+    printf("Observa cómo se valida cada campo y se manejan los errores.\n\n");
+    
+    // Información del usuario
+    struct {
+        char nombre[32];
+        char apellido[32];
+        int edad;
+        char email[64];
+        double altura;
+        char telefono[16];
+    } usuario;
+    
+    // Limpiar estructura
+    memset(&usuario, 0, sizeof(usuario));
+    
+    // Recopilar nombre
+    config_entrada_t config;
+    entrada_init_config(&config);
+    config.trim_whitespace = true;
+    config.permitir_vacio = false;
+    strcpy(config.prompt, "Nombre (solo letras): ");
+    strcpy(config.error_message, "❌ El nombre debe contener solo letras.");
+    
+    bool nombre_valido = false;
+    while (!nombre_valido) {
+        if (entrada_linea_configurada(usuario.nombre, sizeof(usuario.nombre), &config, NULL) == ENTRADA_OK) {
+            if (validar_solo_letras(usuario.nombre) && validar_longitud(usuario.nombre, 2, 30)) {
+                nombre_valido = true;
+                printf("✅ Nombre aceptado: %s\n", usuario.nombre);
+            } else {
+                printf("❌ Nombre inválido. Debe contener solo letras (2-30 caracteres).\n");
+            }
+        }
+    }
+    
+    // Recopilar apellido
+    strcpy(config.prompt, "Apellido (solo letras): ");
+    bool apellido_valido = false;
+    while (!apellido_valido) {
+        if (entrada_linea_configurada(usuario.apellido, sizeof(usuario.apellido), &config, NULL) == ENTRADA_OK) {
+            if (validar_solo_letras(usuario.apellido) && validar_longitud(usuario.apellido, 2, 30)) {
+                apellido_valido = true;
+                printf("✅ Apellido aceptado: %s\n", usuario.apellido);
+            } else {
+                printf("❌ Apellido inválido. Debe contener solo letras (2-30 caracteres).\n");
+            }
+        }
+    }
+    
+    // Recopilar edad
+    if (entrada_entero_seguro(&usuario.edad, 0, 120, "Edad") == ENTRADA_OK) {
+        printf("✅ Edad aceptada: %d años\n", usuario.edad);
+    }
+    
+    // Recopilar email
+    strcpy(config.prompt, "Email: ");
+    strcpy(config.error_message, "❌ Formato de email inválido.");
+    bool email_valido = false;
+    while (!email_valido) {
+        if (entrada_linea_configurada(usuario.email, sizeof(usuario.email), &config, NULL) == ENTRADA_OK) {
+            if (validar_email(usuario.email)) {
+                email_valido = true;
+                printf("✅ Email aceptado: %s\n", usuario.email);
+            } else {
+                printf("❌ Email inválido. Formato esperado: usuario@dominio.com\n");
+            }
+        }
+    }
+    
+    // Recopilar altura
+    if (entrada_flotante_seguro(&usuario.altura, 0.5, 3.0, "Altura en metros") == ENTRADA_OK) {
+        printf("✅ Altura aceptada: %.2f m\n", usuario.altura);
+    }
+    
+    // Recopilar teléfono
+    strcpy(config.prompt, "Teléfono (solo números): ");
+    strcpy(config.error_message, "❌ El teléfono debe contener solo números.");
+    bool telefono_valido = false;
+    while (!telefono_valido) {
+        if (entrada_linea_configurada(usuario.telefono, sizeof(usuario.telefono), &config, NULL) == ENTRADA_OK) {
+            if (validar_solo_numeros(usuario.telefono) && validar_longitud(usuario.telefono, 8, 15)) {
+                telefono_valido = true;
+                printf("✅ Teléfono aceptado: %s\n", usuario.telefono);
+            } else {
+                printf("❌ Teléfono inválido. Debe contener solo números (8-15 dígitos).\n");
+            }
+        }
+    }
+    
+    // Mostrar resumen
+    printf("\n╔══════════════════════════════════════════════════════════════╗\n");
+    printf("║                    INFORMACIÓN RECOPILADA                   ║\n");
+    printf("╚══════════════════════════════════════════════════════════════╝\n");
+    printf("Nombre completo: %s %s\n", usuario.nombre, usuario.apellido);
+    printf("Edad: %d años\n", usuario.edad);
+    printf("Email: %s\n", usuario.email);
+    printf("Altura: %.2f metros\n", usuario.altura);
+    printf("Teléfono: %s\n", usuario.telefono);
+    printf("\n✅ Todos los datos fueron validados y son seguros de usar.\n");
+}
+
+/**
+ * @brief Función principal
+ */
+int main(void) {
+    int opcion;
+    char input[8];
+    
+    printf("╔══════════════════════════════════════════════════════════════╗\n");
+    printf("║                 ENTRADA SEGURA v%s                       ║\n", ENTRADA_SEGURA_VERSION);
+    printf("║              Ejercicio 094 - Seguridad                      ║\n");
+    printf("╚══════════════════════════════════════════════════════════════╝\n");
+    printf("\nReemplazo de funciones inseguras por alternativas robustas\n");
+    printf("Aprende a prevenir buffer overflow y vulnerabilidades de entrada\n");
+    
+    while (1) {
+        mostrar_menu();
+        
+        if (entrada_cadena_segura(input, sizeof(input), stdin) != ENTRADA_OK) {
+            printf("❌ Error al leer opción\n");
+            continue;
+        }
+        
+        opcion = atoi(input);
+        
+        switch (opcion) {
+            case 1:
+                demo_codigo_original();
+                break;
+                
+            case 2:
+                tutorial_entrada_segura();
+                break;
+                
+            case 3:
+                demo_tipos_entrada();
+                break;
+                
+            case 4:
+                demo_validacion();
+                break;
+                
+            case 5:
+                demo_configuracion_avanzada();
+                break;
+                
+            case 6:
+                demo_stress_test();
+                break;
+                
+            case 7:
+                mostrar_vulnerabilidades_comunes();
+                break;
+                
+            case 8:
+                mostrar_buenas_practicas();
+                break;
+                
+            case 9:
+                comparar_funciones_seguridad();
+                break;
+                
+            case 0:
+                printf("\n✅ ¡Gracias por aprender sobre entrada segura!\n");
+                printf("Recuerda siempre:\n");
+                printf("• Nunca uses gets()\n");
+                printf("• Siempre especifica límites de buffer\n");
+                printf("• Valida toda entrada del usuario\n");
+                printf("• Maneja errores apropiadamente\n");
+                printf("\n🔒 ¡Código seguro es código responsable!\n");
+                return 0;
+                
+            default:
+                printf("\n❌ Opción inválida. Introduce un número del 0-9.\n");
+                break;
+        }
+        
+        if (opcion >= 1 && opcion <= 9) {
+            printf("\nPresiona Enter para continuar...");
+            entrada_cadena_segura(input, sizeof(input), stdin);
+        }
+    }
+    
+    return 0;
+}
+#endif
