@@ -1,0 +1,15 @@
+name: Exercise contracts
+on: [push, pull_request, workflow_dispatch]
+jobs:
+  exercises:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Compile and test all exercises
+        run: ./tools/test_everything_fresh.sh
+      - name: Verify launchers and command-line regressions
+        run: python3 -m unittest discover -s tools/tests -p 'test_*.py'
