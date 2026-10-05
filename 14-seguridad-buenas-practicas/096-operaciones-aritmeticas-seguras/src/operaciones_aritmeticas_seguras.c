@@ -75,50 +75,14 @@ resultado_aritmetica_t resta_segura(int a, int b, int* resultado) {
 }
 
 resultado_aritmetica_t multiplicacion_segura(int a, int b, int* resultado) {
-    if (resultado == NULL) {
-        return ARITMETICA_ERROR_PARAMETRO;
+    if (!resultado) return ARITMETICA_ERROR_PARAMETRO;
+    if (a > 0) {
+        if (b > 0 && a > INT_MAX / b) return ARITMETICA_OVERFLOW;
+        if (b < 0 && b < INT_MIN / a) return ARITMETICA_UNDERFLOW;
+    } else if (a < 0) {
+        if (b > 0 && a < INT_MIN / b) return ARITMETICA_UNDERFLOW;
+        if (b < 0 && a < INT_MAX / b) return ARITMETICA_OVERFLOW;
     }
-    
-    // Casos especiales que no pueden causar overflow
-    if (a == 0 || b == 0) {
-        *resultado = 0;
-        return ARITMETICA_EXITOSA;
-    }
-    
-    if (a == 1) {
-        *resultado = b;
-        return ARITMETICA_EXITOSA;
-    }
-    
-    if (b == 1) {
-        *resultado = a;
-        return ARITMETICA_EXITOSA;
-    }
-    
-    // Caso especial: -1 * -1 = 1 (seguro)
-    if (a == -1 && b == -1) {
-        *resultado = 1;
-        return ARITMETICA_EXITOSA;
-    }
-    
-    // Caso especial problemático: INT_MIN * -1 = overflow
-    if ((a == INT_MIN && b == -1) || (a == -1 && b == INT_MIN)) {
-        return ARITMETICA_OVERFLOW;
-    }
-    
-    // Para otros casos, usar división para verificar overflow
-    // Si a * b causaría overflow, entonces |a| > INT_MAX / |b|
-    
-    // Calcular valores absolutos de forma segura
-    int abs_a = (a == INT_MIN) ? INT_MAX : abs(a);
-    int abs_b = (b == INT_MIN) ? INT_MAX : abs(b);
-    
-    // Verificar si el resultado cabría en un int
-    if (abs_a > INT_MAX / abs_b) {
-        return (a > 0) == (b > 0) ? ARITMETICA_OVERFLOW : ARITMETICA_UNDERFLOW;
-    }
-    
-    // Operación segura
     *resultado = a * b;
     return ARITMETICA_EXITOSA;
 }
@@ -235,8 +199,8 @@ bool calcular_rango_suma_segura(int base, int* min_suma, int* max_suma) {
     }
     
     // Calcular el rango seguro para sumar a 'base'
-    *max_suma = INT_MAX - base;  // máximo valor que se puede sumar
-    *min_suma = INT_MIN - base;  // mínimo valor que se puede sumar
+    *max_suma = base < 0 ? INT_MAX : INT_MAX - base;  // máximo valor que se puede sumar
+    *min_suma = base > 0 ? INT_MIN : INT_MIN - base;  // mínimo valor que se puede sumar
     
     return true;
 }
