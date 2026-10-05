@@ -1,6 +1,7 @@
 #ifndef ELIMINAR_NODO_H
 #define ELIMINAR_NODO_H
 
+#include <stdint.h>
 #include <stdbool.h>
 #include <stddef.h>
 
