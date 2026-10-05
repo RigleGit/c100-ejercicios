@@ -11,6 +11,7 @@
 #ifndef LISTA_DOBLE_H
 #define LISTA_DOBLE_H
 
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
