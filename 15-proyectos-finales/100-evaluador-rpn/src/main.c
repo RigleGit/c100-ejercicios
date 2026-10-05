@@ -156,7 +156,7 @@ void configurar_evaluador(void) {
     
     do {
         printf("\n=== CONFIGURACIÓN ===\n");
-        printf("1. Establecer verbosidad (actual: %d)\n", obtener_estadisticas().total_evaluaciones >= 0 ? 0 : 0);
+        printf("1. Establecer verbosidad (actual: %d)\n", 0);
         printf("2. Alternar modo paso a paso\n");
         printf("3. Ver versión\n");
         printf("4. Reiniciar estadísticas\n");
