@@ -81,18 +81,12 @@ bool escribir_productos_basico(const Producto* productos, size_t num_productos,
         inicializar_estadisticas_escritura(stats);
     }
 
-    FILE* archivo = fopen(nombre_archivo, "wb");
-    if (!archivo) {
-        return false;
-    }
-
-    // Validar todos los productos antes de escribir
+    /* Rechazar el lote antes de abrir un destino con truncamiento. */
     for (size_t i = 0; i < num_productos; i++) {
-        if (!validar_producto(&productos[i])) {
-            fclose(archivo);
-            return false;
-        }
+        if (!validar_producto(&productos[i])) return false;
     }
+    FILE* archivo = fopen(nombre_archivo, "wb");
+    if (!archivo) return false;
 
     size_t elementos_escritos = fwrite(productos, sizeof(Producto), num_productos, archivo);
     
@@ -102,8 +96,9 @@ bool escribir_productos_basico(const Producto* productos, size_t num_productos,
         stats->operacion_exitosa = (elementos_escritos == num_productos);
     }
 
-    fclose(archivo);
-    return elementos_escritos == num_productos;
+    bool cierre_correcto = fclose(archivo) == 0;
+    if (stats) stats->operacion_exitosa = elementos_escritos == num_productos && cierre_correcto;
+    return elementos_escritos == num_productos && cierre_correcto;
 }
 
 bool escribir_productos_extendido(const ProductoExtendido* productos, size_t num_productos,
@@ -129,8 +124,9 @@ bool escribir_productos_extendido(const ProductoExtendido* productos, size_t num
         stats->operacion_exitosa = (elementos_escritos == num_productos);
     }
 
-    fclose(archivo);
-    return elementos_escritos == num_productos;
+    bool cierre_correcto = fclose(archivo) == 0;
+    if (stats) stats->operacion_exitosa = elementos_escritos == num_productos && cierre_correcto;
+    return elementos_escritos == num_productos && cierre_correcto;
 }
 
 bool escribir_producto_individual(const Producto* producto, const char* nombre_archivo, 
