@@ -71,3 +71,6 @@ error.log
 # (they won't be ignored by this root .gitignore unless path matches)
 
 # End of .gitignore
+
+__pycache__/
+*.pyc
