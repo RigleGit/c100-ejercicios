@@ -80,28 +80,8 @@ char *copiarCadena_overlap(char *dest, const char *orig) {
         return dest;
     }
     
-    char *inicio = dest;
-    
-    // Si hay solapamiento y dest está después de orig
-    if (dest > orig && dest < orig + strlen(orig)) {
-        // Copiar desde el final hacia el principio
-        size_t len = strlen(orig);
-        dest += len;
-        orig += len;
-        *(dest + 1) = '\0'; // Terminar la cadena
-        
-        while (len > 0) {
-            *dest-- = *orig--;
-            len--;
-        }
-    } else {
-        // Copia normal
-        while ((*dest++ = *orig++) != '\0') {
-            // Cuerpo vacío
-        }
-    }
-    
-    return inicio;
+    memmove(dest, orig, strlen(orig) + 1);
+    return dest;
 }
 
 /**
@@ -114,7 +94,6 @@ void copiarCadena_debug(char *dest, const char *orig) {
     printf("Origen: \"%s\" (dirección: %p)\n", orig, (void *)orig);
     printf("Destino inicial: %p\n", (void *)dest);
     
-    const char *orig_inicio = orig;
     char *dest_inicio = dest;
     int contador = 0;
     
@@ -221,6 +200,7 @@ char *invertirCadena(char *str) {
     while (*fin != '\0') {
         fin++;
     }
+    if (fin == str) return str;
     fin--; // Retroceder al último carácter válido
     
     // Intercambiar caracteres desde los extremos hacia el centro
