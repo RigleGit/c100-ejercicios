@@ -173,28 +173,18 @@ resultado_t exportar_csv(const nodo_t *cabeza, const char *nombre_archivo) {
     return guardar_contactos(cabeza, nombre_archivo);
 }
 
-resultado_t guardar_binario(const nodo_t *cabeza, const char *nombre_archivo) { (void)cabeza; (void)nombre_archivo; return RESULTADO_PARAMETRO_INVALIDO; }
-
-resultado_t cargar_binario(nodo_t **cabeza, const char *nombre_archivo) { (void)cabeza; (void)nombre_archivo; return RESULTADO_PARAMETRO_INVALIDO; }
-
-bool validar_archivo(const char *nombre_archivo, formato_archivo_t formato) { (void)formato; return archivo_existe(nombre_archivo); }
-
-metadatos_archivo_t obtener_metadatos_archivo(const char *nombre_archivo) {
-    metadatos_archivo_t m = {0}; m.version = 1; m.fecha_creacion = time(NULL); m.ultima_modificacion = m.fecha_creacion; strncpy(m.aplicacion, "agenda-contactos", sizeof m.aplicacion - 1); (void)nombre_archivo; return m;
+bool validar_archivo(const char *nombre_archivo, formato_archivo_t formato) {
+    if (!nombre_archivo || (formato != FORMATO_CSV && formato != FORMATO_TEXTO)) return false;
+    nodo_t *lista = NULL;
+    resultado_t resultado = importar_csv(&lista, nombre_archivo, true);
+    liberar_lista(&lista);
+    return resultado == RESULTADO_EXITO;
 }
 
-void log_operacion(const char *operacion, resultado_t resultado) { fprintf(stderr, "[LOG] %s -> %d\n", operacion, (int)resultado); }
-
-int limpiar_archivos_antiguos(int dias_antiguedad) { (void)dias_antiguedad; return 0; }
-
-void tiempo_a_string(time_t tiempo, char *buffer, size_t tamaño_buffer) { struct tm tmv; localtime_r(&tiempo, &tmv); strftime(buffer, tamaño_buffer, FORMATO_FECHA, &tmv); }
-
-time_t string_a_tiempo(const char *str) { struct tm tmv = {0}; strptime(str, FORMATO_FECHA, &tmv); return mktime(&tmv); }
-
-void escapar_csv(const char *entrada, char *salida, size_t tamaño_salida) { strncpy(salida, entrada, tamaño_salida - 1); salida[tamaño_salida - 1] = '\0'; }
-
-void desescapar_csv(const char *entrada, char *salida, size_t tamaño_salida) { strncpy(salida, entrada, tamaño_salida - 1); salida[tamaño_salida - 1] = '\0'; }
-
 const char *formato_a_string(formato_archivo_t formato) {
-    switch (formato) { case FORMATO_TEXTO: return "texto"; case FORMATO_CSV: return "csv"; case FORMATO_JSON: return "json"; case FORMATO_BINARIO: return "binario"; default: return "desconocido"; }
+    switch (formato) {
+        case FORMATO_TEXTO: return "texto CSV";
+        case FORMATO_CSV: return "csv";
+        default: return "desconocido";
+    }
 }

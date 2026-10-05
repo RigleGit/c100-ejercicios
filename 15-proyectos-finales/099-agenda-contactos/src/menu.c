@@ -127,31 +127,49 @@ void menu_favoritos(nodo_t *agenda) { listar_contactos_favoritos(agenda); }
 
 void menu_estadisticas(const nodo_t *agenda) { estadisticas_t s = obtener_estadisticas(agenda); imprimir_estadisticas(&s); }
 
+static bool solicitar_ruta(char *ruta, size_t tamaño, const char *predeterminada, const char *prompt) {
+    char entrada[256];
+    printf("%s [%s]: ", prompt, predeterminada);
+    if (!leer_linea_segura(entrada, sizeof entrada)) return false;
+    snprintf(ruta, tamaño, "%s", entrada[0] ? entrada : predeterminada);
+    return true;
+}
+
+static void mostrar_resultado_archivo(resultado_t resultado) {
+    if (resultado == RESULTADO_EXITO) printf("[OK] Operación completada\n");
+    else printf("[Error] %s\n", resultado_a_string(resultado));
+}
+
 void menu_guardar(const nodo_t *agenda, const configuracion_app_t *config) {
-    (void)config; char ruta[256] = NOMBRE_ARCHIVO_DEFAULT; printf("Archivo destino [%s]: ", ruta);
-    char in[256]; if (leer_linea_segura(in, sizeof in) && in[0]) strncpy(ruta, in, sizeof ruta - 1);
-    (void)guardar_contactos(agenda, ruta);
+    (void)config;
+    char ruta[256];
+    if (solicitar_ruta(ruta, sizeof ruta, NOMBRE_ARCHIVO_DEFAULT, "Archivo destino"))
+        mostrar_resultado_archivo(guardar_contactos(agenda, ruta));
 }
 
 void menu_cargar(nodo_t **agenda, const configuracion_app_t *config) {
-    (void)config; char ruta[256] = NOMBRE_ARCHIVO_DEFAULT; printf("Archivo a cargar [%s]: ", ruta);
-    char in[256]; if (leer_linea_segura(in, sizeof in) && in[0]) strncpy(ruta, in, sizeof ruta - 1);
-    (void)cargar_contactos(agenda, ruta);
+    (void)config;
+    char ruta[256];
+    if (solicitar_ruta(ruta, sizeof ruta, NOMBRE_ARCHIVO_DEFAULT, "Archivo a cargar"))
+        mostrar_resultado_archivo(cargar_contactos(agenda, ruta));
 }
 
 void menu_exportar(const nodo_t *agenda) {
-    char ruta[256] = FORMATO_EXPORTACION_CSV; printf("Exportar CSV ruta [%s]: ", ruta);
-    char in[256]; if (leer_linea_segura(in, sizeof in) && in[0]) strncpy(ruta, in, sizeof ruta - 1);
-    (void)exportar_csv(agenda, ruta);
+    char ruta[256];
+    if (solicitar_ruta(ruta, sizeof ruta, FORMATO_EXPORTACION_CSV, "Exportar CSV"))
+        mostrar_resultado_archivo(exportar_csv(agenda, ruta));
 }
 
 void menu_importar(nodo_t **agenda, const configuracion_app_t *config) {
-    (void)config; char ruta[256] = FORMATO_EXPORTACION_CSV; printf("Importar CSV ruta [%s]: ", ruta);
-    char in[256]; if (leer_linea_segura(in, sizeof in) && in[0]) strncpy(ruta, in, sizeof ruta - 1);
-    (void)importar_csv(agenda, ruta, false);
+    (void)config;
+    char ruta[256];
+    if (solicitar_ruta(ruta, sizeof ruta, FORMATO_EXPORTACION_CSV, "Importar CSV"))
+        mostrar_resultado_archivo(importar_csv(agenda, ruta, false));
 }
 
-void menu_backup(const nodo_t *agenda) { (void)crear_backup(agenda); }
+void menu_backup(const nodo_t *agenda) {
+    mostrar_resultado_archivo(crear_backup(agenda));
+}
 
 void menu_configuracion(configuracion_app_t *config) {
     printf("Auto-guardado: %s\n", config->auto_guardar ? "ON" : "OFF");

@@ -33,6 +33,18 @@ class AgendaCliTests(unittest.TestCase):
             self.assertEqual(self.run_agenda(d, "1\nAna\n123456789\n").returncode, 0)
             self.assertEqual((pathlib.Path(d)/"data/agenda.csv").read_text().count("\n"), 1)
 
+    def test_missing_import_reports_error(self):
+        with tempfile.TemporaryDirectory() as d:
+            result = self.run_agenda(d, "11\ninexistente.csv\n0\n")
+            self.assertEqual(result.returncode, 0)
+            self.assertIn("[Error]", result.stdout)
+
+    def test_eof_cancels_export(self):
+        with tempfile.TemporaryDirectory() as d:
+            result = self.run_agenda(d, "13\ns\n10\n")
+            self.assertEqual(result.returncode, 0)
+            self.assertFalse((pathlib.Path(d) / "data/agenda.csv").exists())
+
     def test_invalid_file_is_preserved(self):
         with tempfile.TemporaryDirectory() as d:
             path = pathlib.Path(d) / "data/agenda.csv"

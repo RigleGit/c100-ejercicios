@@ -11,7 +11,14 @@ int main(int argc, char **argv) {
     contacto_t c = crear_contacto(nombre, "123456789", "ana@example.com",
                                   "Calle \"A\", piso 2\nMadrid", CATEGORIA_PERSONAL);
     assert(agregar_contacto(&lista, &c) == RESULTADO_EXITO);
-    if (strcmp(caso, "importacion") == 0) {
+    if (strcmp(caso, "backup") == 0) {
+        assert(crear_backup(lista) == RESULTADO_EXITO);
+        liberar_lista(&lista);
+        assert(restaurar_backup(&lista) == RESULTADO_EXITO);
+        assert(lista && strcmp(lista->contacto.nombre, nombre) == 0);
+        assert(strcmp(lista->contacto.direccion, c.direccion) == 0);
+        assert(remove(NOMBRE_ARCHIVO_BACKUP) == 0);
+    } else if (strcmp(caso, "importacion") == 0) {
         assert(importar_csv(&lista, "archivo-inexistente.csv", true) != RESULTADO_EXITO);
         assert(lista && strcmp(lista->contacto.nombre, nombre) == 0);
     } else if (strcmp(caso, "escritura") == 0) {
@@ -21,6 +28,7 @@ int main(int argc, char **argv) {
         assert(f);
         fputs("nombre,telefono,email,categoria,direccion\n\"Otro\",\"123456789\",\"a@b.es\",\"Personal\",\"Calle\"\n\"fila rota\n", f);
         assert(fclose(f) == 0);
+        assert(!validar_archivo("invalido.csv", FORMATO_CSV));
         assert(importar_csv(&lista, "invalido.csv", true) != RESULTADO_EXITO);
         assert(lista && !lista->siguiente && strcmp(lista->contacto.nombre, nombre) == 0);
         remove("invalido.csv");
