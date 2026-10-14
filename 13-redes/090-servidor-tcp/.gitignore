@@ -10,7 +10,6 @@ Makefile
 servidor_tcp
 cliente_prueba
 test_servidor_tcp
-tests
 *.exe
 
 # Archivos objeto y bibliotecas

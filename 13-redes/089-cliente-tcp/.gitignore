@@ -9,7 +9,6 @@ Makefile
 # Ejecutables
 cliente_tcp
 servidor_prueba
-tests
 test_cliente_tcp
 *.exe
 
